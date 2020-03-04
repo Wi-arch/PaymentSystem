@@ -23,10 +23,10 @@ import by.training.payment.exception.NoJDBCPropertiesFileException;
 public enum PoolConnection {
 
 	INSTANCE;
-	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
 	private static final Logger LOGGER = Logger.getLogger(PoolConnection.class);
-	private static final int MAXIMUM_SECONDS_TIMEOUT = 15;
+	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
 	private static final String DATABASE_URL_KEY = "url";
+	private static final int MAXIMUM_SECONDS_TIMEOUT = 15;
 	private static final int POOL_SIZE = 20;
 	private final BlockingQueue<ProxyConnection> availableConnection = new LinkedBlockingQueue<>(POOL_SIZE);
 	private final Deque<ProxyConnection> unavailableConnection = new ArrayDeque<>(POOL_SIZE);
@@ -74,19 +74,19 @@ public enum PoolConnection {
 	}
 
 	public void returnConnection(ProxyConnection connection) {
-		if (connection != null) {
-			try {
+		try {
+			if (connection != null && !connection.isClosed()) {
 				if (!connection.getAutoCommit()) {
 					connection.setAutoCommit(true);
 				}
 				unavailableConnection.remove(connection);
 				availableConnection.put(connection);
-			} catch (SQLException e) {
-				LOGGER.warn("Cannot reset autocommit", e);
-			} catch (InterruptedException e) {
-				LOGGER.warn("Cannot return connection", e);
-				Thread.currentThread().interrupt();
 			}
+		} catch (SQLException e) {
+			LOGGER.warn("Cannot reset autocommit", e);
+		} catch (InterruptedException e) {
+			LOGGER.warn("Cannot return connection", e);
+			Thread.currentThread().interrupt();
 		}
 	}
 
