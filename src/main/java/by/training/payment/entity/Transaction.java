@@ -5,37 +5,37 @@ import java.util.Date;
 
 public class Transaction {
 
-	private int transactionId;
+	private int id;
 	private boolean isCompleted;
 	private Date date;
 	private boolean isWriteOff;
 	private BigDecimal amount;
-	private String currency;
+	private Currency currency;
 	private String paymentPurpose;
-	private int accountId;
+	private BankAccount account;
 
 	public Transaction() {
 
 	}
 
-	public Transaction(int transactionId, boolean isCompleted, Date date, boolean isWriteOff, BigDecimal amount,
-			String currency, String paymentPurpose, int accountId) {
-		this.transactionId = transactionId;
+	public Transaction(int id, boolean isCompleted, Date date, boolean isWriteOff, BigDecimal amount, Currency currency,
+			String paymentPurpose, BankAccount account) {
+		this.id = id;
 		this.isCompleted = isCompleted;
 		this.date = date;
 		this.isWriteOff = isWriteOff;
 		this.amount = amount;
 		this.currency = currency;
 		this.paymentPurpose = paymentPurpose;
-		this.accountId = accountId;
+		this.account = account;
 	}
 
-	public int getTransactionId() {
-		return transactionId;
+	public int getId() {
+		return id;
 	}
 
-	public void setTransactionId(int transactionId) {
-		this.transactionId = transactionId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public boolean isCompleted() {
@@ -70,11 +70,11 @@ public class Transaction {
 		this.amount = amount;
 	}
 
-	public String getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(String currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -86,26 +86,26 @@ public class Transaction {
 		this.paymentPurpose = paymentPurpose;
 	}
 
-	public int getAccountId() {
-		return accountId;
+	public BankAccount getAccount() {
+		return account;
 	}
 
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setAccount(BankAccount account) {
+		this.account = account;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + accountId;
+		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + id;
 		result = prime * result + (isCompleted ? 1231 : 1237);
 		result = prime * result + (isWriteOff ? 1231 : 1237);
 		result = prime * result + ((paymentPurpose == null) ? 0 : paymentPurpose.hashCode());
-		result = prime * result + transactionId;
 		return result;
 	}
 
@@ -118,7 +118,10 @@ public class Transaction {
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
-		if (accountId != other.accountId)
+		if (account == null) {
+			if (other.account != null)
+				return false;
+		} else if (!account.equals(other.account))
 			return false;
 		if (amount == null) {
 			if (other.amount != null)
@@ -135,6 +138,8 @@ public class Transaction {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
+		if (id != other.id)
+			return false;
 		if (isCompleted != other.isCompleted)
 			return false;
 		if (isWriteOff != other.isWriteOff)
@@ -144,15 +149,14 @@ public class Transaction {
 				return false;
 		} else if (!paymentPurpose.equals(other.paymentPurpose))
 			return false;
-		if (transactionId != other.transactionId)
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", isCompleted=" + isCompleted + ", date=" + date
-				+ ", isWriteOff=" + isWriteOff + ", amount=" + amount + ", currency=" + currency + ", paymentPurpose="
-				+ paymentPurpose + ", accountId=" + accountId + "]";
+		return "Transaction [id=" + id + ", isCompleted=" + isCompleted + ", date=" + date + ", isWriteOff="
+				+ isWriteOff + ", amount=" + amount + ", currency=" + currency + ", paymentPurpose=" + paymentPurpose
+				+ ", account=" + account + "]";
 	}
+
 }
