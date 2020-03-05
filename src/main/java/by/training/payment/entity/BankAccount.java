@@ -5,35 +5,35 @@ import java.util.Date;
 
 public class BankAccount {
 
-	private int bankAccountId;
+	private int id;
 	private String accountNumber;
 	private Date openingDate;
 	private BigDecimal balance;
-	private String currency;
-	private int holderId;
+	private Currency currency;
+	private User user;
 	private boolean isBlocked;
 
 	public BankAccount() {
 
 	}
 
-	public BankAccount(int bankAccountId, String accountNumber, Date openingDate, BigDecimal balance, String currency,
-			int holderId, boolean isBlocked) {
-		this.bankAccountId = bankAccountId;
+	public BankAccount(int id, String accountNumber, Date openingDate, BigDecimal balance, Currency currency, User user,
+			boolean isBlocked) {
+		this.id = id;
 		this.accountNumber = accountNumber;
 		this.openingDate = openingDate;
 		this.balance = balance;
 		this.currency = currency;
-		this.holderId = holderId;
+		this.user = user;
 		this.isBlocked = isBlocked;
 	}
 
-	public int getBankAccountId() {
-		return bankAccountId;
+	public int getId() {
+		return id;
 	}
 
-	public void setBankAccountId(int bankAccountId) {
-		this.bankAccountId = bankAccountId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getAccountNumber() {
@@ -60,20 +60,20 @@ public class BankAccount {
 		this.balance = balance;
 	}
 
-	public String getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(String currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
-	public int getHolderId() {
-		return holderId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setHolderId(int holderId) {
-		this.holderId = holderId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public boolean isBlocked() {
@@ -90,11 +90,11 @@ public class BankAccount {
 		int result = 1;
 		result = prime * result + ((accountNumber == null) ? 0 : accountNumber.hashCode());
 		result = prime * result + ((balance == null) ? 0 : balance.hashCode());
-		result = prime * result + bankAccountId;
 		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
-		result = prime * result + holderId;
+		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((openingDate == null) ? 0 : openingDate.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -117,14 +117,12 @@ public class BankAccount {
 				return false;
 		} else if (!balance.equals(other.balance))
 			return false;
-		if (bankAccountId != other.bankAccountId)
-			return false;
 		if (currency == null) {
 			if (other.currency != null)
 				return false;
 		} else if (!currency.equals(other.currency))
 			return false;
-		if (holderId != other.holderId)
+		if (id != other.id)
 			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
@@ -133,14 +131,18 @@ public class BankAccount {
 				return false;
 		} else if (!openingDate.equals(other.openingDate))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "BankAccount [bankAccountId=" + bankAccountId + ", accountNumber=" + accountNumber + ", openingDate="
-				+ openingDate + ", balance=" + balance + ", currency=" + currency + ", holderId=" + holderId
-				+ ", isBlocked=" + isBlocked + "]";
+		return "BankAccount [id=" + id + ", accountNumber=" + accountNumber + ", openingDate=" + openingDate
+				+ ", balance=" + balance + ", currency=" + currency + ", user=" + user + ", isBlocked=" + isBlocked
+				+ "]";
 	}
-
 }
