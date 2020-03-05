@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public class User {
 
-	private int userId;
+	private int id;
 	private String login;
 	private char[] password;
 	private String email;
-	private int userRole;
+	private UserRole userRole;
 	private String name;
 	private String surName;
 	private boolean isBlocked;
@@ -17,9 +17,9 @@ public class User {
 
 	}
 
-	public User(int userId, String login, char[] password, String email, int userRole, String name, String surName,
+	public User(int id, String login, char[] password, String email, UserRole userRole, String name, String surName,
 			boolean isBlocked) {
-		this.userId = userId;
+		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.email = email;
@@ -29,12 +29,12 @@ public class User {
 		this.isBlocked = isBlocked;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getLogin() {
@@ -61,11 +61,11 @@ public class User {
 		this.email = email;
 	}
 
-	public int getUserRole() {
+	public UserRole getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(int userRole) {
+	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
 
@@ -98,13 +98,13 @@ public class User {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + Arrays.hashCode(password);
 		result = prime * result + ((surName == null) ? 0 : surName.hashCode());
-		result = prime * result + userId;
-		result = prime * result + userRole;
+		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
 		return result;
 	}
 
@@ -121,6 +121,8 @@ public class User {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (id != other.id)
 			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
@@ -141,17 +143,18 @@ public class User {
 				return false;
 		} else if (!surName.equals(other.surName))
 			return false;
-		if (userId != other.userId)
-			return false;
-		if (userRole != other.userRole)
+		if (userRole == null) {
+			if (other.userRole != null)
+				return false;
+		} else if (!userRole.equals(other.userRole))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", login=" + login + ", password=" + Arrays.toString(password) + ", email="
-				+ email + ", userRole=" + userRole + ", name=" + name + ", surName=" + surName + ", isBlocked="
-				+ isBlocked + "]";
+		return "User [id=" + id + ", login=" + login + ", password=" + Arrays.toString(password) + ", email=" + email
+				+ ", userRole=" + userRole + ", name=" + name + ", surName=" + surName + ", isBlocked=" + isBlocked
+				+ "]";
 	}
 }
