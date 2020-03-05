@@ -5,25 +5,26 @@ import java.util.Date;
 
 public class Card {
 
-	private int cardId;
+	private int id;
 	private Date openingDate;
 	private Date validUntilDate;
 	private char[] number;
 	private String numberMask;
 	private char[] ccv;
-	private int expirationDate;
-	private int paymentSystem;
-	private int accountId;
-	private int holderId;
+	private CardExpirationDate expirationDate;
+	private PaymentSystem paymentSystem;
+	private BankAccount bankAccount;
+	private User user;
 	private boolean isBlocked;
 
 	public Card() {
-		
+
 	}
 
-	public Card(int cardId, Date openingDate, Date validUntilDate, char[] number, String numberMask, char[] ccv,
-			int expirationDate, int paymentSystem, int accountId, int holderId, boolean isBlocked) {
-		this.cardId = cardId;
+	public Card(int id, Date openingDate, Date validUntilDate, char[] number, String numberMask, char[] ccv,
+			CardExpirationDate expirationDate, PaymentSystem paymentSystem, BankAccount bankAccount, User user,
+			boolean isBlocked) {
+		this.id = id;
 		this.openingDate = openingDate;
 		this.validUntilDate = validUntilDate;
 		this.number = number;
@@ -31,17 +32,17 @@ public class Card {
 		this.ccv = ccv;
 		this.expirationDate = expirationDate;
 		this.paymentSystem = paymentSystem;
-		this.accountId = accountId;
-		this.holderId = holderId;
+		this.bankAccount = bankAccount;
+		this.user = user;
 		this.isBlocked = isBlocked;
 	}
 
-	public int getCardId() {
-		return cardId;
+	public int getId() {
+		return id;
 	}
 
-	public void setCardId(int cardId) {
-		this.cardId = cardId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Date getOpeningDate() {
@@ -84,36 +85,36 @@ public class Card {
 		this.ccv = ccv;
 	}
 
-	public int getExpirationDate() {
+	public CardExpirationDate getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(int expirationDate) {
+	public void setExpirationDate(CardExpirationDate expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
-	public int getPaymentSystem() {
+	public PaymentSystem getPaymentSystem() {
 		return paymentSystem;
 	}
 
-	public void setPaymentSystem(int paymentSystem) {
+	public void setPaymentSystem(PaymentSystem paymentSystem) {
 		this.paymentSystem = paymentSystem;
 	}
 
-	public int getAccountId() {
-		return accountId;
+	public BankAccount getBankAccount() {
+		return bankAccount;
 	}
 
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setBankAccount(BankAccount bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
-	public int getHolderId() {
-		return holderId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setHolderId(int holderId) {
-		this.holderId = holderId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public boolean isBlocked() {
@@ -128,16 +129,16 @@ public class Card {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + accountId;
-		result = prime * result + cardId;
+		result = prime * result + ((bankAccount == null) ? 0 : bankAccount.hashCode());
 		result = prime * result + Arrays.hashCode(ccv);
-		result = prime * result + expirationDate;
-		result = prime * result + holderId;
+		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
+		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + Arrays.hashCode(number);
 		result = prime * result + ((numberMask == null) ? 0 : numberMask.hashCode());
 		result = prime * result + ((openingDate == null) ? 0 : openingDate.hashCode());
-		result = prime * result + paymentSystem;
+		result = prime * result + ((paymentSystem == null) ? 0 : paymentSystem.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((validUntilDate == null) ? 0 : validUntilDate.hashCode());
 		return result;
 	}
@@ -151,15 +152,19 @@ public class Card {
 		if (getClass() != obj.getClass())
 			return false;
 		Card other = (Card) obj;
-		if (accountId != other.accountId)
-			return false;
-		if (cardId != other.cardId)
+		if (bankAccount == null) {
+			if (other.bankAccount != null)
+				return false;
+		} else if (!bankAccount.equals(other.bankAccount))
 			return false;
 		if (!Arrays.equals(ccv, other.ccv))
 			return false;
-		if (expirationDate != other.expirationDate)
+		if (expirationDate == null) {
+			if (other.expirationDate != null)
+				return false;
+		} else if (!expirationDate.equals(other.expirationDate))
 			return false;
-		if (holderId != other.holderId)
+		if (id != other.id)
 			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
@@ -175,7 +180,15 @@ public class Card {
 				return false;
 		} else if (!openingDate.equals(other.openingDate))
 			return false;
-		if (paymentSystem != other.paymentSystem)
+		if (paymentSystem == null) {
+			if (other.paymentSystem != null)
+				return false;
+		} else if (!paymentSystem.equals(other.paymentSystem))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		if (validUntilDate == null) {
 			if (other.validUntilDate != null)
@@ -187,10 +200,9 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [cardId=" + cardId + ", openingDate=" + openingDate + ", validUntilDate=" + validUntilDate
-				+ ", number=" + Arrays.toString(number) + ", numberMask=" + numberMask + ", ccv=" + Arrays.toString(ccv)
-				+ ", expirationDate=" + expirationDate + ", paymentSystem=" + paymentSystem + ", accountId=" + accountId
-				+ ", holderId=" + holderId + ", isBlocked=" + isBlocked + "]";
+		return "Card [id=" + id + ", openingDate=" + openingDate + ", validUntilDate=" + validUntilDate + ", number="
+				+ Arrays.toString(number) + ", numberMask=" + numberMask + ", ccv=" + Arrays.toString(ccv)
+				+ ", expirationDate=" + expirationDate + ", paymentSystem=" + paymentSystem + ", bankAccount="
+				+ bankAccount + ", user=" + user + ", isBlocked=" + isBlocked + "]";
 	}
-
 }
