@@ -5,17 +5,7 @@ import java.util.List;
 import by.training.payment.entity.BankAccount;
 import by.training.payment.exception.DAOException;
 
-public interface BankAccountDAO {
+public interface BankAccountDAO extends DAO<BankAccount, Integer> {
 
-	void addBankAccount(BankAccount account) throws DAOException;
-
-	void updateBankAccount(BankAccount account) throws DAOException;
-
-	void deleteBankAccount(BankAccount account) throws DAOException;
-
-	List<BankAccount> getAllBankAccounts() throws DAOException;
-
-	BankAccount getBankAccountById(int id) throws DAOException;
-	
-	List<BankAccount> getAllBankAccountsByUserId (int userId) throws DAOException;	
+	List<BankAccount> getAllBankAccountsByUserId(int userId) throws DAOException;
 }

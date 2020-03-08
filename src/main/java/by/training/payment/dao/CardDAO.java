@@ -5,17 +5,7 @@ import java.util.List;
 import by.training.payment.entity.Card;
 import by.training.payment.exception.DAOException;
 
-public interface CardDAO {
-
-	void addCard(Card card) throws DAOException;
-
-	void updateCard(Card card) throws DAOException;
-
-	void deleteCard(Card card) throws DAOException;
-
-	List<Card> getAllCards() throws DAOException;
-
-	Card getCardById(int id) throws DAOException;
+public interface CardDAO extends DAO<Card, Integer> {
 
 	List<Card> getAllCardsByUserId(int userId) throws DAOException;
 

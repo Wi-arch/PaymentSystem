@@ -5,17 +5,7 @@ import java.util.List;
 import by.training.payment.entity.Transaction;
 import by.training.payment.exception.DAOException;
 
-public interface TransactionDAO {
-
-	void addTransaction(Transaction transaction) throws DAOException;
-
-	void updateTransaction(Transaction transaction) throws DAOException;
-
-	void deleteTransaction(Transaction transaction) throws DAOException;
-
-	List<Transaction> getAllTransactions() throws DAOException;
-
-	Transaction geTransactionById(int id) throws DAOException;
+public interface TransactionDAO extends DAO<Transaction, Integer> {
 
 	List<Transaction> getAllTransactionsByAccountId(int accountId) throws DAOException;
 
