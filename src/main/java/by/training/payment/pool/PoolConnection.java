@@ -15,8 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
 
-import com.mysql.cj.jdbc.Driver;
-
 import by.training.payment.exception.NoJDBCDriverException;
 import by.training.payment.exception.NoJDBCPropertiesFileException;
 
@@ -26,8 +24,8 @@ public enum PoolConnection {
 	private static final Logger LOGGER = Logger.getLogger(PoolConnection.class);
 	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
 	private static final String DATABASE_URL_KEY = "url";
-	private static final int MAXIMUM_SECONDS_TIMEOUT = 15;
-	private static final int POOL_SIZE = 20;
+	private static final int MAXIMUM_SECONDS_TIMEOUT = 30;
+	private static final int POOL_SIZE = 30;
 	private final BlockingQueue<ProxyConnection> availableConnection = new LinkedBlockingQueue<>(POOL_SIZE);
 	private final Deque<ProxyConnection> unavailableConnection = new ArrayDeque<>(POOL_SIZE);
 	private final AtomicBoolean isCreated = new AtomicBoolean(false);
@@ -39,23 +37,16 @@ public enum PoolConnection {
 	}
 
 	public void initializePool() throws NoJDBCDriverException, NoJDBCPropertiesFileException {
-		if (!isCreated.get()) {
-			initializeDatabaseConfigurations();
+		if (isCreated.compareAndSet(false, true)) {
 			try {
-				DriverManager.registerDriver(new Driver());
-			} catch (SQLException e) {
-				LOGGER.fatal("Cannot register driver", e);
-				throw new NoJDBCDriverException("Cannot register driver", e);
-			}
-			for (int i = 0; i < POOL_SIZE; i++) {
-				try {
+				initializeDatabaseConfigurations();
+				for (int i = 0; i < POOL_SIZE; i++) {
 					availableConnection.add(new ProxyConnection(DriverManager.getConnection(url, databaseProperties)));
-				} catch (SQLException e) {
-					LOGGER.fatal("Cannot get connection", e);
-					throw new NoJDBCDriverException("Cannot get connection", e);
 				}
+			} catch (SQLException e) {
+				LOGGER.fatal("Cannot get connection", e);
+				throw new NoJDBCDriverException("Cannot get connection", e);
 			}
-			isCreated.set(true);
 		}
 	}
 
@@ -124,8 +115,8 @@ public enum PoolConnection {
 	private void initializeDatabaseConfigurations() throws NoJDBCPropertiesFileException {
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(DATABASE_PROPERTIES_FILE);
 		if (inputStream == null) {
-			LOGGER.fatal("Cannot get database properties");
-			throw new NoJDBCPropertiesFileException("Cannot get database properties");
+			LOGGER.fatal("Cannot found database properties");
+			throw new NoJDBCPropertiesFileException("Cannot found database properties");
 		}
 		try {
 			databaseProperties.load(inputStream);
