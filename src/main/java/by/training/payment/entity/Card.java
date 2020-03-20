@@ -1,6 +1,5 @@
 package by.training.payment.entity;
 
-import java.util.Arrays;
 import java.util.Date;
 
 public class Card {
@@ -8,9 +7,9 @@ public class Card {
 	private int id;
 	private Date openingDate;
 	private Date validUntilDate;
-	private char[] number;
+	private String number;
 	private String numberMask;
-	private char[] ccv;
+	private String ccv;
 	private CardExpirationDate expirationDate;
 	private PaymentSystem paymentSystem;
 	private BankAccount bankAccount;
@@ -21,7 +20,11 @@ public class Card {
 
 	}
 
-	public Card(int id, Date openingDate, Date validUntilDate, char[] number, String numberMask, char[] ccv,
+	public Card(int id) {
+		this.id = id;
+	}
+
+	public Card(int id, Date openingDate, Date validUntilDate, String number, String numberMask, String ccv,
 			CardExpirationDate expirationDate, PaymentSystem paymentSystem, BankAccount bankAccount, User user,
 			boolean isBlocked) {
 		this.id = id;
@@ -61,11 +64,11 @@ public class Card {
 		this.validUntilDate = validUntilDate;
 	}
 
-	public char[] getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(char[] number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
@@ -77,11 +80,11 @@ public class Card {
 		this.numberMask = numberMask;
 	}
 
-	public char[] getCcv() {
+	public String getCcv() {
 		return ccv;
 	}
 
-	public void setCcv(char[] ccv) {
+	public void setCcv(String ccv) {
 		this.ccv = ccv;
 	}
 
@@ -130,11 +133,11 @@ public class Card {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bankAccount == null) ? 0 : bankAccount.hashCode());
-		result = prime * result + Arrays.hashCode(ccv);
+		result = prime * result + ((ccv == null) ? 0 : ccv.hashCode());
 		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
 		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
-		result = prime * result + Arrays.hashCode(number);
+		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((numberMask == null) ? 0 : numberMask.hashCode());
 		result = prime * result + ((openingDate == null) ? 0 : openingDate.hashCode());
 		result = prime * result + ((paymentSystem == null) ? 0 : paymentSystem.hashCode());
@@ -157,7 +160,10 @@ public class Card {
 				return false;
 		} else if (!bankAccount.equals(other.bankAccount))
 			return false;
-		if (!Arrays.equals(ccv, other.ccv))
+		if (ccv == null) {
+			if (other.ccv != null)
+				return false;
+		} else if (!ccv.equals(other.ccv))
 			return false;
 		if (expirationDate == null) {
 			if (other.expirationDate != null)
@@ -168,7 +174,10 @@ public class Card {
 			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
-		if (!Arrays.equals(number, other.number))
+		if (number == null) {
+			if (other.number != null)
+				return false;
+		} else if (!number.equals(other.number))
 			return false;
 		if (numberMask == null) {
 			if (other.numberMask != null)
@@ -201,8 +210,8 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", openingDate=" + openingDate + ", validUntilDate=" + validUntilDate + ", number="
-				+ Arrays.toString(number) + ", numberMask=" + numberMask + ", ccv=" + Arrays.toString(ccv)
-				+ ", expirationDate=" + expirationDate + ", paymentSystem=" + paymentSystem + ", bankAccount="
-				+ bankAccount + ", user=" + user + ", isBlocked=" + isBlocked + "]";
+				+ number + ", numberMask=" + numberMask + ", ccv=" + ccv + ", expirationDate=" + expirationDate
+				+ ", paymentSystem=" + paymentSystem + ", bankAccount=" + bankAccount + ", user=" + user
+				+ ", isBlocked=" + isBlocked + "]";
 	}
 }

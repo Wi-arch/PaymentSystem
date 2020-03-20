@@ -9,6 +9,10 @@ public class PaymentSystem {
 
 	}
 
+	public PaymentSystem(int id) {
+		this.id = id;
+	}
+
 	public PaymentSystem(int id, String name) {
 		this.id = id;
 		this.name = name;

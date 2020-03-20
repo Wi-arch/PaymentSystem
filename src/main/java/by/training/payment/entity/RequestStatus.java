@@ -9,6 +9,10 @@ public class RequestStatus {
 
 	}
 
+	public RequestStatus(int id) {
+		this.id = id;
+	}
+
 	public RequestStatus(int id, String value) {
 		this.id = id;
 		this.value = value;

@@ -1,12 +1,10 @@
 package by.training.payment.entity;
 
-import java.util.Arrays;
-
 public class User {
 
 	private int id;
 	private String login;
-	private char[] password;
+	private String password;
 	private String email;
 	private UserRole userRole;
 	private String name;
@@ -14,10 +12,13 @@ public class User {
 	private boolean isBlocked;
 
 	public User() {
-
 	}
 
-	public User(int id, String login, char[] password, String email, UserRole userRole, String name, String surName,
+	public User(int id) {
+		this.id = id;
+	}
+
+	public User(int id, String login, String password, String email, UserRole userRole, String name, String surName,
 			boolean isBlocked) {
 		this.id = id;
 		this.login = login;
@@ -45,11 +46,11 @@ public class User {
 		this.login = login;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -102,7 +103,7 @@ public class User {
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + Arrays.hashCode(password);
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((surName == null) ? 0 : surName.hashCode());
 		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
 		return result;
@@ -136,7 +137,10 @@ public class User {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (!Arrays.equals(password, other.password))
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		if (surName == null) {
 			if (other.surName != null)
@@ -153,8 +157,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + Arrays.toString(password) + ", email=" + email
-				+ ", userRole=" + userRole + ", name=" + name + ", surName=" + surName + ", isBlocked=" + isBlocked
-				+ "]";
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", email=" + email + ", userRole="
+				+ userRole + ", name=" + name + ", surName=" + surName + ", isBlocked=" + isBlocked + "]";
 	}
+
 }

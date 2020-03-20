@@ -5,9 +5,10 @@ import java.util.Date;
 
 public class Currency {
 
-	private String name;
+	private int id;
 	private BigDecimal rate;
-	private int multiplier;
+	private int scale;
+	private String name;
 	private Date updateDate;
 	private boolean isBaseCurrency;
 
@@ -15,20 +16,25 @@ public class Currency {
 
 	}
 
-	public Currency(String name, BigDecimal rate, int multiplier, Date updateDate, boolean isBaseCurrency) {
-		this.name = name;
+	public Currency(int id) {
+		this.id = id;
+	}
+
+	public Currency(int id, BigDecimal rate, int scale, String name, Date updateDate, boolean isBaseCurrency) {
+		this.id = id;
 		this.rate = rate;
-		this.multiplier = multiplier;
+		this.scale = scale;
+		this.name = name;
 		this.updateDate = updateDate;
 		this.isBaseCurrency = isBaseCurrency;
 	}
 
-	public String getName() {
-		return name;
+	public int getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public BigDecimal getRate() {
@@ -39,12 +45,20 @@ public class Currency {
 		this.rate = rate;
 	}
 
-	public int getMultiplier() {
-		return multiplier;
+	public int getScale() {
+		return scale;
 	}
 
-	public void setMultiplier(int multiplier) {
-		this.multiplier = multiplier;
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getUpdateDate() {
@@ -67,10 +81,11 @@ public class Currency {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + id;
 		result = prime * result + (isBaseCurrency ? 1231 : 1237);
-		result = prime * result + multiplier;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
+		result = prime * result + scale;
 		result = prime * result + ((updateDate == null) ? 0 : updateDate.hashCode());
 		return result;
 	}
@@ -84,9 +99,9 @@ public class Currency {
 		if (getClass() != obj.getClass())
 			return false;
 		Currency other = (Currency) obj;
-		if (isBaseCurrency != other.isBaseCurrency)
+		if (id != other.id)
 			return false;
-		if (multiplier != other.multiplier)
+		if (isBaseCurrency != other.isBaseCurrency)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -98,6 +113,8 @@ public class Currency {
 				return false;
 		} else if (!rate.equals(other.rate))
 			return false;
+		if (scale != other.scale)
+			return false;
 		if (updateDate == null) {
 			if (other.updateDate != null)
 				return false;
@@ -108,8 +125,7 @@ public class Currency {
 
 	@Override
 	public String toString() {
-		return "Currency [name=" + name + ", rate=" + rate + ", multiplier=" + multiplier + ", updateDate=" + updateDate
-				+ ", isBaseCurrency=" + isBaseCurrency + "]";
+		return "Currency [id=" + id + ", rate=" + rate + ", scale=" + scale + ", name=" + name + ", updateDate="
+				+ updateDate + ", isBaseCurrency=" + isBaseCurrency + "]";
 	}
-
 }

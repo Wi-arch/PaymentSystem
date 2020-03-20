@@ -18,6 +18,10 @@ public class Transaction {
 
 	}
 
+	public Transaction(int id) {
+		this.id = id;
+	}
+
 	public Transaction(int id, boolean isCompleted, Date date, boolean isWriteOff, BigDecimal amount, Currency currency,
 			String paymentPurpose, BankAccount account) {
 		this.id = id;

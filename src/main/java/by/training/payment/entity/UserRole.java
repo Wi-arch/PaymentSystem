@@ -6,7 +6,10 @@ public class UserRole {
 	private String value;
 
 	public UserRole() {
+	}
 
+	public UserRole(int id) {
+		this.id = id;
 	}
 
 	public UserRole(int id, String value) {

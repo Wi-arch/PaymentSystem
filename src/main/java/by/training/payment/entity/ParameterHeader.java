@@ -9,6 +9,10 @@ public class ParameterHeader {
 
 	}
 
+	public ParameterHeader(int id) {
+		this.id = id;
+	}
+
 	public ParameterHeader(int id, String name) {
 		this.id = id;
 		this.name = name;

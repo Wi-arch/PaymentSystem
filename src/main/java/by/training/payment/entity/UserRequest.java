@@ -12,7 +12,10 @@ public class UserRequest {
 	private Date handlingDate;
 
 	public UserRequest() {
+	}
 
+	public UserRequest(int id) {
+		this.id = id;
 	}
 
 	public UserRequest(int id, User user, RequestType requestType, RequestStatus requestStatus, Date creationDate,

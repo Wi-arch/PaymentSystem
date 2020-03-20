@@ -6,7 +6,10 @@ public class CardExpirationDate {
 	private int value;
 
 	public CardExpirationDate() {
+	}
 
+	public CardExpirationDate(int id) {
+		this.id = id;
 	}
 
 	public CardExpirationDate(int id, int value) {

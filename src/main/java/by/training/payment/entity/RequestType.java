@@ -9,6 +9,10 @@ public class RequestType {
 
 	}
 
+	public RequestType(int id) {
+		this.id = id;
+	}
+
 	public RequestType(int id, String value) {
 		this.id = id;
 		this.value = value;

@@ -17,6 +17,10 @@ public class BankAccount {
 
 	}
 
+	public BankAccount(int id) {
+		this.id = id;
+	}
+
 	public BankAccount(int id, String accountNumber, Date openingDate, BigDecimal balance, Currency currency, User user,
 			boolean isBlocked) {
 		this.id = id;
