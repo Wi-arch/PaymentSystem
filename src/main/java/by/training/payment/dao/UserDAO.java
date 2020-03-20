@@ -1,7 +1,20 @@
 package by.training.payment.dao;
 
-import by.training.payment.entity.User;
+import java.util.List;
 
-public interface UserDAO extends DAO<User, Integer> {
+import by.training.payment.entity.User;
+import by.training.payment.exception.DAOException;
+
+public interface UserDAO {
+
+	void addUser(User user) throws DAOException;
+
+	void updateUser(User user) throws DAOException;
+
+	void deleteUser(User user) throws DAOException;
+
+	List<User> getAllUsers() throws DAOException;
+
+	User getUserById(int id) throws DAOException;
 
 }

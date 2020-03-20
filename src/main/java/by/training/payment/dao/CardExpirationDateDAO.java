@@ -1,7 +1,14 @@
 package by.training.payment.dao;
 
-import by.training.payment.entity.CardExpirationDate;
+import java.util.List;
 
-public interface CardExpirationDateDAO extends DAO<CardExpirationDate, Integer> {
+import by.training.payment.entity.CardExpirationDate;
+import by.training.payment.exception.DAOException;
+
+public interface CardExpirationDateDAO {
+
+	CardExpirationDate getCardExpirationDateById(int id) throws DAOException;
+
+	List<CardExpirationDate> getAllCardExpirationDates() throws DAOException;
 
 }

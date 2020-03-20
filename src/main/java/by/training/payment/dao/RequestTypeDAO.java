@@ -1,7 +1,14 @@
 package by.training.payment.dao;
 
-import by.training.payment.entity.RequestType;
+import java.util.List;
 
-public interface RequestTypeDAO extends DAO<RequestType, Integer> {
+import by.training.payment.entity.RequestType;
+import by.training.payment.exception.DAOException;
+
+public interface RequestTypeDAO {
+
+	RequestType getRequestTypeById(int id) throws DAOException;
+
+	List<RequestType> getAllRequestTypes() throws DAOException;
 
 }

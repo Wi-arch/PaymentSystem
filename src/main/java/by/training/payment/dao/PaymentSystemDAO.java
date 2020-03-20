@@ -1,7 +1,14 @@
 package by.training.payment.dao;
 
-import by.training.payment.entity.PaymentSystem;
+import java.util.List;
 
-public interface PaymentSystemDAO extends DAO<PaymentSystem, Integer> {
+import by.training.payment.entity.PaymentSystem;
+import by.training.payment.exception.DAOException;
+
+public interface PaymentSystemDAO {
+
+	PaymentSystem getPaymentSystemById(int id) throws DAOException;
+
+	List<PaymentSystem> getAllPaymentSystems() throws DAOException;
 
 }

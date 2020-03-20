@@ -1,7 +1,20 @@
 package by.training.payment.dao;
 
-import by.training.payment.entity.Currency;
+import java.util.List;
 
-public interface CurrencyDAO extends DAO<Currency, String> {
+import by.training.payment.entity.Currency;
+import by.training.payment.exception.DAOException;
+
+public interface CurrencyDAO {
+
+	void addCurrency(Currency currency) throws DAOException;
+
+	void updateCurrency(Currency currency) throws DAOException;
+
+	void deleteCurrency(Currency currency) throws DAOException;
+
+	Currency getCurrencyById(int id) throws DAOException;
+
+	List<Currency> getAllCurrencies() throws DAOException;
 
 }
