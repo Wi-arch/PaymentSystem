@@ -20,6 +20,7 @@
 		<servlet-api.version>4.0.1</servlet-api.version>
 		<mysql-connector-java.version>8.0.18</mysql-connector-java.version>
 		<commons-codec.version>1.14</commons-codec.version>
+		<javax.mail.version>1.6.2</javax.mail.version>
 	</properties>
 
 	<dependencies>
@@ -54,6 +55,11 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${commons-codec.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${javax.mail.version}</version>
 		</dependency>
 	</dependencies>
 
