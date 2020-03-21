@@ -2,7 +2,7 @@ package by.training.payment.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 
 import by.training.payment.dao.UserDAO;
 import by.training.payment.entity.User;
@@ -21,16 +21,14 @@ public class UserServiceImpl implements UserService {
 	public void registerUser(User user) throws ServiceException {
 		checkUserFieldsForNull(user);
 		isLoginPasswordEmailValid(user);
-		User existingUser = null;
 		try {
-			existingUser = userDAO.getUserByLogin(user.getLogin());
-			if (existingUser != null) {
+			if (userDAO.getUserByLogin(user.getLogin()) != null) {
 				throw new ServiceException("Login is already exist");
 			}
-			existingUser = userDAO.getUserByEmail(user.getEmail());
-			if (existingUser != null) {
+			if (userDAO.getUserByEmail(user.getEmail()) != null) {
 				throw new ServiceException("Email is already exist");
 			}
+			user.setPassword(sha1Hex(user.getPassword()));
 			userDAO.addUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -41,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) throws ServiceException {
 		checkUserFieldsForNull(user);
 		isLoginPasswordValid(user);
-		user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
+		user.setPassword(sha1Hex(user.getPassword()));
 		try {
 			return userDAO.getUserByLoginAndPassword(user.getLogin(), user.getPassword());
 		} catch (DAOException e) {
