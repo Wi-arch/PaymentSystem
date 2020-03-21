@@ -44,8 +44,8 @@ public enum PoolConnection {
 					availableConnection.add(new ProxyConnection(DriverManager.getConnection(url, databaseProperties)));
 				}
 			} catch (SQLException e) {
-				LOGGER.fatal("Cannot get connection", e);
-				throw new NoJDBCDriverException("Cannot get connection", e);
+				LOGGER.fatal("Cannot initialize pool", e);
+				throw new NoJDBCDriverException("Cannot initialize pool", e);
 			}
 		}
 	}
@@ -82,11 +82,13 @@ public enum PoolConnection {
 	}
 
 	public void closePool() {
-		for (int i = 0; i < POOL_SIZE; i++) {
-			closeConnection(availableConnection.poll());
-			closeConnection(unavailableConnection.poll());
+		if (isCreated.get()) {
+			for (int i = 0; i < POOL_SIZE; i++) {
+				closeConnection(availableConnection.poll());
+				closeConnection(unavailableConnection.poll());
+			}
+			deregisterDriver();
 		}
-		deregisterDriver();
 	}
 
 	private void closeConnection(ProxyConnection connection) {
