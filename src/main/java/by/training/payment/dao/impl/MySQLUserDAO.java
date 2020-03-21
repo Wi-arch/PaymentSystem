@@ -19,6 +19,9 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 	private static final String DELETE_USER = "DELETE FROM bank_user WHERE bank_user_id = ?;";
 	private static final String GET_USER_BY_ID = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_id = ?;";
 	private static final String GET_ALL_USERS = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id;";
+	private static final String GET_USER_BY_LOGIN = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_login = ?;";
+	private static final String GET_USER_BY_EMAIL = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_email = ?;";
+	private static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_login = ? AND bank_user_password = ?;";
 
 	@Override
 	public void addUser(User user) throws DAOException {
@@ -122,6 +125,82 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 				statement = connection.prepareStatement(GET_USER_BY_ID);
 				if (statement != null) {
 					statement.setInt(1, id);
+					resultSet = statement.executeQuery();
+					if (resultSet != null && resultSet.next()) {
+						user = buildUser(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load user", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return user;
+	}
+
+	@Override
+	public User getUserByLogin(String login) throws DAOException {
+		User user = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_USER_BY_LOGIN);
+				if (statement != null) {
+					statement.setString(1, login);
+					resultSet = statement.executeQuery();
+					if (resultSet != null && resultSet.next()) {
+						user = buildUser(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load user", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return user;
+	}
+
+	@Override
+	public User getUserByEmail(String email) throws DAOException {
+		User user = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_USER_BY_EMAIL);
+				if (statement != null) {
+					statement.setString(1, email);
+					resultSet = statement.executeQuery();
+					if (resultSet != null && resultSet.next()) {
+						user = buildUser(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load user", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return user;
+	}
+
+	@Override
+	public User getUserByLoginAndPassword(String login, String password) throws DAOException {
+		User user = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD);
+				if (statement != null) {
+					statement.setString(1, login);
+					statement.setString(2, password);
 					resultSet = statement.executeQuery();
 					if (resultSet != null && resultSet.next()) {
 						user = buildUser(resultSet);
