@@ -18,6 +18,7 @@
 		<log4j.version>1.2.17</log4j.version>
 		<jstl.version>1.2</jstl.version>
 		<servlet-api.version>4.0.1</servlet-api.version>
+		<jsp-api.version>2.1</jsp-api.version>
 		<mysql-connector-java.version>8.0.18</mysql-connector-java.version>
 		<commons-codec.version>1.14</commons-codec.version>
 		<javax.mail.version>1.6.2</javax.mail.version>
@@ -44,6 +45,12 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
