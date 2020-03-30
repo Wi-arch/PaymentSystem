@@ -22,6 +22,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 	private static final String GET_USER_BY_LOGIN = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_login = ?;";
 	private static final String GET_USER_BY_EMAIL = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_email = ?;";
 	private static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_login = ? AND bank_user_password = ?;";
+	private static final String GET_USER_BY_LOGIN_AND_EMAIL = "SELECT * FROM bank_user INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id WHERE bank_user_login = ? AND bank_user_email = ?;";
 
 	@Override
 	public void addUser(User user) throws DAOException {
@@ -35,7 +36,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 					statement.setString(3, user.getEmail());
 					statement.setInt(4, user.getUserRole().getId());
 					statement.setString(5, user.getName());
-					statement.setString(6, user.getSurName());
+					statement.setString(6, user.getSurname());
 					statement.executeUpdate();
 				}
 			}
@@ -58,7 +59,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 					statement.setString(3, user.getEmail());
 					statement.setInt(4, user.getUserRole().getId());
 					statement.setString(5, user.getName());
-					statement.setString(6, user.getSurName());
+					statement.setString(6, user.getSurname());
 					statement.setBoolean(7, user.isBlocked());
 					statement.setInt(8, user.getId());
 					statement.executeUpdate();
@@ -201,6 +202,32 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 				if (statement != null) {
 					statement.setString(1, login);
 					statement.setString(2, password);
+					resultSet = statement.executeQuery();
+					if (resultSet != null && resultSet.next()) {
+						user = buildUser(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load user", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return user;
+	}
+
+	@Override
+	public User getUserByLoginAndEmail(String login, String email) throws DAOException {
+		User user = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_EMAIL);
+				if (statement != null) {
+					statement.setString(1, login);
+					statement.setString(2, email);
 					resultSet = statement.executeQuery();
 					if (resultSet != null && resultSet.next()) {
 						user = buildUser(resultSet);

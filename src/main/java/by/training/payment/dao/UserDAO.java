@@ -23,4 +23,6 @@ public interface UserDAO {
 
 	User getUserByLoginAndPassword(String login, String password) throws DAOException;
 
+	User getUserByLoginAndEmail(String login, String email) throws DAOException;
+
 }
