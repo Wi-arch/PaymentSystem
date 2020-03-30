@@ -22,18 +22,6 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public Transaction(int id, boolean isCompleted, Date date, boolean isWriteOff, BigDecimal amount, Currency currency,
-			String paymentPurpose, BankAccount account) {
-		this.id = id;
-		this.isCompleted = isCompleted;
-		this.date = date;
-		this.isWriteOff = isWriteOff;
-		this.amount = amount;
-		this.currency = currency;
-		this.paymentPurpose = paymentPurpose;
-		this.account = account;
-	}
-
 	public int getId() {
 		return id;
 	}

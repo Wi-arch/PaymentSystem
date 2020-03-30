@@ -18,16 +18,6 @@ public class UserRequest {
 		this.id = id;
 	}
 
-	public UserRequest(int id, User user, RequestType requestType, RequestStatus requestStatus, Date creationDate,
-			Date handlingDate) {
-		this.id = id;
-		this.user = user;
-		this.requestType = requestType;
-		this.requestStatus = requestStatus;
-		this.creationDate = creationDate;
-		this.handlingDate = handlingDate;
-	}
-
 	public int getId() {
 		return id;
 	}

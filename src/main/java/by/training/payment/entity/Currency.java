@@ -20,15 +20,6 @@ public class Currency {
 		this.id = id;
 	}
 
-	public Currency(int id, BigDecimal rate, int scale, String name, Date updateDate, boolean isBaseCurrency) {
-		this.id = id;
-		this.rate = rate;
-		this.scale = scale;
-		this.name = name;
-		this.updateDate = updateDate;
-		this.isBaseCurrency = isBaseCurrency;
-	}
-
 	public int getId() {
 		return id;
 	}

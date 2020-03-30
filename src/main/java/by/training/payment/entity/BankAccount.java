@@ -21,17 +21,6 @@ public class BankAccount {
 		this.id = id;
 	}
 
-	public BankAccount(int id, String accountNumber, Date openingDate, BigDecimal balance, Currency currency, User user,
-			boolean isBlocked) {
-		this.id = id;
-		this.accountNumber = accountNumber;
-		this.openingDate = openingDate;
-		this.balance = balance;
-		this.currency = currency;
-		this.user = user;
-		this.isBlocked = isBlocked;
-	}
-
 	public int getId() {
 		return id;
 	}

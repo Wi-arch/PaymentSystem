@@ -24,22 +24,6 @@ public class Card {
 		this.id = id;
 	}
 
-	public Card(int id, Date openingDate, Date validUntilDate, String number, String numberMask, String ccv,
-			CardExpirationDate expirationDate, PaymentSystem paymentSystem, BankAccount bankAccount, User user,
-			boolean isBlocked) {
-		this.id = id;
-		this.openingDate = openingDate;
-		this.validUntilDate = validUntilDate;
-		this.number = number;
-		this.numberMask = numberMask;
-		this.ccv = ccv;
-		this.expirationDate = expirationDate;
-		this.paymentSystem = paymentSystem;
-		this.bankAccount = bankAccount;
-		this.user = user;
-		this.isBlocked = isBlocked;
-	}
-
 	public int getId() {
 		return id;
 	}
