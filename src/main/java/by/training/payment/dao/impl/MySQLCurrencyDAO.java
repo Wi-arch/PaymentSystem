@@ -94,7 +94,7 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						currency = buildCurrency(resultSet);
 					}
 				}
@@ -118,10 +118,8 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 				statement = connection.prepareStatement(GET_ALL_CURRENCIES);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							currencies.add(buildCurrency(resultSet));
-						}
+					while (resultSet.next()) {
+						currencies.add(buildCurrency(resultSet));
 					}
 				}
 			}

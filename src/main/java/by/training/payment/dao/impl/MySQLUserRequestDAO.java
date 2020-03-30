@@ -59,7 +59,10 @@ public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
 					statement.setInt(2, userRequest.getRequestType().getId());
 					statement.setInt(3, userRequest.getRequestStatus().getId());
 					statement.setTimestamp(4, new Timestamp(userRequest.getCreationDate().getTime()));
-					statement.setTimestamp(5, userRequest.getHandlingDate() != null ? new Timestamp(userRequest.getHandlingDate().getTime()):null);
+					statement.setTimestamp(5,
+							userRequest.getHandlingDate() != null
+									? new Timestamp(userRequest.getHandlingDate().getTime())
+									: null);
 					statement.setInt(6, userRequest.getId());
 					statement.executeUpdate();
 				}
@@ -99,10 +102,8 @@ public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
 				statement = connection.prepareStatement(GET_ALL_USER_REQUESTS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							result.add(buildUserRequest(resultSet));
-						}
+					while (resultSet.next()) {
+						result.add(buildUserRequest(resultSet));
 					}
 				}
 			}
@@ -126,7 +127,7 @@ public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						userRequest = buildUserRequest(resultSet);
 					}
 				}
@@ -157,7 +158,7 @@ public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
 					statement.setInt(2, userRequest.getRequestType().getId());
 					statement.executeUpdate();
 					resultSet = statement.getGeneratedKeys();
-					int currentId = resultSet != null && resultSet.next() ? resultSet.getInt(1) : 0;
+					int currentId = resultSet.next() ? resultSet.getInt(1) : 0;
 					callableStatement = connection.prepareCall(SAVE_REQUEST_PARAMETER);
 					for (RequestParameter parameter : requestParameters) {
 						callableStatement.setInt(1, parameter.getParameterHeader().getId());

@@ -28,7 +28,7 @@ public class MySQLPaymentSystemDAO extends SQLUtil implements PaymentSystemDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						paymentSystem = buildPaymentSystem(resultSet);
 					}
 				}
@@ -52,10 +52,8 @@ public class MySQLPaymentSystemDAO extends SQLUtil implements PaymentSystemDAO {
 				statement = connection.prepareStatement(GET_ALL_PAYMENT_SYSTEMS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							paymentSystems.add(buildPaymentSystem(resultSet));
-						}
+					while (resultSet.next()) {
+						paymentSystems.add(buildPaymentSystem(resultSet));
 					}
 				}
 			}

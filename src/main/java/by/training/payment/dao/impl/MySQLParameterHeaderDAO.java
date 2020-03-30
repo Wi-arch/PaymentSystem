@@ -28,7 +28,7 @@ public class MySQLParameterHeaderDAO extends SQLUtil implements ParameterHeaderD
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						parameterHeader = buildParameterHeader(resultSet);
 					}
 				}
@@ -52,10 +52,8 @@ public class MySQLParameterHeaderDAO extends SQLUtil implements ParameterHeaderD
 				statement = connection.prepareStatement(GET_ALL_PARAMETER_HEADERS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							parameterHeaders.add(buildParameterHeader(resultSet));
-						}
+					while (resultSet.next()) {
+						parameterHeaders.add(buildParameterHeader(resultSet));
 					}
 				}
 			}

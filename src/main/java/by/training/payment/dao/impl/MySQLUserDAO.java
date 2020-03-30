@@ -100,10 +100,8 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 				statement = connection.prepareStatement(GET_ALL_USERS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							userList.add(buildUser(resultSet));
-						}
+					while (resultSet.next()) {
+						userList.add(buildUser(resultSet));
 					}
 				}
 			}
@@ -127,13 +125,13 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						user = buildUser(resultSet);
 					}
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load user", e);
+			throw new DAOException("Cannot load user by id", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
@@ -152,7 +150,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 				if (statement != null) {
 					statement.setString(1, login);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						user = buildUser(resultSet);
 					}
 				}
@@ -177,7 +175,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 				if (statement != null) {
 					statement.setString(1, email);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						user = buildUser(resultSet);
 					}
 				}
@@ -203,7 +201,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 					statement.setString(1, login);
 					statement.setString(2, password);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						user = buildUser(resultSet);
 					}
 				}
@@ -229,7 +227,7 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 					statement.setString(1, login);
 					statement.setString(2, email);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						user = buildUser(resultSet);
 					}
 				}

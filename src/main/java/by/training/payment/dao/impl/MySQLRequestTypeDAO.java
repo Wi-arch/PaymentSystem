@@ -28,7 +28,7 @@ public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						requestType = buildRequestType(resultSet);
 					}
 				}
@@ -52,10 +52,8 @@ public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
 				statement = connection.prepareStatement(GET_ALL_REQUEST_TYPES);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							requestTypes.add(buildRequestType(resultSet));
-						}
+					while (resultSet.next()) {
+						requestTypes.add(buildRequestType(resultSet));
 					}
 				}
 			}

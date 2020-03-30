@@ -28,7 +28,7 @@ public class MySQLUserRoleDAO extends SQLUtil implements UserRoleDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						userRole = buildUserRole(resultSet);
 					}
 				}
@@ -52,10 +52,8 @@ public class MySQLUserRoleDAO extends SQLUtil implements UserRoleDAO {
 				statement = connection.prepareStatement(GET_ALL_USER_ROLES);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							userRoleList.add(buildUserRole(resultSet));
-						}
+					while (resultSet.next()) {
+						userRoleList.add(buildUserRole(resultSet));
 					}
 				}
 			}

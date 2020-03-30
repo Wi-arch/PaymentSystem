@@ -31,7 +31,7 @@ public class SQLUtil {
 	private static final String USER_ID = "bank_user.bank_user_id";
 	private static final String USER_LOGIN = "bank_user.bank_user_login";
 	private static final String USER_PASSWORD = "bank_user.bank_user_password";
-	private static final String USER_EMAIl = "bank_user.bank_user_email";
+	private static final String USER_EMAIL = "bank_user.bank_user_email";
 	private static final String USER_NAME = "bank_user.bank_user_name";
 	private static final String USER_SURNAME = "bank_user.bank_user_surname";
 	private static final String USER_IS_BLOCKED = "bank_user.bank_user_is_blocked";
@@ -182,7 +182,7 @@ public class SQLUtil {
 	protected User buildUser(ResultSet resultSet) throws SQLException {
 		User user = new User();
 		user.setBlocked(resultSet.getBoolean(USER_IS_BLOCKED));
-		user.setEmail(resultSet.getString(USER_EMAIl));
+		user.setEmail(resultSet.getString(USER_EMAIL));
 		user.setId(resultSet.getInt(USER_ID));
 		user.setLogin(resultSet.getString(USER_LOGIN));
 		user.setName(resultSet.getString(USER_NAME));

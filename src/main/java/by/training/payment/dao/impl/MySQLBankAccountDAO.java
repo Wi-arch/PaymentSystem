@@ -102,7 +102,7 @@ public class MySQLBankAccountDAO extends SQLUtil implements BankAccountDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						bankAccount = buildBankAccount(resultSet);
 					}
 				}
@@ -126,10 +126,8 @@ public class MySQLBankAccountDAO extends SQLUtil implements BankAccountDAO {
 				statement = connection.prepareStatement(GET_ALL_BANK_ACCOUNTS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							bankAccounts.add(buildBankAccount(resultSet));
-						}
+					while (resultSet.next()) {
+						bankAccounts.add(buildBankAccount(resultSet));
 					}
 				}
 			}

@@ -28,7 +28,7 @@ public class MySQLRequestStatusDAO extends SQLUtil implements RequestStatusDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						requestStatus = buildRequestStatus(resultSet);
 					}
 				}
@@ -52,10 +52,8 @@ public class MySQLRequestStatusDAO extends SQLUtil implements RequestStatusDAO {
 				statement = connection.prepareStatement(GET_REQUEST_STATUS_LIST);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							requestStatus.add(buildRequestStatus(resultSet));
-						}
+					while (resultSet.next()) {
+						requestStatus.add(buildRequestStatus(resultSet));
 					}
 				}
 			}

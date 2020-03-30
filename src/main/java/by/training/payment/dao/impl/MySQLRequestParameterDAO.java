@@ -113,7 +113,7 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						requestParameter = buildRequestParameter(resultSet);
 					}
 				}
@@ -137,10 +137,8 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 				statement = connection.prepareStatement(GET_ALL_REQUEST_PARAMETERS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							requestParameters.add(buildRequestParameter(resultSet));
-						}
+					while (resultSet.next()) {
+						requestParameters.add(buildRequestParameter(resultSet));
 					}
 				}
 			}
@@ -164,10 +162,8 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 				if (statement != null) {
 					statement.setInt(1, userRequestId);
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							requestParameters.add(buildRequestParameter(resultSet));
-						}
+					while (resultSet.next()) {
+						requestParameters.add(buildRequestParameter(resultSet));
 					}
 				}
 			}

@@ -119,7 +119,7 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						transaction = buildTransaction(resultSet);
 					}
 				}
@@ -143,10 +143,8 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 				statement = connection.prepareStatement(GET_ALL_TRANSACTIONS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							transactions.add(buildTransaction(resultSet));
-						}
+					while (resultSet.next()) {
+						transactions.add(buildTransaction(resultSet));
 					}
 				}
 			}
@@ -170,15 +168,13 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 				if (statement != null) {
 					statement.setInt(1, accountId);
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							transactions.add(buildTransaction(resultSet));
-						}
+					while (resultSet.next()) {
+						transactions.add(buildTransaction(resultSet));
 					}
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load transactions", e);
+			throw new DAOException("Cannot load transactions by account id", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
@@ -197,15 +193,13 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 				if (statement != null) {
 					statement.setInt(1, cardId);
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							transactions.add(buildTransaction(resultSet));
-						}
+					while (resultSet.next()) {
+						transactions.add(buildTransaction(resultSet));
 					}
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load transactions", e);
+			throw new DAOException("Cannot load transactions by card id", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);

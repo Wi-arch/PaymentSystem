@@ -126,7 +126,7 @@ public class MySQLCardDAO extends SQLUtil implements CardDAO {
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						card = buildCard(resultSet);
 					}
 				}
@@ -150,10 +150,8 @@ public class MySQLCardDAO extends SQLUtil implements CardDAO {
 				statement = connection.prepareStatement(GET_ALL_CARDS);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							cards.add(buildCard(resultSet));
-						}
+					while (resultSet.next()) {
+						cards.add(buildCard(resultSet));
 					}
 				}
 			}
@@ -177,15 +175,13 @@ public class MySQLCardDAO extends SQLUtil implements CardDAO {
 				if (statement != null) {
 					statement.setInt(1, userId);
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							cards.add(buildCard(resultSet));
-						}
+					while (resultSet.next()) {
+						cards.add(buildCard(resultSet));
 					}
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load card list", e);
+			throw new DAOException("Cannot load card list by user id", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
@@ -204,15 +200,13 @@ public class MySQLCardDAO extends SQLUtil implements CardDAO {
 				if (statement != null) {
 					statement.setInt(1, accountId);
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							cards.add(buildCard(resultSet));
-						}
+					while (resultSet.next()) {
+						cards.add(buildCard(resultSet));
 					}
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load card list", e);
+			throw new DAOException("Cannot load card list by account id", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);

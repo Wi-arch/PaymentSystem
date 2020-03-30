@@ -28,7 +28,7 @@ public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpiratio
 				if (statement != null) {
 					statement.setInt(1, id);
 					resultSet = statement.executeQuery();
-					if (resultSet != null && resultSet.next()) {
+					if (resultSet.next()) {
 						cardExpirationDate = buildCardExpirationDate(resultSet);
 					}
 				}
@@ -52,10 +52,8 @@ public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpiratio
 				statement = connection.prepareStatement(GET_ALL_CARD_EXPIRATION_DATES);
 				if (statement != null) {
 					resultSet = statement.executeQuery();
-					if (resultSet != null) {
-						while (resultSet.next()) {
-							cardExpirationDates.add(buildCardExpirationDate(resultSet));
-						}
+					while (resultSet.next()) {
+						cardExpirationDates.add(buildCardExpirationDate(resultSet));
 					}
 				}
 			}
