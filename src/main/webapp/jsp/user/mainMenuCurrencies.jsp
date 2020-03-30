@@ -85,7 +85,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 	<div class="ratesBox">
 		<c:if test="${not empty CURRENCIES_LIST }">
-
 			<h4>
 				<fmt:message key="label.officialExchangeRageAt" />
 				<fmt:formatDate value="${CURRENT_DATE}" pattern="dd-MM-yyyy" />
@@ -112,16 +111,17 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</tbody>
 			</table>
 		</c:if>
-
 		<c:if test="${not empty ERROR_MESSAGE}">
 			<h3 id="error">
 				<fmt:message key="${ERROR_MESSAGE}" />
 			</h3>
 		</c:if>
-		<c:if test="${not empty RESULT_MESSAGE}">
-			<h3 id="result">
-				<fmt:message key="${RESULT_MESSAGE}" />
-			</h3>
+		<c:if test="${empty ERROR_MESSAGE}">
+			<c:if test="${empty CURRENCIES_LIST }">
+				<h3 id="error">
+					<fmt:message key="label.noAvailableCurrencies" />
+				</h3>
+			</c:if>
 		</c:if>
 	</div>
 
