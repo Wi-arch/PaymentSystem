@@ -56,12 +56,29 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</form>
 		</li>
 
-
 		<li><a href="#"><fmt:message key="button.myRequests" /></a>
 			<ul>
-				<li><a href="#"><fmt:message key="button.addNewRequest" /></a></li>
-				<li><a href="#"><fmt:message key="button.showAllRequests" /></a></li>
+				<li>
+					<form action="${pageContext.request.contextPath}/controller"
+						method="post">
+						<input type="hidden" name="COMMAND"
+							value="SHOW_MENU_FOR_CREATING_REQUESTS">
+						<button type="submit" id="childButton">
+							<fmt:message key="button.addNewRequest" />
+						</button>
+					</form>
+				</li>
+				<li>
+					<form action="${pageContext.request.contextPath}/controller"
+						method="post">
+						<input type="hidden" name="COMMAND" value="SHOW_ALL_USER_REQUESTS">
+						<button type="submit" id="childButton">
+							<fmt:message key="button.showAllRequests" />
+						</button>
+					</form>
+				</li>
 			</ul></li>
+
 		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
 		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
 	</ul>

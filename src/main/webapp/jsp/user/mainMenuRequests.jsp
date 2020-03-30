@@ -40,7 +40,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
 				<input type="hidden" name="COMMAND" value="SHOW_CURRENCIES">
-				<button type="submit" class="active">
+				<button type="submit">
 					<fmt:message key="button.currencyRates" />
 				</button>
 			</form>
@@ -56,7 +56,8 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</form>
 		</li>
 
-		<li><a href="#"><fmt:message key="button.myRequests" /></a>
+		<li><a href="#" class="active"><fmt:message
+					key="button.myRequests" /></a>
 			<ul>
 				<li>
 					<form action="${pageContext.request.contextPath}/controller"
@@ -79,48 +80,84 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</li>
 			</ul></li>
 
+
 		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
 		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
 	</ul>
 
-	<div class="ratesBox">
-		<c:if test="${not empty CURRENCIES_LIST }">
-
-			<h4>
-				<fmt:message key="label.officialExchangeRageAt" />
-				<fmt:formatDate value="${CURRENT_DATE}" pattern="dd-MM-yyyy" />
-
-			</h4>
+	<div class="requestsBox">
+		<c:if test="${not empty USER_REQUEST_LIST}">
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_MENU_FOR_CREATING_REQUESTS">
+				<h4>
+					<fmt:message key="label.requests" />
+					<button type="submit">
+						<fmt:message key="button.addNewRequest" />
+					</button>
+				</h4>
+			</form>
 			<table>
 				<thead>
 					<tr>
-						<th scope="col"><fmt:message key="label.currency" /></th>
-						<th scope="col"><fmt:message key="label.scale" /></th>
-						<th scope="col"><fmt:message key="label.rate" /></th>
+						<th scope="col"><fmt:message key="label.creatingDate" /></th>
+						<th scope="col"><fmt:message key="label.processingDate" /></th>
+						<th scope="col"><fmt:message key="label.description" /></th>
+						<th scope="col"><fmt:message key="label.status" /></th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${CURRENCIES_LIST}" var="value">
-						<c:if test="${not value.isBaseCurrency}">
-							<tr>
-								<td><c:out value="${value.name}" /></td>
-								<td><c:out value="${value.scale}" /></td>
-								<td><c:out value="${value.rate}" /></td>
-							</tr>
-						</c:if>
+
+					<c:forEach items="${USER_REQUEST_LIST}" var="value">
+						<tr>
+							<td><fmt:formatDate value="${value.creationDate}"
+									pattern="dd-MM-yyyy HH:mm" /></td>
+							<td><c:if test="${not empty value.handlingDate}">
+									<fmt:formatDate value="${value.handlingDate}"
+										pattern="dd-MM-yyyy HH:mm" />
+								</c:if> <c:if test="${empty value.handlingDate}">
+									<c:out value="-" />
+								</c:if></td>
+							<td><c:if test="${value.requestType.id=='1'}">
+									<fmt:message key="label.cardUnlockRequest" />
+								</c:if> <c:if test="${value.requestType.id=='2'}">
+									<fmt:message key="label.accountOpeningRequest" />
+								</c:if> <c:if test="${value.requestType.id=='3'}">
+									<fmt:message key="label.cardIssueToExistingAccount" />
+								</c:if> <c:if test="${value.requestType.id=='4'}">
+									<fmt:message key="label.cardIssueWithOpeningNewAccount" />
+								</c:if></td>
+							<c:if test="${value.requestStatus.id=='1'}">
+								<td id="default"><fmt:message key="label.inProcessing" /></td>
+							</c:if>
+							<c:if test="${value.requestStatus.id=='2'}">
+								<td id="success"><fmt:message key="label.completed" /></td>
+							</c:if>
+							<c:if test="${value.requestStatus.id=='3'}">
+								<td id="error"><fmt:message key="label.rejected" /></td>
+							</c:if>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</c:if>
-
+		<c:if test="${empty USER_REQUEST_LIST}">
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_MENU_FOR_CREATING_REQUESTS">
+				<h4>
+					<fmt:message key="label.noRequests" />
+					<button type="submit">
+						<fmt:message key="button.addNewRequest" />
+					</button>
+				</h4>
+			</form>
+		</c:if>
 		<c:if test="${not empty ERROR_MESSAGE}">
 			<h3 id="error">
 				<fmt:message key="${ERROR_MESSAGE}" />
-			</h3>
-		</c:if>
-		<c:if test="${not empty RESULT_MESSAGE}">
-			<h3 id="result">
-				<fmt:message key="${RESULT_MESSAGE}" />
 			</h3>
 		</c:if>
 	</div>
@@ -130,7 +167,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<ctg:copyright-tag />
 		</div>
 	</div>
-
 </body>
 </html>
 

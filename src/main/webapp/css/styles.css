@@ -338,6 +338,11 @@ ul li:hover ul li {
 	padding: 5px 0px;
 }
 
+#default {
+	color: black;
+	padding: 5px 0px;
+}
+
 #notfound {
 	position: relative;
 	height: 100vh;
@@ -419,7 +424,7 @@ ul li:hover ul li {
 	top: 50%;
 	Left: 50%;
 	transform: translate(-50%, -50%);
-	width: 500px;
+	width: 550px;
 	background: rgba(0, 0, 0, .8);
 	box-sizing: border-box;
 	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
@@ -446,7 +451,7 @@ ul li:hover ul li {
 	top: 50%;
 	Left: 50%;
 	transform: translate(-50%, -50%);
-	width: 700px;
+	width: 800px;
 	padding: 10px;
 	background: rgba(0, 0, 0, .8);
 	box-sizing: border-box;
@@ -585,3 +590,65 @@ ul li:hover ul li {
   opacity: 1;
 }
 /*Open form for password end */
+
+
+/*Requests box*/
+.requestsBox {
+	position: relative;	
+	top: 200px;	
+	Left: 20%;	
+	margin-bottom: 100px;	
+	width: 1200px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.requestsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.requestsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.requestsBox th {
+	background-color: #AD0734;
+	background: #39b54a;
+	color: white;
+	height: 50px;
+}
+
+.requestsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.requestsBox h4{
+	padding: 16px 20px;
+	font-size: 35px;
+}
+
+.requestsBox button {
+  float: right;	
+  background-color: #387DF5;;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top:-40px;
+  margin-bottom:20px;
+  margin-left:70%; 
+  position: relative;
+  font-size: 16px;
+  font-weight: bold;
+}	
+
+.requestsBox h4 button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
+/*Requests box end */
+
