@@ -19,7 +19,6 @@ import by.training.payment.util.ExceptionParser;
 public class ShowUserCurrenciesMenu extends AbstractUserCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(ShowUserCurrenciesMenu.class);
-	private static final String NO_CURRENCIES_STATUS = "*Status2000*";
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -28,8 +27,6 @@ public class ShowUserCurrenciesMenu extends AbstractUserCommand {
 			if (currencies != null) {
 				request.setAttribute(RequestParameter.CURRENCIES_LIST.toString(), currencies);
 				request.setAttribute(RequestParameter.CURRENT_DATE.toString(), new Date());
-			} else {
-				request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), NO_CURRENCIES_STATUS);
 			}
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
