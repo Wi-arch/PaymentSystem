@@ -1,35 +1,24 @@
 package by.training.payment.factory;
 
-import by.training.payment.dao.impl.MySQLBankAccountDAO;
-import by.training.payment.dao.impl.MySQLCardDAO;
-import by.training.payment.dao.impl.MySQLCardExpirationDateDAO;
-import by.training.payment.dao.impl.MySQLCurrencyDAO;
-import by.training.payment.dao.impl.MySQLParameterHeaderDAO;
-import by.training.payment.dao.impl.MySQLPaymentSystemDAO;
-import by.training.payment.dao.impl.MySQLRequestParameterDAO;
-import by.training.payment.dao.impl.MySQLRequestStatusDAO;
-import by.training.payment.dao.impl.MySQLRequestTypeDAO;
-import by.training.payment.dao.impl.MySQLTransactionDAO;
-import by.training.payment.dao.impl.MySQLUserDAO;
-import by.training.payment.dao.impl.MySQLUserRequestDAO;
-import by.training.payment.dao.impl.MySQLUserRoleDAO;
+import by.training.payment.dao.*;
+import by.training.payment.dao.impl.*;
 
 public class DAOFactory {
 
 	private final static DAOFactory INSTANCE = new DAOFactory();
-	private final MySQLBankAccountDAO bankAccountDAO = new MySQLBankAccountDAO();
-	private final MySQLCardDAO cardDAO = new MySQLCardDAO();
-	private final MySQLCardExpirationDateDAO cardExpirationDateDAO = new MySQLCardExpirationDateDAO();
-	private final MySQLCurrencyDAO currencyDAO = new MySQLCurrencyDAO();
-	private final MySQLParameterHeaderDAO parameterHeaderDAO = new MySQLParameterHeaderDAO();
-	private final MySQLPaymentSystemDAO paymentSystemDAO = new MySQLPaymentSystemDAO();
-	private final MySQLRequestParameterDAO requestParameterDAO = new MySQLRequestParameterDAO();
-	private final MySQLRequestStatusDAO requestStatusDAO = new MySQLRequestStatusDAO();
-	private final MySQLRequestTypeDAO requestTypeDAO = new MySQLRequestTypeDAO();
-	private final MySQLTransactionDAO transactionDAO = new MySQLTransactionDAO();
-	private final MySQLUserDAO userDAO = new MySQLUserDAO();
-	private final MySQLUserRequestDAO userRequestDAO = new MySQLUserRequestDAO();
-	private final MySQLUserRoleDAO userRoleDAO = new MySQLUserRoleDAO();
+	private final BankAccountDAO bankAccountDAO = new MySQLBankAccountDAO();
+	private final CardDAO cardDAO = new MySQLCardDAO();
+	private final CardExpirationDateDAO cardExpirationDateDAO = new MySQLCardExpirationDateDAO();
+	private final CurrencyDAO currencyDAO = new MySQLCurrencyDAO();
+	private final ParameterHeaderDAO parameterHeaderDAO = new MySQLParameterHeaderDAO();
+	private final PaymentSystemDAO paymentSystemDAO = new MySQLPaymentSystemDAO();
+	private final RequestParameterDAO requestParameterDAO = new MySQLRequestParameterDAO();
+	private final RequestStatusDAO requestStatusDAO = new MySQLRequestStatusDAO();
+	private final RequestTypeDAO requestTypeDAO = new MySQLRequestTypeDAO();
+	private final TransactionDAO transactionDAO = new MySQLTransactionDAO();
+	private final UserDAO userDAO = new MySQLUserDAO();
+	private final UserRequestDAO userRequestDAO = new MySQLUserRequestDAO();
+	private final UserRoleDAO userRoleDAO = new MySQLUserRoleDAO();
 
 	private DAOFactory() {
 	}
@@ -38,56 +27,55 @@ public class DAOFactory {
 		return INSTANCE;
 	}
 
-	public MySQLBankAccountDAO getBankAccountDAO() {
+	public BankAccountDAO getBankAccountDAO() {
 		return bankAccountDAO;
 	}
 
-	public MySQLCardDAO getCardDAO() {
+	public CardDAO getCardDAO() {
 		return cardDAO;
 	}
 
-	public MySQLCardExpirationDateDAO getCardExpirationDateDAO() {
+	public CardExpirationDateDAO getCardExpirationDateDAO() {
 		return cardExpirationDateDAO;
 	}
 
-	public MySQLCurrencyDAO getCurrencyDAO() {
+	public CurrencyDAO getCurrencyDAO() {
 		return currencyDAO;
 	}
 
-	public MySQLParameterHeaderDAO getParameterHeaderDAO() {
+	public ParameterHeaderDAO getParameterHeaderDAO() {
 		return parameterHeaderDAO;
 	}
 
-	public MySQLPaymentSystemDAO getPaymentSystemDAO() {
+	public PaymentSystemDAO getPaymentSystemDAO() {
 		return paymentSystemDAO;
 	}
 
-	public MySQLRequestParameterDAO getRequestParameterDAO() {
+	public RequestParameterDAO getRequestParameterDAO() {
 		return requestParameterDAO;
 	}
 
-	public MySQLRequestStatusDAO getRequestStatusDAO() {
+	public RequestStatusDAO getRequestStatusDAO() {
 		return requestStatusDAO;
 	}
 
-	public MySQLRequestTypeDAO getRequestTypeDAO() {
+	public RequestTypeDAO getRequestTypeDAO() {
 		return requestTypeDAO;
 	}
 
-	public MySQLTransactionDAO getTransactionDAO() {
+	public TransactionDAO getTransactionDAO() {
 		return transactionDAO;
 	}
 
-	public MySQLUserDAO getUserDAO() {
+	public UserDAO getUserDAO() {
 		return userDAO;
 	}
 
-	public MySQLUserRequestDAO getUserRequestDAO() {
+	public UserRequestDAO getUserRequestDAO() {
 		return userRequestDAO;
 	}
 
-	public MySQLUserRoleDAO getUserRoleDAO() {
+	public UserRoleDAO getUserRoleDAO() {
 		return userRoleDAO;
 	}
-
 }
