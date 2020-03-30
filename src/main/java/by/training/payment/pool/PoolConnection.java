@@ -2,6 +2,7 @@ package by.training.payment.pool;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
@@ -75,6 +76,9 @@ public enum PoolConnection {
 			if (connection != null && !connection.isClosed()) {
 				if (!connection.getAutoCommit()) {
 					connection.setAutoCommit(true);
+				}
+				if (connection.getTransactionIsolation() != Connection.TRANSACTION_REPEATABLE_READ) {
+					connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
 				}
 				unavailableConnection.remove(connection);
 				availableConnection.put(connection);
