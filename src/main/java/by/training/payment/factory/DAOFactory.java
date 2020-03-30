@@ -5,7 +5,7 @@ import by.training.payment.dao.impl.*;
 
 public class DAOFactory {
 
-	private final static DAOFactory INSTANCE = new DAOFactory();
+	private static final DAOFactory INSTANCE = new DAOFactory();
 	private final BankAccountDAO bankAccountDAO = new MySQLBankAccountDAO();
 	private final CardDAO cardDAO = new MySQLCardDAO();
 	private final CardExpirationDateDAO cardExpirationDateDAO = new MySQLCardExpirationDateDAO();
