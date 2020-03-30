@@ -1,0 +1,587 @@
+.background {
+	background-image: url("../images/78.jpg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #464646;
+	color: white;
+}
+/* --------------------------------------------------------------- */
+/* --------------------------------------------------------------- */
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	font-family: arial;
+}
+
+ul li {
+	float: right;
+	width: 180px;
+	height: 50px;
+	background: rgba(0, 0, 0, .6);
+	line-height: 50px;
+	text-align: center;
+	font-size: 20px;
+}
+
+ul li .active {
+	background-color: #387DF5;
+	color: white;
+}
+
+ul li .active:hover {
+	background-color: #387DF5;
+	color: white;
+}
+
+ul li a {
+	text-decoration: none;
+	display: block;
+	opacity: 0.8;
+	color: #f2f2f2;
+	padding: 0px 16px;
+	font-size: 17px;
+	border: none;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+ul li a:hover {
+	background-color: #39b54a;
+	text-decoration: none;
+	color: white;
+}
+
+#childButton {
+	text-decoration: none;
+	display: block;
+	opacity: 0.8;
+	color: #f2f2f2;
+	width: 180px;
+	font-size: 17px;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	background: transparent;
+	border: none !important;
+	white-space: nowrap;
+}
+
+#childButton:hover {
+	background-color: #39b54a;
+	text-decoration: none;
+	color: white;
+}
+
+ul li button {
+	text-decoration: none;
+	display: block;
+	opacity: 0.8;
+	color: #f2f2f2;
+	width: 180px;
+	font-size: 17px;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	background: transparent;
+	border: none !important;
+	white-space: nowrap;
+}
+
+ul li button:hover {
+	background-color: #39b54a;
+	text-decoration: none;
+	color: white;
+}
+
+ul li ul li {
+	display: none;
+}
+
+ul li:hover ul li {
+	display: block;
+}
+
+/* --------------------------------------------------------------- */
+/* --------------------------------------------------------------- */
+.topnav {
+	background-color: #333;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	opacity: 0.8;
+}
+
+.topnav .icon {
+	display: none;
+}
+
+.topnav a {
+	float: right;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	background-color: #333;
+	border: none;
+}
+
+.topnav a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.topnav a.active {
+	background-color: #387DF5;
+	color: white;
+}
+/* --------------------------------------------------------------- */
+/* --------------------------------------------------------------- */
+.box {
+	position: absolute;
+	top: 50%;
+	Left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+	padding: 30px;
+	background: rgba(0, 0, 0, .8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+	border-radius: 10px;
+}
+
+.linkBar .hrefButton a {
+	text-decoration: none;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 10px 20px;
+	font-size: 21px;
+	background-color: #39b54a;
+	border-radius: 4px;
+	border: none;
+}
+
+.linkBar .hrefButton a:hover {
+	background-color: #39b53a;
+	color: #f2f2f2;
+	border-radius: 5px;
+}
+
+.box #loginButton {
+	background: transparent;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 21px;
+	background: #03a9f4;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.box #loginButton:hover {
+	background: transparent;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 21px;
+	background: #03a1f4;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.flex {
+	display: flex;
+}
+
+#linkBarLoginButton {
+	text-decoration: none;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 11px 20px;
+	font-size: 21px;
+	background-color: rgba(0, 0, 0, .4);
+	border-radius: 4px;
+	border: none;
+}
+
+#linkBarLoginButton:hover {
+	background-color: #ddd;
+	color: black;
+	border-radius: 5px;
+}
+
+.linkBar a {
+	text-decoration: none;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 10px 20px;
+	font-size: 21px;
+	background-color: rgba(0, 0, 0, .4);
+	border-radius: 4px;
+	border: none;
+}
+
+.linkBar a:hover {
+	background-color: #ddd;
+	color: black;
+	border-radius: 5px;
+}
+
+.linkBar a.active {
+	border: 1px solid #fff;
+}
+
+.box .inputBox {
+	position: relative;
+}
+
+.box .inputBox input {
+	width: 100%;
+	padding: 5px 0;
+	font-size: 16px;
+	color: #fff;
+	letter-spacing: 1px;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background: transparent;
+}
+
+.box .inputBox label {
+	position: absolute;
+	top: 0;
+	Left: 0;
+	padding: 5px 0;
+	font-size: 16px;
+	color: #fff;
+	letter-spacing: 1px;
+	pointer-events: none;
+	transaction: 0.5s;
+}
+
+.box  .inputLogin .inputBox input:focus ~ label, .box .inputLogin .inputBox input:not([value=""]) ~ label {
+	top: -20px;
+	Left: 0;
+	color: #03a9f4;
+	font-size: 12px;
+}
+
+/* -------------------- input:not([value=""]) ~ label -------------------- NO SPACES!!! */
+.box .inputBox input:not([value=""]) ~ label {
+	top: -20px;
+	Left: 0;
+	color: #E70101;
+	font-size: 12px;
+}
+
+.box .inputBox input:focus ~ label {
+	top: -20px;
+	Left: 0;
+	color: #E70101;
+	font-size: 12px;
+}
+
+.box .inputBox input:valid ~ label {
+	top: -20px;
+	Left: 0;
+	color: #03a9f4;
+	font-size: 12px;
+}
+
+.box button {
+	background: transparent;
+	border: none;
+	outline: none;
+	color: #fff;
+	background: #03a9f4;
+	padding: 10px 30px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.box form a {
+	border: none;
+	border-bottom: 1px solid #03a9f4;
+	color: #03a9f4;
+	text-decoration: none;
+	text-align: right;
+	float: right;
+}
+
+#error {
+	color: #e70000;
+	padding: 5px 0px;
+}
+
+#result {
+	color: #03a9f4;
+	padding: 5px 0px;
+}
+
+#success {
+	color: #39b54a;
+	padding: 5px 0px;
+}
+
+#notfound {
+	position: relative;
+	height: 100vh;
+}
+
+#notfound .notfound {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.notfound {
+	max-width: 410px;
+	width: 100%;
+	text-align: center;
+}
+
+.notfound .notfound-img {
+	height: 280px;
+	position: relative;
+	z-index: -1;
+}
+
+.notfound .notfound-img h1 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 230px;
+	margin: 0px;
+	font-weight: 900;
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	background: url('../images/bg.jpg') no-repeat;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-size: cover;
+	background-position: center;
+}
+
+.notfound h2 {
+	font-family: 'Montserrat', sans-serif;
+	color: #000;
+	font-size: 24px;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-top: 0;
+}
+
+.notfound p {
+	font-family: 'Montserrat', sans-serif;
+	color: #000;
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 20px;
+	margin-top: 0px;
+}
+
+.notfound a {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	background: #0046d5;
+	display: inline-block;
+	padding: 15px 30px;
+	border-radius: 40px;
+	color: #fff;
+	font-weight: 700;
+	-webkit-box-shadow: 0px 4px 15px -5px #0046d5;
+	box-shadow: 0px 4px 15px -5px #0046d5;
+}
+
+.ratesBox {
+	position: absolute;
+	top: 50%;
+	Left: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	background: rgba(0, 0, 0, .8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.ratesBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.ratesBox th {
+	background-color: #AD0734;
+	color: white;
+	height: 50px;
+}
+
+.ratesBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.userDataBox {
+	position: absolute;
+	top: 50%;
+	Left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	padding: 10px;
+	background: rgba(0, 0, 0, .8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+	border-radius: 4px;
+}
+
+.userDataBox h3 {
+	text-align: center;
+}
+
+.userDataBox h4 {
+	padding: 10px 30px;
+}
+
+.userDataBox button {
+	float: right;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	padding: 10px 30px;
+	font-size: 15px;
+	background-color: #009900;
+	border-radius: 4px;
+	border: none;
+}
+
+.userDataBox button:hover {
+	background-color: #ddd;
+	color: black;
+	border-radius: 5px;
+}
+
+.userDataBox input{
+	background: transparent;
+	border: none !important;
+	color: white;
+	background-color:transparent; 
+}
+
+#chooseRequest {
+	float: left;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	padding: 10px 30px;
+	font-size: 15px;
+	background: rgba(0, 0, 0, .1);
+	color: white;
+	border-radius: 4px;
+	border: none;
+}
+
+#chooseRequest:hover {
+	background-color: #ddd;
+	color: black;
+	border-radius: 5px;
+}
+
+#footer div {
+	padding: 2px;
+	background: #39b54a;
+	opacity: 0.9;
+}
+
+#footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	color: #fff;
+	width: 100%;
+}
+
+/*Open form for password */
+
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;  
+  position: absolute;
+  top: 50%;
+  Left: 60%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height:550px;  
+  background-color: white;
+  color:black;
+}
+
+.form-container {  
+  max-width: 470px;
+  padding: 10px;
+  background-color: white;
+  
+}
+
+.form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+   border: 2px solid red;
+  border-radius: 4px;
+  background: #f1f1f1;
+  color:red;
+}
+
+.form-container input:valid {
+	color:green;
+}
+
+.form-container #oldPassword:valid{
+	color:black;
+}
+
+.form-container .btn {
+  background-color: #1976D2;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.form-container .cancel {
+  background-color: #448AFF;
+}
+
+.form-container .btn:hover {
+  opacity: 1;
+}
+/*Open form for password end */
