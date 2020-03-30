@@ -41,12 +41,7 @@ public enum PoolConnection {
 		if (isCreated.compareAndSet(false, true)) {
 			try {
 				initializeDatabaseConfigurations();
-				try {
-					DriverManager.registerDriver(new Driver());
-				} catch (SQLException e) {
-					LOGGER.fatal("Cannot register driver", e);
-					throw new NoJDBCDriverException("Cannot register driver", e);
-				}
+				registerDriver();
 				for (int i = 0; i < POOL_SIZE; i++) {
 					availableConnection.add(new ProxyConnection(DriverManager.getConnection(url, databaseProperties)));
 				}
@@ -108,6 +103,15 @@ public enum PoolConnection {
 			} catch (SQLException e) {
 				LOGGER.error("Cannot close connection", e);
 			}
+		}
+	}
+
+	private void registerDriver() throws NoJDBCDriverException {
+		try {
+			DriverManager.registerDriver(new Driver());
+		} catch (SQLException e) {
+			LOGGER.fatal("Cannot register driver", e);
+			throw new NoJDBCDriverException("Cannot register driver", e);
 		}
 	}
 
