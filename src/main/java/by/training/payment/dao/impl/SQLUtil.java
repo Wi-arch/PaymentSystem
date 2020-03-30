@@ -187,7 +187,7 @@ public class SQLUtil {
 		user.setLogin(resultSet.getString(USER_LOGIN));
 		user.setName(resultSet.getString(USER_NAME));
 		user.setPassword(resultSet.getString(USER_PASSWORD));
-		user.setSurName(resultSet.getString(USER_SURNAME));
+		user.setSurname(resultSet.getString(USER_SURNAME));
 		user.setUserRole(buildUserRole(resultSet));
 		return user;
 	}
