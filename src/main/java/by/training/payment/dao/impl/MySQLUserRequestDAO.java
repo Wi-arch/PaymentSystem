@@ -28,6 +28,7 @@ public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
 	private static final String GET_USER_REQUESTS_BY_ID = "SELECT * FROM user_request INNER JOIN bank_user ON user_request.bank_user_id = bank_user.bank_user_id INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id INNER JOIN request_type ON request_type.request_type_id = user_request.request_type_id INNER JOIN request_status ON request_status.request_status_id = user_request.request_status_id WHERE user_request.user_request_id = ?;";
 	private static final String GET_ALL_USER_REQUESTS = "SELECT * FROM user_request INNER JOIN bank_user ON user_request.bank_user_id = bank_user.bank_user_id INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id INNER JOIN request_type ON request_type.request_type_id = user_request.request_type_id INNER JOIN request_status ON request_status.request_status_id = user_request.request_status_id;";
 	private static final String SAVE_REQUEST_PARAMETER = "{call PS_SaveRequestParameter(?,?,?)}";
+	private static final String GET_ALL_USER_REQUESTS_BY_USER_ID = "SELECT * FROM user_request INNER JOIN bank_user ON user_request.bank_user_id = bank_user.bank_user_id INNER JOIN user_role ON bank_user.user_role_id = user_role.user_role_id INNER JOIN request_type ON request_type.request_type_id = user_request.request_type_id INNER JOIN request_status ON request_status.request_status_id = user_request.request_status_id WHERE bank_user.bank_user_id = ?;";
 
 	@Override
 	public void addUserRequest(UserRequest userRequest) throws DAOException {
@@ -183,6 +184,31 @@ public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
 			closeStatement(callableStatement);
 			closeConnection(connection);
 		}
+	}
+
+	@Override
+	public List<UserRequest> getAllUserRequestsByUserId(int id) throws DAOException {
+		List<UserRequest> result = new ArrayList<>();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_ALL_USER_REQUESTS_BY_USER_ID);
+				if (statement != null) {
+					statement.setInt(1, id);
+					resultSet = statement.executeQuery();
+					while (resultSet.next()) {
+						result.add(buildUserRequest(resultSet));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load UserRequests by user id", e);
+		} finally {
+			closeResultSet(resultSet);
+			closeStatement(statement);
+		}
+		return result;
 	}
 
 }
