@@ -33,11 +33,13 @@ public class Controller extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher(PageEnum.HOME_PAGE.getValue()).forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = COMMAND_FACTORY.defineCommand(request).execute(request, response);
