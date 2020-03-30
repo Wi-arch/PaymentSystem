@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import com.mysql.cj.jdbc.Driver;
 import org.apache.log4j.Logger;
 
 import by.training.payment.exception.NoJDBCDriverException;
@@ -40,6 +40,12 @@ public enum PoolConnection {
 		if (isCreated.compareAndSet(false, true)) {
 			try {
 				initializeDatabaseConfigurations();
+				try {
+					DriverManager.registerDriver(new Driver());
+				} catch (SQLException e) {
+					LOGGER.fatal("Cannot register driver", e);
+					throw new NoJDBCDriverException("Cannot register driver", e);
+				}
 				for (int i = 0; i < POOL_SIZE; i++) {
 					availableConnection.add(new ProxyConnection(DriverManager.getConnection(url, databaseProperties)));
 				}
