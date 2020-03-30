@@ -5,6 +5,9 @@ public class PasswordGenerator {
 	private static final int MINIMUM_PASSWORD_LENGTH = 6;
 	private static final int MAXIMUM_PASSWORD_LENGTH = 16;
 
+	private PasswordGenerator() {
+	}
+
 	public static String generateRandomValidPassword() {
 		StringBuilder password = new StringBuilder();
 		int passwordLength = (int) (Math.random() * MAXIMUM_PASSWORD_LENGTH + MINIMUM_PASSWORD_LENGTH);
