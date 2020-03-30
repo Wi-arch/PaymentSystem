@@ -11,13 +11,13 @@ import by.training.payment.service.CurrencyService;
 
 public class CurrencyServiceImpl implements CurrencyService {
 
-	private final CurrencyDAO currencyDao = DAOFactory.getInstance().getCurrencyDAO();
+	private final CurrencyDAO currencyDAO = DAOFactory.getInstance().getCurrencyDAO();
 
 	@Override
 	public void updateCurrency(Currency currency) throws ServiceException {
 		checkCurrencyFieldsForNull(currency);
 		try {
-			currencyDao.updateCurrency(currency);
+			currencyDAO.updateCurrency(currency);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -26,7 +26,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 	@Override
 	public Currency getCurrencyById(int id) throws ServiceException {
 		try {
-			return currencyDao.getCurrencyById(id);
+			return currencyDAO.getCurrencyById(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -35,7 +35,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 	@Override
 	public List<Currency> getAllCurrencies() throws ServiceException {
 		try {
-			return currencyDao.getAllCurrencies();
+			return currencyDAO.getAllCurrencies();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
