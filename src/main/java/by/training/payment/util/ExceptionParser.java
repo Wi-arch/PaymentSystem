@@ -5,6 +5,9 @@ public class ExceptionParser {
 	private static final String DEFAULT_STATUS = "*Status999*";
 	private static final String STATUS_REGEX = ".*(\\*Status\\d+\\*).*";
 
+	private ExceptionParser() {
+	}
+
 	public static String getExceptionStatus(Throwable e) {
 		if (e == null) {
 			return DEFAULT_STATUS;
