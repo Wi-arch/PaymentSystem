@@ -68,6 +68,10 @@ public class Currency {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	
+	public boolean getIsBaseCurrency() {
+		return isBaseCurrency;
+	}
 
 	public boolean isBaseCurrency() {
 		return isBaseCurrency;

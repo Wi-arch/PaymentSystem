@@ -8,7 +8,7 @@ public class User {
 	private String email;
 	private UserRole userRole;
 	private String name;
-	private String surName;
+	private String surname;
 	private boolean isBlocked;
 
 	public User() {
@@ -16,18 +16,6 @@ public class User {
 
 	public User(int id) {
 		this.id = id;
-	}
-
-	public User(int id, String login, String password, String email, UserRole userRole, String name, String surName,
-			boolean isBlocked) {
-		this.id = id;
-		this.login = login;
-		this.password = password;
-		this.email = email;
-		this.userRole = userRole;
-		this.name = name;
-		this.surName = surName;
-		this.isBlocked = isBlocked;
 	}
 
 	public int getId() {
@@ -70,6 +58,10 @@ public class User {
 		this.userRole = userRole;
 	}
 
+	public boolean getIsBlocked() {
+		return isBlocked;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -78,12 +70,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getSurName() {
-		return surName;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setSurName(String surName) {
-		this.surName = surName;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public boolean isBlocked() {
@@ -104,7 +96,7 @@ public class User {
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((surName == null) ? 0 : surName.hashCode());
+		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
 		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
 		return result;
 	}
@@ -142,10 +134,10 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (surName == null) {
-			if (other.surName != null)
+		if (surname == null) {
+			if (other.surname != null)
 				return false;
-		} else if (!surName.equals(other.surName))
+		} else if (!surname.equals(other.surname))
 			return false;
 		if (userRole == null) {
 			if (other.userRole != null)
@@ -153,12 +145,6 @@ public class User {
 		} else if (!userRole.equals(other.userRole))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", email=" + email + ", userRole="
-				+ userRole + ", name=" + name + ", surName=" + surName + ", isBlocked=" + isBlocked + "]";
 	}
 
 }
