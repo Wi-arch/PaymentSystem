@@ -14,33 +14,9 @@ import by.training.payment.pool.ProxyConnection;
 
 public class MySQLPaymentSystemDAO extends SQLUtil implements PaymentSystemDAO {
 
-	private static final String GET_PAYMENT_SYSTEM_BY_ID = "SELECT * FROM payment_system WHERE payment_system_id = ?";
+	private static final String GET_PAYMENT_SYSTEM_BY_NAME = "SELECT * FROM payment_system WHERE payment_system_name = ?";
 	private static final String GET_ALL_PAYMENT_SYSTEMS = "SELECT * FROM payment_system";
 
-	@Override
-	public PaymentSystem getPaymentSystemById(int id) throws DAOException {
-		PaymentSystem paymentSystem = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_PAYMENT_SYSTEM_BY_ID);
-				if (statement != null) {
-					statement.setInt(1, id);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						paymentSystem = buildPaymentSystem(resultSet);
-					}
-				}
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Cannot load payment system", e);
-		} finally {
-			closeStatement(statement);
-			closeResultSet(resultSet);
-		}
-		return paymentSystem;
-	}
 
 	@Override
 	public List<PaymentSystem> getAllPaymentSystems() throws DAOException {
@@ -64,5 +40,30 @@ public class MySQLPaymentSystemDAO extends SQLUtil implements PaymentSystemDAO {
 			closeResultSet(resultSet);
 		}
 		return paymentSystems;
+	}
+
+	@Override
+	public PaymentSystem getPaymentSystemByName(String name) throws DAOException {
+		PaymentSystem paymentSystem = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_PAYMENT_SYSTEM_BY_NAME);
+				if (statement != null) {
+					statement.setString(1, name);
+					resultSet = statement.executeQuery();
+					if (resultSet.next()) {
+						paymentSystem = buildPaymentSystem(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load payment system", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return paymentSystem;
 	}
 }

@@ -26,7 +26,7 @@ public class ShowUserRequestsMenu extends AbstractUserCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
 		try {
-			List<UserRequest> userRequests = userRequestService.getAllUserRequestsByUserId(user.getId());
+			List<UserRequest> userRequests = userRequestService.getAllUserRequestsByUserLogin(user.getLogin());
 			if (userRequests != null) {
 				request.setAttribute(RequestParameter.USER_REQUEST_LIST.toString(), userRequests);
 			}

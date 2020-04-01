@@ -7,7 +7,7 @@ import by.training.payment.exception.DAOException;
 
 public interface CardExpirationDateDAO {
 
-	CardExpirationDate getCardExpirationDateById(int id) throws DAOException;
+	CardExpirationDate getCardExpirationDateByValue(String value) throws DAOException;
 
 	List<CardExpirationDate> getAllCardExpirationDates() throws DAOException;
 

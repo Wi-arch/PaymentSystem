@@ -21,7 +21,7 @@ public class ShowUserDataMenu extends AbstractUserCommand {
 		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
 		if (user != null) {
 			try {
-				user = USER_SERVICE.getUserById(user.getId());
+				user = USER_SERVICE.getUserByLogin(user.getLogin());
 				request.getSession().setAttribute(RequestParameter.USER.toString(), user);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));

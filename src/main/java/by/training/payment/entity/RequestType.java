@@ -2,28 +2,14 @@ package by.training.payment.entity;
 
 public class RequestType {
 
-	private int id;
 	private String value;
 
 	public RequestType() {
 
 	}
 
-	public RequestType(int id) {
-		this.id = id;
-	}
-
-	public RequestType(int id, String value) {
-		this.id = id;
+	public RequestType(String value) {
 		this.value = value;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getValue() {
@@ -38,7 +24,6 @@ public class RequestType {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -52,8 +37,6 @@ public class RequestType {
 		if (getClass() != obj.getClass())
 			return false;
 		RequestType other = (RequestType) obj;
-		if (id != other.id)
-			return false;
 		if (value == null) {
 			if (other.value != null)
 				return false;
@@ -64,7 +47,7 @@ public class RequestType {
 
 	@Override
 	public String toString() {
-		return "RequestType [id=" + id + ", value=" + value + "]";
+		return "RequestType [value=" + value + "]";
 	}
 
 }

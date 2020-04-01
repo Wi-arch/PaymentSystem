@@ -7,7 +7,7 @@ import by.training.payment.exception.DAOException;
 
 public interface UserRoleDAO {
 
-	UserRole getUserRoleById(int id) throws DAOException;
+	UserRole getUserRoleByValue(String value) throws DAOException;
 
 	List<UserRole> getAllUserRoles() throws DAOException;
 }

@@ -13,7 +13,7 @@ public interface BankAccountDAO {
 
 	void deleteBankAccount(BankAccount bankAccount) throws DAOException;
 
-	BankAccount getBankAccountById(int id) throws DAOException;
+	BankAccount getBankAccountByAccountNumber(String number) throws DAOException;
 
 	List<BankAccount> getAllBankAccounts() throws DAOException;
 }

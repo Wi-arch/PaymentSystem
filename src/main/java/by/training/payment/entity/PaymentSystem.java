@@ -2,28 +2,14 @@ package by.training.payment.entity;
 
 public class PaymentSystem {
 
-	private int id;
 	private String name;
 
 	public PaymentSystem() {
 
 	}
 
-	public PaymentSystem(int id) {
-		this.id = id;
-	}
-
-	public PaymentSystem(int id, String name) {
-		this.id = id;
+	public PaymentSystem(String name) {
 		this.name = name;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -38,7 +24,6 @@ public class PaymentSystem {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -52,8 +37,6 @@ public class PaymentSystem {
 		if (getClass() != obj.getClass())
 			return false;
 		PaymentSystem other = (PaymentSystem) obj;
-		if (id != other.id)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -64,7 +47,7 @@ public class PaymentSystem {
 
 	@Override
 	public String toString() {
-		return "PaymentSystem [id=" + id + ", name=" + name + "]";
+		return "PaymentSystem [name=" + name + "]";
 	}
 
 }

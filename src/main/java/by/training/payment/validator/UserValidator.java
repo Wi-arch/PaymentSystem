@@ -5,10 +5,10 @@ import by.training.payment.exception.ServiceException;
 
 public class UserValidator {
 
-	private final static String LOGIN_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[\\S]{6,}$";
-	private final static String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*([^\\s\\w]|[_]))[\\S]{6,}$";
-	private final static String EMAIL_REGEX = "[a-zA-Z0-9]{1}[a-zA-Z0-9_.-]{1,29}[a-zA-Z0-9]{1}@[a-zA-Z]{3,10}\\.[a-zA-Z]{2,}";
-	private final static String NAME_REGEX = "\\p{L}+.*\\p{L}+";
+	private static final String LOGIN_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[\\S]{6,}$";
+	private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*([^\\s\\w]|[_]))[\\S]{6,}$";
+	private static final String EMAIL_REGEX = "[a-zA-Z0-9]{1}[a-zA-Z0-9_.-]{1,29}[a-zA-Z0-9]{1}@[a-zA-Z]{2,10}\\.[a-zA-Z]{2,}";
+	private static final String NAME_REGEX = "\\p{L}+.*\\p{L}+";
 
 	public void checkLogin(String login) throws ServiceException {
 		if (login == null || !login.matches(LOGIN_REGEX)) {
@@ -29,7 +29,7 @@ public class UserValidator {
 	}
 
 	public void checkUserIsBlocked(User user) throws ServiceException {
-		if (user != null && user.isBlocked()) {
+		if (user != null && user.getIsBlocked()) {
 			throw new ServiceException("User blocked *Status1001*");
 		}
 	}
@@ -41,7 +41,7 @@ public class UserValidator {
 	}
 
 	public void comparePasswords(String password, String confirmPassword) throws ServiceException {
-		if (password == null || confirmPassword == null || !password.equals(confirmPassword)) {
+		if (password != null && !password.equals(confirmPassword)) {
 			throw new ServiceException("Passwords not match *Status1002*");
 		}
 	}
@@ -67,9 +67,6 @@ public class UserValidator {
 
 	public void compareOldPasswordAndNewPassword(String oldPassword, String newPassword) throws ServiceException {
 		if (oldPassword != null && oldPassword.equals(newPassword)) {
-			throw new ServiceException("New password should not match the old password *Status1015*");
-		}
-		if (newPassword != null && newPassword.equals(oldPassword)) {
 			throw new ServiceException("New password should not match the old password *Status1015*");
 		}
 	}

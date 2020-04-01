@@ -4,10 +4,9 @@ import java.util.Date;
 
 public class Card {
 
-	private int id;
+	private String number;
 	private Date openingDate;
 	private Date validUntilDate;
-	private String number;
 	private String numberMask;
 	private String ccv;
 	private CardExpirationDate expirationDate;
@@ -20,16 +19,16 @@ public class Card {
 
 	}
 
-	public Card(int id) {
-		this.id = id;
+	public Card(String number) {
+		this.number = number;
 	}
 
-	public int getId() {
-		return id;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
 	public Date getOpeningDate() {
@@ -46,14 +45,6 @@ public class Card {
 
 	public void setValidUntilDate(Date validUntilDate) {
 		this.validUntilDate = validUntilDate;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
 	}
 
 	public String getNumberMask() {
@@ -104,7 +95,7 @@ public class Card {
 		this.user = user;
 	}
 
-	public boolean isBlocked() {
+	public boolean getIsBlocked() {
 		return isBlocked;
 	}
 
@@ -119,7 +110,6 @@ public class Card {
 		result = prime * result + ((bankAccount == null) ? 0 : bankAccount.hashCode());
 		result = prime * result + ((ccv == null) ? 0 : ccv.hashCode());
 		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
-		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((numberMask == null) ? 0 : numberMask.hashCode());
@@ -153,8 +143,6 @@ public class Card {
 			if (other.expirationDate != null)
 				return false;
 		} else if (!expirationDate.equals(other.expirationDate))
-			return false;
-		if (id != other.id)
 			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
@@ -193,9 +181,10 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", openingDate=" + openingDate + ", validUntilDate=" + validUntilDate + ", number="
-				+ number + ", numberMask=" + numberMask + ", ccv=" + ccv + ", expirationDate=" + expirationDate
+		return "Card [number=" + number + ", openingDate=" + openingDate + ", validUntilDate=" + validUntilDate
+				+ ", numberMask=" + numberMask + ", ccv=" + ccv + ", expirationDate=" + expirationDate
 				+ ", paymentSystem=" + paymentSystem + ", bankAccount=" + bankAccount + ", user=" + user
 				+ ", isBlocked=" + isBlocked + "]";
 	}
+
 }

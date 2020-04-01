@@ -14,33 +14,8 @@ import by.training.payment.pool.ProxyConnection;
 
 public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
 
-	private static final String GET_REQUEST_TYPE_BY_ID = "SELECT * FROM request_type WHERE request_type_id = ?";
+	private static final String GET_REQUEST_TYPE_BY_VALUE = "SELECT * FROM request_type WHERE request_type_value = ?";
 	private static final String GET_ALL_REQUEST_TYPES = "SELECT * FROM request_type";
-
-	@Override
-	public RequestType getRequestTypeById(int id) throws DAOException {
-		RequestType requestType = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_REQUEST_TYPE_BY_ID);
-				if (statement != null) {
-					statement.setInt(1, id);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						requestType = buildRequestType(resultSet);
-					}
-				}
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Cannot load request type", e);
-		} finally {
-			closeStatement(statement);
-			closeResultSet(resultSet);
-		}
-		return requestType;
-	}
 
 	@Override
 	public List<RequestType> getAllRequestTypes() throws DAOException {
@@ -64,5 +39,30 @@ public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
 			closeResultSet(resultSet);
 		}
 		return requestTypes;
+	}
+
+	@Override
+	public RequestType getRequestTypeByValue(String value) throws DAOException {
+		RequestType requestType = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_REQUEST_TYPE_BY_VALUE);
+				if (statement != null) {
+					statement.setString(1, value);
+					resultSet = statement.executeQuery();
+					if (resultSet.next()) {
+						requestType = buildRequestType(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load request type", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return requestType;
 	}
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class BankAccount {
 
-	private int id;
 	private String accountNumber;
 	private Date openingDate;
 	private BigDecimal balance;
@@ -17,16 +16,8 @@ public class BankAccount {
 
 	}
 
-	public BankAccount(int id) {
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public BankAccount(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
 	public String getAccountNumber() {
@@ -60,6 +51,10 @@ public class BankAccount {
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
+	
+	public boolean getIsBlocked() {
+		return isBlocked;
+	}
 
 	public User getUser() {
 		return user;
@@ -67,10 +62,6 @@ public class BankAccount {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public boolean isBlocked() {
-		return isBlocked;
 	}
 
 	public void setBlocked(boolean isBlocked) {
@@ -84,7 +75,6 @@ public class BankAccount {
 		result = prime * result + ((accountNumber == null) ? 0 : accountNumber.hashCode());
 		result = prime * result + ((balance == null) ? 0 : balance.hashCode());
 		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
-		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((openingDate == null) ? 0 : openingDate.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -115,8 +105,6 @@ public class BankAccount {
 				return false;
 		} else if (!currency.equals(other.currency))
 			return false;
-		if (id != other.id)
-			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
 		if (openingDate == null) {
@@ -134,8 +122,8 @@ public class BankAccount {
 
 	@Override
 	public String toString() {
-		return "BankAccount [id=" + id + ", accountNumber=" + accountNumber + ", openingDate=" + openingDate
-				+ ", balance=" + balance + ", currency=" + currency + ", user=" + user + ", isBlocked=" + isBlocked
-				+ "]";
+		return "BankAccount [accountNumber=" + accountNumber + ", openingDate=" + openingDate + ", balance=" + balance
+				+ ", currency=" + currency + ", user=" + user + ", isBlocked=" + isBlocked + "]";
 	}
+
 }

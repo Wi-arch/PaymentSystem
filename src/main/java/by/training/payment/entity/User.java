@@ -1,8 +1,10 @@
 package by.training.payment.entity;
 
-public class User {
+import java.io.Serializable;
 
-	private int id;
+public class User implements Serializable {
+
+	private static final long serialVersionUID = -739338546060614L;
 	private String login;
 	private String password;
 	private String email;
@@ -14,16 +16,8 @@ public class User {
 	public User() {
 	}
 
-	public User(int id) {
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public User(String login) {
+		this.login = login;
 	}
 
 	public String getLogin() {
@@ -58,10 +52,6 @@ public class User {
 		this.userRole = userRole;
 	}
 
-	public boolean getIsBlocked() {
-		return isBlocked;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -78,7 +68,7 @@ public class User {
 		this.surname = surname;
 	}
 
-	public boolean isBlocked() {
+	public boolean getIsBlocked() {
 		return isBlocked;
 	}
 
@@ -91,7 +81,6 @@ public class User {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -114,8 +103,6 @@ public class User {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (id != other.id)
 			return false;
 		if (isBlocked != other.isBlocked)
 			return false;
@@ -145,6 +132,12 @@ public class User {
 		} else if (!userRole.equals(other.userRole))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [login=" + login + ", password=" + password + ", email=" + email + ", userRole=" + userRole
+				+ ", name=" + name + ", surname=" + surname + ", isBlocked=" + isBlocked + "]";
 	}
 
 }

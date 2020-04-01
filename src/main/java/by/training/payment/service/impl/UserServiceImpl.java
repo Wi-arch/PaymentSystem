@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	private final MailSender mailSender = MailSender.getInstance();
 	private static final String REGISTRATION_SUBJECT = "Регистрация завершена успешно";
 	private static final String RESET_PASSWORD_SUBJECT = "Восстановление пароля";
-	private static final String REGISTRATION_TEXT = "Спасибо за регистрацию на PaymentSystem";
+	private static final String REGISTRATION_TEXT = "Спасибо за регистрацию на PaymentSystem. Ваш логин ";
 	private static final String RESET_PASSWORD_TEXT = "Пароль успешно изменён. Новый пароль ";
 
 	@Override
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 			}
 			user.setPassword(sha1Hex(user.getPassword()));
 			userDAO.addUser(user);
-			mailSender.sendMessage(user.getEmail(), REGISTRATION_SUBJECT, REGISTRATION_TEXT);
+			mailSender.sendMessage(user.getEmail(), REGISTRATION_SUBJECT, REGISTRATION_TEXT + user.getLogin());
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -59,12 +59,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(int id) throws ServiceException {
-		try {
-			return userDAO.getUserById(id);
-		} catch (DAOException e) {
-			throw new ServiceException(e);
+	public User getUserByLogin(String login) throws ServiceException {
+		User user = null;
+		if (login != null) {
+			try {
+				user = userDAO.getUserByLogin(login);
+			} catch (DAOException e) {
+				throw new ServiceException(e);
+			}
 		}
+		return user;
 	}
 
 	@Override

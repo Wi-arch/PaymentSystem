@@ -2,28 +2,14 @@ package by.training.payment.entity;
 
 public class RequestStatus {
 
-	private int id;
 	private String value;
 
 	public RequestStatus() {
 
 	}
 
-	public RequestStatus(int id) {
-		this.id = id;
-	}
-
-	public RequestStatus(int id, String value) {
-		this.id = id;
+	public RequestStatus(String value) {
 		this.value = value;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getValue() {
@@ -38,7 +24,6 @@ public class RequestStatus {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -52,8 +37,6 @@ public class RequestStatus {
 		if (getClass() != obj.getClass())
 			return false;
 		RequestStatus other = (RequestStatus) obj;
-		if (id != other.id)
-			return false;
 		if (value == null) {
 			if (other.value != null)
 				return false;
@@ -64,6 +47,7 @@ public class RequestStatus {
 
 	@Override
 	public String toString() {
-		return "RequestStatus [id=" + id + ", value=" + value + "]";
+		return "RequestStatus [value=" + value + "]";
 	}
+
 }

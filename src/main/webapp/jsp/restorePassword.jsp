@@ -90,7 +90,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</div>
 			<div class="inputBox">
 				<input type="email" name="USER_EMAIL" required
-					pattern="[a-zA-Z0-9]{1}[a-zA-Z0-9_.-]{1,29}[a-zA-Z0-9]{1}@[a-zA-Z]{3,10}\.[a-zA-Z]{2,}"
+					pattern="[a-zA-Z0-9]{1}[a-zA-Z0-9_.-]{1,29}[a-zA-Z0-9]{1}@[a-zA-Z]{2,10}\.[a-zA-Z]{2,}"
 					value="" title=""
 					oninvalid="this.setCustomValidity('<fmt:message key="*Status1007*" />')"
 					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1007*" />' : '');" /><label

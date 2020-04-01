@@ -17,7 +17,7 @@ public interface TransactionDAO {
 
 	List<Transaction> getAllTransactions() throws DAOException;
 
-	List<Transaction> getAllTransactionsByAccountId(int accountId) throws DAOException;
+	List<Transaction> getAllTransactionsByAccountNumber(String number) throws DAOException;
 
-	List<Transaction> getAllTransactionsByCardId(int cardId) throws DAOException;
+	List<Transaction> getAllTransactionsByCardNumber(String number) throws DAOException;
 }

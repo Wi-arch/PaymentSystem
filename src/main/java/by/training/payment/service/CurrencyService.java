@@ -9,7 +9,7 @@ public interface CurrencyService {
 
 	void updateCurrency(Currency currency) throws ServiceException;
 
-	Currency getCurrencyById(int id) throws ServiceException;
+	Currency getCurrencyByName(String name) throws ServiceException;
 
 	List<Currency> getAllCurrencies() throws ServiceException;
 }

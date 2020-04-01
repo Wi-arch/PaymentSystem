@@ -119,22 +119,22 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 								</c:if> <c:if test="${empty value.handlingDate}">
 									<c:out value="-" />
 								</c:if></td>
-							<td><c:if test="${value.requestType.id=='1'}">
+							<td><c:if test="${value.requestType.value=='Unlock card'}">
 									<fmt:message key="label.cardUnlockRequest" />
-								</c:if> <c:if test="${value.requestType.id=='2'}">
+								</c:if> <c:if test="${value.requestType.value=='Account opening'}">
 									<fmt:message key="label.accountOpeningRequest" />
-								</c:if> <c:if test="${value.requestType.id=='3'}">
+								</c:if> <c:if test="${value.requestType.value=='Opening a card to an existing account'}">
 									<fmt:message key="label.cardIssueToExistingAccount" />
-								</c:if> <c:if test="${value.requestType.id=='4'}">
+								</c:if> <c:if test="${value.requestType.value=='Card opening with opening a new account'}">
 									<fmt:message key="label.cardIssueWithOpeningNewAccount" />
 								</c:if></td>
-							<c:if test="${value.requestStatus.id=='1'}">
+							<c:if test="${value.requestStatus.value=='In processing'}">
 								<td id="default"><fmt:message key="label.inProcessing" /></td>
 							</c:if>
-							<c:if test="${value.requestStatus.id=='2'}">
+							<c:if test="${value.requestStatus.value=='Processed'}">
 								<td id="success"><fmt:message key="label.completed" /></td>
 							</c:if>
-							<c:if test="${value.requestStatus.id=='3'}">
+							<c:if test="${value.requestStatus.value=='Rejected'}">
 								<td id="error"><fmt:message key="label.rejected" /></td>
 							</c:if>
 						</tr>

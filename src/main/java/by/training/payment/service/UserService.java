@@ -13,7 +13,7 @@ public interface UserService {
 
 	void blockUser(User user) throws ServiceException;
 
-	User getUserById(int id) throws ServiceException;
+	User getUserByLogin(String login) throws ServiceException;
 
 	List<User> getAllUsers() throws ServiceException;
 

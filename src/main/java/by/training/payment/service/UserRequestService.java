@@ -7,5 +7,5 @@ import by.training.payment.exception.ServiceException;
 
 public interface UserRequestService {
 
-	List<UserRequest> getAllUserRequestsByUserId(int id) throws ServiceException;
+	List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException;
 }

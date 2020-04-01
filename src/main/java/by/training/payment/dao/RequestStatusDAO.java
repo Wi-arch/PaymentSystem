@@ -7,7 +7,7 @@ import by.training.payment.exception.DAOException;
 
 public interface RequestStatusDAO {
 
-	RequestStatus getRequestStatusById(int id) throws DAOException;
+	RequestStatus getRequestStatusByValue(String value) throws DAOException;
 
 	List<RequestStatus> getRequestStatusList() throws DAOException;
 }

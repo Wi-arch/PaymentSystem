@@ -13,11 +13,11 @@ public interface CardDAO {
 
 	void deleteCard(Card card) throws DAOException;
 
-	Card getCardById(int id) throws DAOException;
+	Card getCardByCardNumber(String number) throws DAOException;
 
 	List<Card> getAllCards() throws DAOException;
 
-	List<Card> getAllCardsByUserId(int userId) throws DAOException;
+	List<Card> getAllCardsByUserLogin(String login) throws DAOException;
 
-	List<Card> getAllCardsByAccountId(int accountId) throws DAOException;
+	List<Card> getAllCardsByAccountNumber(String number) throws DAOException;
 }

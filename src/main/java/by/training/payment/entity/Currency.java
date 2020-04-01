@@ -5,10 +5,9 @@ import java.util.Date;
 
 public class Currency {
 
-	private int id;
+	private String name;
 	private BigDecimal rate;
 	private int scale;
-	private String name;
 	private Date updateDate;
 	private boolean isBaseCurrency;
 
@@ -16,32 +15,8 @@ public class Currency {
 
 	}
 
-	public Currency(int id) {
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public BigDecimal getRate() {
-		return rate;
-	}
-
-	public void setRate(BigDecimal rate) {
-		this.rate = rate;
-	}
-
-	public int getScale() {
-		return scale;
-	}
-
-	public void setScale(int scale) {
-		this.scale = scale;
+	public Currency(String name) {
+		this.name = name;
 	}
 
 	public String getName() {
@@ -52,20 +27,32 @@ public class Currency {
 		this.name = name;
 	}
 
-	public Date getUpdateDate() {
-		return updateDate;
+	public BigDecimal getRate() {
+		return rate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setRate(BigDecimal rate) {
+		this.rate = rate;
 	}
 	
 	public boolean getIsBaseCurrency() {
 		return isBaseCurrency;
 	}
 
-	public boolean isBaseCurrency() {
-		return isBaseCurrency;
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 	public void setBaseCurrency(boolean isBaseCurrency) {
@@ -76,7 +63,6 @@ public class Currency {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + (isBaseCurrency ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
@@ -94,8 +80,6 @@ public class Currency {
 		if (getClass() != obj.getClass())
 			return false;
 		Currency other = (Currency) obj;
-		if (id != other.id)
-			return false;
 		if (isBaseCurrency != other.isBaseCurrency)
 			return false;
 		if (name == null) {
@@ -120,7 +104,8 @@ public class Currency {
 
 	@Override
 	public String toString() {
-		return "Currency [id=" + id + ", rate=" + rate + ", scale=" + scale + ", name=" + name + ", updateDate="
-				+ updateDate + ", isBaseCurrency=" + isBaseCurrency + "]";
+		return "Currency [name=" + name + ", rate=" + rate + ", scale=" + scale + ", updateDate=" + updateDate
+				+ ", isBaseCurrency=" + isBaseCurrency + "]";
 	}
+
 }

@@ -1,5 +1,6 @@
 package by.training.payment.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import by.training.payment.dao.CurrencyDAO;
@@ -17,16 +18,8 @@ public class CurrencyServiceImpl implements CurrencyService {
 	public void updateCurrency(Currency currency) throws ServiceException {
 		checkCurrencyFieldsForNull(currency);
 		try {
+			currency.setUpdateDate(new Date());
 			currencyDAO.updateCurrency(currency);
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-	}
-
-	@Override
-	public Currency getCurrencyById(int id) throws ServiceException {
-		try {
-			return currencyDAO.getCurrencyById(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -39,6 +32,19 @@ public class CurrencyServiceImpl implements CurrencyService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	public Currency getCurrencyByName(String name) throws ServiceException {
+		Currency currency = null;
+		if (name != null) {
+			try {
+				currency = currencyDAO.getCurrencyByCurrencyName(name);
+			} catch (DAOException e) {
+				throw new ServiceException(e);
+			}
+		}
+		return currency;
 	}
 
 	private void checkCurrencyFieldsForNull(Currency currency) throws ServiceException {

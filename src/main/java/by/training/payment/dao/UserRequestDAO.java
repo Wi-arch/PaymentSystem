@@ -21,7 +21,7 @@ public interface UserRequestDAO {
 	void saveUserRequestWithParameterList(UserRequest userRequest, List<RequestParameter> requestParameters)
 			throws DAOException;
 
-	List<UserRequest> getAllUserRequestsByUserId(int id) throws DAOException;
+	List<UserRequest> getAllUserRequestsByUserLogin(String login) throws DAOException;
 	
 	
 }

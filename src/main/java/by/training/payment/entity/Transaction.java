@@ -30,7 +30,7 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public boolean isCompleted() {
+	public boolean getIsCompleted() {
 		return isCompleted;
 	}
 
@@ -46,7 +46,7 @@ public class Transaction {
 		this.date = date;
 	}
 
-	public boolean isWriteOff() {
+	public boolean getIsWriteOff() {
 		return isWriteOff;
 	}
 

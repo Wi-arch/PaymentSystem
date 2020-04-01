@@ -13,7 +13,7 @@ public interface CurrencyDAO {
 
 	void deleteCurrency(Currency currency) throws DAOException;
 
-	Currency getCurrencyById(int id) throws DAOException;
+	Currency getCurrencyByCurrencyName(String name) throws DAOException;
 
 	List<Currency> getAllCurrencies() throws DAOException;
 

@@ -19,28 +19,28 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 	private static final String UPDATE_TRANSACTION = "UPDATE payment_transaction SET transaction_completed=?, transaction_date=?, transaction_is_write_off=?, transaction_amount=?, transaction_currency_id=?, transaction_payment_purpose=?, bank_account_id=? WHERE transaction_id = ?;";
 	private static final String DELETE_TRANSACTION = "DELETE FROM payment_transaction WHERE transaction_id = ?;";
 	private static final String GET_TRANSACTION_BY_ID = "SELECT * FROM payment_transaction INNER JOIN currency "
-			+ "ON payment_transaction.transaction_currency_id = currency.currency_id "
-			+ "INNER JOIN bank_account ON payment_transaction.bank_account_id = bank_account.bank_account_id "
-			+ "INNER JOIN bank_user ON bank_account.bank_user_id = bank_user.bank_user_id "
-			+ "INNER JOIN user_role ON user_role.user_role_id = bank_user.user_role_id "
+			+ "ON payment_transaction.transaction_currency_name = currency.currency_name "
+			+ "INNER JOIN bank_account ON payment_transaction.bank_account_number = bank_account.bank_account_number "
+			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
+			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value "
 			+ "WHERE payment_transaction.transaction_id = ?;";
 	private static final String GET_ALL_TRANSACTIONS = "SELECT * FROM payment_transaction INNER JOIN currency "
-			+ "ON payment_transaction.transaction_currency_id = currency.currency_id "
-			+ "INNER JOIN bank_account ON payment_transaction.bank_account_id = bank_account.bank_account_id "
-			+ "INNER JOIN bank_user ON bank_account.bank_user_id = bank_user.bank_user_id "
-			+ "INNER JOIN user_role ON user_role.user_role_id = bank_user.user_role_id;";
-	private static final String GET_ALL_TRANSACTIONS_BY_ACCOUNT_ID = "SELECT * FROM payment_transaction INNER JOIN currency "
-			+ "ON payment_transaction.transaction_currency_id = currency.currency_id "
-			+ "INNER JOIN bank_account ON payment_transaction.bank_account_id = bank_account.bank_account_id "
-			+ "INNER JOIN bank_user ON bank_account.bank_user_id = bank_user.bank_user_id "
-			+ "INNER JOIN user_role ON user_role.user_role_id = bank_user.user_role_id "
-			+ "WHERE bank_account.bank_account_id = ?;";
-	private static final String GET_ALL_TRANSACTIONS_BY_CARD_ID = "SELECT * FROM payment_transaction INNER JOIN currency "
-			+ "ON payment_transaction.transaction_currency_id = currency.currency_id "
-			+ "INNER JOIN bank_account ON payment_transaction.bank_account_id = bank_account.bank_account_id "
-			+ "INNER JOIN bank_user ON bank_account.bank_user_id = bank_user.bank_user_id "
-			+ "INNER JOIN user_role ON user_role.user_role_id = bank_user.user_role_id "
-			+ "INNER JOIN card ON card.bank_account_id = bank_account.bank_account_id WHERE card.card_id = ?;";
+			+ "ON payment_transaction.transaction_currency_name = currency.currency_name "
+			+ "INNER JOIN bank_account ON payment_transaction.bank_account_number = bank_account.bank_account_number "
+			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
+			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value;";
+	private static final String GET_ALL_TRANSACTIONS_BY_ACCOUNT_NUMBER = "SELECT * FROM payment_transaction INNER JOIN currency "
+			+ "ON payment_transaction.transaction_currency_name = currency.currency_name "
+			+ "INNER JOIN bank_account ON payment_transaction.bank_account_number = bank_account.bank_account_number "
+			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
+			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value "
+			+ "WHERE bank_account.bank_account_number = ?;";
+	private static final String GET_ALL_TRANSACTIONS_BY_CARD_NUMBER = "SELECT * FROM payment_transaction INNER JOIN currency "
+			+ "ON payment_transaction.transaction_currency_name = currency.currency_name "
+			+ "INNER JOIN bank_account ON payment_transaction.bank_account_number = bank_account.bank_account_number "
+			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
+			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value "
+			+ "INNER JOIN card ON card.bank_account_number = bank_account.bank_account_number WHERE card.card_number = ?;";
 
 	@Override
 	public void addTransaction(Transaction transaction) throws DAOException {
@@ -49,12 +49,12 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 			if (connection != null) {
 				statement = connection.prepareStatement(ADD_TRANSACTION);
 				if (statement != null) {
-					statement.setBoolean(1, transaction.isCompleted());
-					statement.setBoolean(2, transaction.isWriteOff());
+					statement.setBoolean(1, transaction.getIsCompleted());
+					statement.setBoolean(2, transaction.getIsWriteOff());
 					statement.setBigDecimal(3, transaction.getAmount());
-					statement.setInt(4, transaction.getCurrency().getId());
+					statement.setString(4, transaction.getCurrency().getName());
 					statement.setString(5, transaction.getPaymentPurpose());
-					statement.setInt(6, transaction.getAccount().getId());
+					statement.setString(6, transaction.getAccount().getAccountNumber());
 					statement.executeUpdate();
 				}
 			}
@@ -72,13 +72,13 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 			if (connection != null) {
 				statement = connection.prepareStatement(UPDATE_TRANSACTION);
 				if (statement != null) {
-					statement.setBoolean(1, transaction.isCompleted());
+					statement.setBoolean(1, transaction.getIsCompleted());
 					statement.setTimestamp(2, new Timestamp(transaction.getDate().getTime()));
-					statement.setBoolean(3, transaction.isWriteOff());
+					statement.setBoolean(3, transaction.getIsWriteOff());
 					statement.setBigDecimal(4, transaction.getAmount());
-					statement.setInt(5, transaction.getCurrency().getId());
+					statement.setString(5, transaction.getCurrency().getName());
 					statement.setString(6, transaction.getPaymentPurpose());
-					statement.setInt(7, transaction.getAccount().getId());
+					statement.setString(7, transaction.getAccount().getAccountNumber());
 					statement.setInt(8, transaction.getId());
 					statement.executeUpdate();
 				}
@@ -158,15 +158,15 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 	}
 
 	@Override
-	public List<Transaction> getAllTransactionsByAccountId(int accountId) throws DAOException {
+	public List<Transaction> getAllTransactionsByAccountNumber(String number) throws DAOException {
 		List<Transaction> transactions = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
 			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_TRANSACTIONS_BY_ACCOUNT_ID);
+				statement = connection.prepareStatement(GET_ALL_TRANSACTIONS_BY_ACCOUNT_NUMBER);
 				if (statement != null) {
-					statement.setInt(1, accountId);
+					statement.setString(1, number);
 					resultSet = statement.executeQuery();
 					while (resultSet.next()) {
 						transactions.add(buildTransaction(resultSet));
@@ -174,7 +174,7 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load transactions by account id", e);
+			throw new DAOException("Cannot load transactions by account number", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
@@ -183,15 +183,15 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 	}
 
 	@Override
-	public List<Transaction> getAllTransactionsByCardId(int cardId) throws DAOException {
+	public List<Transaction> getAllTransactionsByCardNumber(String number) throws DAOException {
 		List<Transaction> transactions = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
 			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_TRANSACTIONS_BY_CARD_ID);
+				statement = connection.prepareStatement(GET_ALL_TRANSACTIONS_BY_CARD_NUMBER);
 				if (statement != null) {
-					statement.setInt(1, cardId);
+					statement.setString(1, number);
 					resultSet = statement.executeQuery();
 					while (resultSet.next()) {
 						transactions.add(buildTransaction(resultSet));
@@ -199,7 +199,7 @@ public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load transactions by card id", e);
+			throw new DAOException("Cannot load transactions by card number", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);

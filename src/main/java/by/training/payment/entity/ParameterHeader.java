@@ -2,28 +2,14 @@ package by.training.payment.entity;
 
 public class ParameterHeader {
 
-	private int id;
 	private String name;
 
 	public ParameterHeader() {
 
 	}
 
-	public ParameterHeader(int id) {
-		this.id = id;
-	}
-
-	public ParameterHeader(int id, String name) {
-		this.id = id;
+	public ParameterHeader(String name) {
 		this.name = name;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -38,7 +24,6 @@ public class ParameterHeader {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -52,8 +37,6 @@ public class ParameterHeader {
 		if (getClass() != obj.getClass())
 			return false;
 		ParameterHeader other = (ParameterHeader) obj;
-		if (id != other.id)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -64,6 +47,7 @@ public class ParameterHeader {
 
 	@Override
 	public String toString() {
-		return "ParameterHeader [id=" + id + ", name=" + name + "]";
+		return "ParameterHeader [name=" + name + "]";
 	}
+
 }

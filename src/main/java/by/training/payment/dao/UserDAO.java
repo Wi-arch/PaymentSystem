@@ -15,8 +15,6 @@ public interface UserDAO {
 
 	List<User> getAllUsers() throws DAOException;
 
-	User getUserById(int id) throws DAOException;
-
 	User getUserByLogin(String login) throws DAOException;
 
 	User getUserByEmail(String email) throws DAOException;

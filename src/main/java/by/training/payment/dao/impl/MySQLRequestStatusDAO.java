@@ -14,33 +14,9 @@ import by.training.payment.pool.ProxyConnection;
 
 public class MySQLRequestStatusDAO extends SQLUtil implements RequestStatusDAO {
 
-	private static final String GET_REQUEST_STATUS_BY_ID = "SELECT * FROM request_status WHERE request_status_id = ?";
+	private static final String GET_REQUEST_STATUS_BY_VALUE = "SELECT * FROM request_status WHERE request_status_value = ?";
 	private static final String GET_REQUEST_STATUS_LIST = "SELECT * FROM request_status";
 
-	@Override
-	public RequestStatus getRequestStatusById(int id) throws DAOException {
-		RequestStatus requestStatus = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_REQUEST_STATUS_BY_ID);
-				if (statement != null) {
-					statement.setInt(1, id);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						requestStatus = buildRequestStatus(resultSet);
-					}
-				}
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Cannot load request status", e);
-		} finally {
-			closeStatement(statement);
-			closeResultSet(resultSet);
-		}
-		return requestStatus;
-	}
 
 	@Override
 	public List<RequestStatus> getRequestStatusList() throws DAOException {
@@ -59,6 +35,31 @@ public class MySQLRequestStatusDAO extends SQLUtil implements RequestStatusDAO {
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot load request status list", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return requestStatus;
+	}
+
+	@Override
+	public RequestStatus getRequestStatusByValue(String value) throws DAOException {
+		RequestStatus requestStatus = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_REQUEST_STATUS_BY_VALUE);
+				if (statement != null) {
+					statement.setString(1, value);
+					resultSet = statement.executeQuery();
+					if (resultSet.next()) {
+						requestStatus = buildRequestStatus(resultSet);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load request status", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);

@@ -7,7 +7,7 @@ import by.training.payment.exception.DAOException;
 
 public interface ParameterHeaderDAO {
 
-	ParameterHeader getParameterHeaderById(int id) throws DAOException;
+	ParameterHeader getParameterHeaderByValue(String value) throws DAOException;
 
 	List<ParameterHeader> getAllParameterHeaders() throws DAOException;
 }

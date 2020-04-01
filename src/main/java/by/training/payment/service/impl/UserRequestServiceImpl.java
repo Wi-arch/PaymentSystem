@@ -14,12 +14,15 @@ public class UserRequestServiceImpl implements UserRequestService {
 	private final UserRequestDAO userRequestDAO = DAOFactory.getInstance().getUserRequestDAO();
 
 	@Override
-	public List<UserRequest> getAllUserRequestsByUserId(int id) throws ServiceException {
-		try {
-			return userRequestDAO.getAllUserRequestsByUserId(id);
-		} catch (DAOException e) {
-			throw new ServiceException(e);
+	public List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException {
+		List<UserRequest> userRequestList = null;
+		if (login != null) {
+			try {
+				userRequestList = userRequestDAO.getAllUserRequestsByUserLogin(login);
+			} catch (DAOException e) {
+				throw new ServiceException(e);
+			}
 		}
+		return userRequestList;
 	}
-
 }

@@ -25,7 +25,7 @@ public class SessionLoginFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpsResponse = (HttpServletResponse) response;
 		User user = (User) httpRequest.getSession().getAttribute(RequestParameter.USER.toString());
-		if (user == null || user.isBlocked()) {
+		if (user == null || user.getIsBlocked()) {
 			httpsResponse.sendRedirect(httpRequest.getContextPath() + PageEnum.LOGIN_PAGE.getValue());
 			return;
 		}

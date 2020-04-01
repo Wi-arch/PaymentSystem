@@ -7,7 +7,7 @@ import by.training.payment.exception.DAOException;
 
 public interface PaymentSystemDAO {
 
-	PaymentSystem getPaymentSystemById(int id) throws DAOException;
+	PaymentSystem getPaymentSystemByName(String name) throws DAOException;
 
 	List<PaymentSystem> getAllPaymentSystems() throws DAOException;
 
