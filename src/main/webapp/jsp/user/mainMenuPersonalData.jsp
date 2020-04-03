@@ -84,7 +84,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	</ul>
 
 
-	<div class="userDataBox">
+	<div class="userDataBox" id="userDataBox">
 		<h3>
 			<fmt:message key="label.personalData" />
 		</h3>
@@ -140,50 +140,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<br>
 		</form>
 
-		<div class="form-popup" id="inputPasswordForm">
-			<form action="${pageContext.request.contextPath}/controller"
-				class="form-container" method="post">
-				<input type="hidden" name="COMMAND" value="UPDATE_USER_PASSWORD">
-				<h1>
-					<fmt:message key="label.passwordUpdate" />
-				</h1>
-				<label for="OLD_PASSWORD"><b><fmt:message
-							key="label.oldPassword" /></b></label> <input type="password"
-					placeholder="<fmt:message key="label.oldPassword" />"
-					name="OLD_PASSWORD" title="" required value="" id="oldPassword"
-					onchange="this.setAttribute('value', this.value);"
-					oninvalid="this.setCustomValidity('<fmt:message
-						key="text.requiredField" />')"
-					oninput="setCustomValidity('')"> <label for="NEW_PASSWORD"><b><fmt:message
-							key="label.newPassword" /></b></label> <input type="password"
-					placeholder="<fmt:message key="label.newPassword" />"
-					name="NEW_PASSWORD" required
-					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^\s\w]|[_]))[\S]{6,}$"
-					value="" id="newPassword"
-					title="<fmt:message key="text.newPasswordInfo" />"
-					oninvalid="this.setCustomValidity('<fmt:message key="*Status1006*" />')"
-					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1006*" />' : '');
-			if(this.checkValidity()) form.confirmNewPassword.pattern = this.value;" />
-
-				<label for="CONFIRM_NEW_PASSWORD"><b><fmt:message
-							key="label.confirmNewPassword" /></b></label> <input type="password"
-					placeholder="<fmt:message key="label.confirmNewPassword" />"
-					name="CONFIRM_NEW_PASSWORD" required
-					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^\s\w]|[_]))[\S]{6,}$"
-					value="" id="confirmNewPassword"
-					title="<fmt:message key="text.newPasswordInfo" />"
-					oninvalid="this.setCustomValidity('<fmt:message key="*Status1002*" />')"
-					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1002*" />' : '');" />
-				<button type="submit" class="btn">
-					<fmt:message key="button.changePassword" />
-				</button>
-				<button type="button" class="btn cancel" onclick="closeForm()">
-					<fmt:message key="button.cancel" />
-				</button>
-			</form>
-		</div>
-
-
 		<c:if test="${not empty ERROR_MESSAGE}">
 			<h3 id="error">
 				<fmt:message key="${ERROR_MESSAGE}" />
@@ -195,6 +151,49 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</h3>
 		</c:if>
 
+	</div>
+
+	<div class="form-popup" id="inputPasswordForm">
+		<form action="${pageContext.request.contextPath}/controller"
+			class="form-container" method="post">
+			<input type="hidden" name="COMMAND" value="UPDATE_USER_PASSWORD">
+			<h1>
+				<fmt:message key="label.passwordUpdate" />
+			</h1>
+			<label for="OLD_PASSWORD"><b><fmt:message
+						key="label.oldPassword" /></b></label> <input type="password"
+				placeholder="<fmt:message key="label.oldPassword" />"
+				name="OLD_PASSWORD" title="" required value="" id="oldPassword"
+				onchange="this.setAttribute('value', this.value);"
+				oninvalid="this.setCustomValidity('<fmt:message
+						key="text.requiredField" />')"
+				oninput="setCustomValidity('')"> <label for="NEW_PASSWORD"><b><fmt:message
+						key="label.newPassword" /></b></label> <input type="password"
+				placeholder="<fmt:message key="label.newPassword" />"
+				name="NEW_PASSWORD" required
+				pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^\s\w]|[_]))[\S]{6,}$"
+				value="" id="newPassword"
+				title="<fmt:message key="text.newPasswordInfo" />"
+				oninvalid="this.setCustomValidity('<fmt:message key="*Status1006*" />')"
+				onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1006*" />' : '');
+			if(this.checkValidity()) form.confirmNewPassword.pattern = this.value;" />
+
+			<label for="CONFIRM_NEW_PASSWORD"><b><fmt:message
+						key="label.confirmNewPassword" /></b></label> <input type="password"
+				placeholder="<fmt:message key="label.confirmNewPassword" />"
+				name="CONFIRM_NEW_PASSWORD" required
+				pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^\s\w]|[_]))[\S]{6,}$"
+				value="" id="confirmNewPassword"
+				title="<fmt:message key="text.newPasswordInfo" />"
+				oninvalid="this.setCustomValidity('<fmt:message key="*Status1002*" />')"
+				onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1002*" />' : '');" />
+			<button type="submit" class="btn">
+				<fmt:message key="button.changePassword" />
+			</button>
+			<button type="button" class="btn cancel" onclick="closeForm()">
+				<fmt:message key="button.cancel" />
+			</button>
+		</form>
 	</div>
 
 

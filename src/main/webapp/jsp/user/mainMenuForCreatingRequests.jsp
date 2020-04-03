@@ -24,7 +24,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 
 <body class="background">
-	
+
 	<ul>
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
@@ -84,64 +84,174 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
 		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
 	</ul>
-	
 
-<div class="userDataBox">
-	<form method="post" >
-		<h3>Choose card to unlock:</h3>
-		<input type="submit" id="chooseRequest" name="Change" value="Unlock card"><br><br>
-		<input type="submit" id="chooseRequest" name="Change" value="Open new account"><br><br>
-		<input type="submit" id="chooseRequest" name="Change" value="Open new card to existing account"><br><br>
-		<input type="submit" id="chooseRequest" name="Change" value="Open new card with no account"><br><br>
+
+	<div class="userCreateRequestBox" id="userCreateRequestBox">
+		<h3>
+			<fmt:message key="label.chooseRequestType" />
+		</h3>
 		<br>
-	</form>
-	
-			<div class="form-popup" id="inputPasswordForm">
-			<form action="${pageContext.request.contextPath}/controller"
-				class="form-container" method="post">
-				<input type="hidden" name="COMMAND" value="UPDATE_USER_PASSWORD">
-				<h1>
-					<fmt:message key="label.passwordUpdate" />
-				</h1>
-				<label for="OLD_PASSWORD"><b><fmt:message
-							key="label.oldPassword" /></b></label> <input type="password"
-					placeholder="<fmt:message key="label.oldPassword" />"
-					name="OLD_PASSWORD" title="" required value="" id="oldPassword"
-					onchange="this.setAttribute('value', this.value);"
-					oninvalid="this.setCustomValidity('<fmt:message
-						key="text.requiredField" />')"
-					oninput="setCustomValidity('')"> <label for="NEW_PASSWORD"><b><fmt:message
-							key="label.newPassword" /></b></label> <input type="password"
-					placeholder="<fmt:message key="label.newPassword" />"
-					name="NEW_PASSWORD" required
-					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^\s\w]|[_]))[\S]{6,}$"
-					value="" id="newPassword"
-					title="<fmt:message key="text.newPasswordInfo" />"
-					oninvalid="this.setCustomValidity('<fmt:message key="*Status1006*" />')"
-					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1006*" />' : '');
-			if(this.checkValidity()) form.confirmNewPassword.pattern = this.value;" />
+		<button onclick="openFormNewAccount()">
+			<fmt:message key="button.openNewAccount" />
+		</button>
+		<br> <br>
+		<c:if test="${not empty BANK_ACCOUNT_LIST}">
+			<button onclick="openFormNewCardExistingAccount()">
+				<fmt:message key="button.openNewCardToExistingAccount" />
+			</button>
+			<br>
+			<br>
+		</c:if>
+		<button onclick="openFormNewCard()">
+			<fmt:message key="button.openNewCard" />
+		</button>
+		<br> <br>
+		<c:if test="${not empty ERROR_MESSAGE}">
+			<h3 id="error">
+				<fmt:message key="${ERROR_MESSAGE}" />
+			</h3>
+		</c:if>
+		<c:if test="${not empty RESULT_MESSAGE}">
+			<h3 id="result">
+				<fmt:message key="${RESULT_MESSAGE}" />
+			</h3>
+		</c:if>
+	</div>
 
-				<label for="CONFIRM_NEW_PASSWORD"><b><fmt:message
-							key="label.confirmNewPassword" /></b></label> <input type="password"
-					placeholder="<fmt:message key="label.confirmNewPassword" />"
-					name="CONFIRM_NEW_PASSWORD" required
-					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^\s\w]|[_]))[\S]{6,}$"
-					value="" id="confirmNewPassword"
-					title="<fmt:message key="text.newPasswordInfo" />"
-					oninvalid="this.setCustomValidity('<fmt:message key="*Status1002*" />')"
-					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1002*" />' : '');" />
-				<button type="submit" class="btn">
-					<fmt:message key="button.changePassword" />
-				</button>
-				<button type="button" class="btn cancel" onclick="closeForm()">
-					<fmt:message key="button.cancel" />
-				</button>
-			</form>
-		</div>
-</div>
- 
- 
-		
+	<div class="newAccountRequestForm" id="openFormNewAccount">
+		<form action="${pageContext.request.contextPath}/controller"
+			class="form-container" method="post">
+			<input type="hidden" name="COMMAND"
+				value="CREATE_REQUEST_OPEN_NEW_ACCOUNT">
+			<h3>
+				<fmt:message key="label.openNewAccount" />
+			</h3>
+			<h5>
+				<fmt:message key="label.chooseCurrency" />
+			</h5>
+			<br> <label class="container">BYN <input type="radio"
+				id="checkedButton" checked="checked" name="CURRENCY" value="BYN">
+				<span class="checkmark"></span>
+			</label> <label class="container">USD <input type="radio"
+				name="CURRENCY" value="USD"> <span class="checkmark"></span>
+			</label> <label class="container">EUR <input type="radio"
+				name="CURRENCY" value="EUR"> <span class="checkmark"></span>
+			</label> <label class="container">RUB <input type="radio"
+				name="CURRENCY" value="RUB"> <span class="checkmark"></span>
+			</label><br><br>
+			<button type="submit" class="btn">
+				<fmt:message key="button.submitRequest" />
+			</button>
+			<button type="button" class="btn cancel"
+				onclick="closeFormNewAccount() ">
+				<fmt:message key="button.cancel" />
+			</button>
+		</form>
+	</div>
+
+
+	<div class="newCardExistingAccountRequestForm"
+		id="openFormNewCardExistingAccount">
+		<form action="${pageContext.request.contextPath}/controller"
+			class="form-container" method="post">
+			<input type="hidden" name="COMMAND"
+				value="CREATE_REQUEST_OPEN_NEW_CARD_TO_EXISTING_ACCOUNT">
+			<h3>
+				<fmt:message key="label.openNewCardToExistingAccount" />
+			</h3>
+			<br>
+			<h5>
+				<fmt:message key="label.chooseBankAccount" />
+				<select name="BANK_ACCOUNT_NUMBER">
+					<c:forEach items="${BANK_ACCOUNT_LIST}" var="value">
+						<option value="${value.accountNumber}">
+							<c:out value="${value.accountNumber}" /></option>
+					</c:forEach>
+				</select>
+			</h5>
+			<br>
+			<h5>
+				<fmt:message key="label.chooseCardExpiryDate" />
+				<select name="CARD_EXPIRATION_DATE">
+					<option value="1">1</option>
+					<option value="3">3</option>
+					<option selected value="5">5</option>
+				</select>
+			</h5>
+			<br>
+			<h5>
+				<fmt:message key="label.choosePaymentSystem" />
+				<select name="PAYMENT_SYSTEM">
+					<option id="checkedButton" selected value="Visa">Visa</option>
+					<option value="MasterCard">MasterCard</option>
+					<option value="БелКарт">БелКарт</option>
+					<option value="UnionPay">UnionPay</option>
+					<option value="American Express">AmericanExpress</option>
+				</select>
+			</h5>
+			<br>
+			<button type="submit" class="btn">
+				<fmt:message key="button.submitRequest" />
+			</button>
+			<button type="button" class="btn cancel"
+				onclick="closeFormNewCardExistingAccount() ">
+				<fmt:message key="button.cancel" />
+			</button>
+		</form>
+	</div>
+
+
+	<div class="newCardRequestForm" id="openFormNewCard">
+		<form action="${pageContext.request.contextPath}/controller"
+			class="form-container" method="post">
+			<input type="hidden" name="COMMAND"
+				value="CREATE_REQUEST_OPEN_NEW_CARD">
+			<h3>
+				<fmt:message key="label.openNewCard" />
+			</h3>
+			<br>
+			<h5>
+				<fmt:message key="label.chooseCurrency" />
+				<select name="CURRENCY">
+					<option selected value="BYN">BYN</option>
+					<option value="USD">USD</option>
+					<option value="EUR">EUR</option>
+					<option value="RUB">RUB</option>
+				</select>
+			</h5>
+			<br>
+			<h5>
+				<fmt:message key="label.chooseCardExpiryDate" />
+				<select name="CARD_EXPIRATION_DATE">
+					<option value="1">1</option>
+					<option value="3">3</option>
+					<option selected value="5">5</option>
+				</select>
+			</h5>
+			<br>
+			<h5>
+				<fmt:message key="label.choosePaymentSystem" />
+				<select name="PAYMENT_SYSTEM">
+					<option selected value="Visa">Visa</option>
+					<option value="MasterCard">MasterCard</option>
+					<option value="БелКарт">БелКарт</option>
+					<option value="UnionPay">UnionPay</option>
+					<option value="American Express">AmericanExpress</option>
+				</select>
+			</h5>
+			<br> <br>
+			<button type="submit" class="btn">
+				<fmt:message key="button.submitRequest" />
+			</button>
+			<button type="button" class="btn cancel"
+				onclick="closeFormNewCard() ">
+				<fmt:message key="button.cancel" />
+			</button>
+		</form>
+	</div>
+
+
+	<script src="js/script.js"></script>
 </body>
 </html>
 
