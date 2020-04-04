@@ -22,6 +22,9 @@ import by.training.payment.command.user.ShowUserRequestsMenu;
 import by.training.payment.command.user.UpdateUserName;
 import by.training.payment.command.user.UpdateUserPassword;
 import by.training.payment.command.user.UpdateUserSurname;
+import by.training.payment.command.user.request.CreateRequestOpenNewAccount;
+import by.training.payment.command.user.request.CreateRequestOpenNewCard;
+import by.training.payment.command.user.request.CreateRequestOpenNewCardToExistingAccount;
 
 public class CommandFactory {
 
@@ -42,6 +45,10 @@ public class CommandFactory {
 		commandMap.put(CommandName.DELETE_USER_ACCOUNT, new DeleteUserAccount());
 		commandMap.put(CommandName.SHOW_ALL_USER_REQUESTS, new ShowUserRequestsMenu());
 		commandMap.put(CommandName.SHOW_MENU_FOR_CREATING_REQUESTS, new ShowMenuForCreatingRequest());
+		
+		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_ACCOUNT, new CreateRequestOpenNewAccount());
+		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_CARD, new CreateRequestOpenNewCard());
+		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_CARD_TO_EXISTING_ACCOUNT, new CreateRequestOpenNewCardToExistingAccount());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {
