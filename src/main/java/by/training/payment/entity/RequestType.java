@@ -5,11 +5,14 @@ public class RequestType {
 	private String value;
 
 	public RequestType() {
-
 	}
 
 	public RequestType(String value) {
 		this.value = value;
+	}
+
+	public RequestType(RequestType requestType) {
+		this.value = requestType.value;
 	}
 
 	public String getValue() {

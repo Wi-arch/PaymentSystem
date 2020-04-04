@@ -18,6 +18,15 @@ public class UserRequest {
 		this.id = id;
 	}
 
+	public UserRequest(RequestType requestType) {
+		this.requestType = requestType;
+	}
+
+	public UserRequest(User user, RequestType requestType) {
+		this.user = user;
+		this.requestType = requestType;
+	}
+
 	public int getId() {
 		return id;
 	}

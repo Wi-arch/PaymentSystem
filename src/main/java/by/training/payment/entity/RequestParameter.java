@@ -15,6 +15,10 @@ public class RequestParameter {
 		this.id = id;
 	}
 
+	public RequestParameter(ParameterHeader parameterHeader) {
+		this.parameterHeader = parameterHeader;
+	}
+
 	public int getId() {
 		return id;
 	}

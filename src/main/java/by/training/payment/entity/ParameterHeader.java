@@ -12,6 +12,10 @@ public class ParameterHeader {
 		this.name = name;
 	}
 
+	public ParameterHeader(ParameterHeader parameterHeader) {
+		this.name = parameterHeader.name;
+	}
+
 	public String getName() {
 		return name;
 	}
