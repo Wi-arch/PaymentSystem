@@ -27,6 +27,11 @@ public class MySQLBankAccountDAO extends SQLUtil implements BankAccountDAO {
 			+ "ON bank_account.currency_name = currency.currency_name "
 			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
 			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value;";
+	private static final String GET_ALL_BANK_ACCOUNTS_BY_USER_LOGIN = "SELECT * FROM bank_account INNER JOIN currency "
+			+ "ON bank_account.currency_name = currency.currency_name "
+			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
+			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value "
+			+ "WHERE bank_user.bank_user_login = ?;";
 
 	@Override	
 	public void addBankAccount(BankAccount bankAccount) throws DAOException {
@@ -132,6 +137,31 @@ public class MySQLBankAccountDAO extends SQLUtil implements BankAccountDAO {
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot load bank account list", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return bankAccounts;
+	}
+
+	@Override
+	public List<BankAccount> getAllBankAccountsByUserLogin(String login) throws DAOException {
+		List<BankAccount> bankAccounts = new ArrayList<>();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			if (connection != null) {
+				statement = connection.prepareStatement(GET_ALL_BANK_ACCOUNTS_BY_USER_LOGIN);
+				if (statement != null) {
+					statement.setString(1, login);
+					resultSet = statement.executeQuery();
+					while (resultSet.next()) {
+						bankAccounts.add(buildBankAccount(resultSet));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load bank account list by user login", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);

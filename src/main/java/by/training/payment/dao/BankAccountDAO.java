@@ -16,4 +16,6 @@ public interface BankAccountDAO {
 	BankAccount getBankAccountByAccountNumber(String number) throws DAOException;
 
 	List<BankAccount> getAllBankAccounts() throws DAOException;
+
+	List<BankAccount> getAllBankAccountsByUserLogin(String login) throws DAOException;
 }
