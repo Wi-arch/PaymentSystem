@@ -5,11 +5,17 @@ import javax.servlet.http.HttpServletRequest;
 import by.training.payment.entity.User;
 import by.training.payment.entity.UserRole;
 import by.training.payment.factory.ServiceFactory;
+import by.training.payment.service.BankAccountService;
+import by.training.payment.service.CurrencyService;
+import by.training.payment.service.UserRequestService;
 import by.training.payment.service.UserService;
 
-public abstract class AbstractUserCommand implements Command {
+public abstract class AbstractCommand implements Command {
 
-	protected static final UserService USER_SERVICE = ServiceFactory.getInstance().getUserService();
+	protected final UserService userService = ServiceFactory.getInstance().getUserService();
+	protected final UserRequestService userRequestService = ServiceFactory.getInstance().getUserRequestService();
+	protected final CurrencyService currencyService = ServiceFactory.getInstance().getCurrencyService();
+	protected final BankAccountService bankAccountService = ServiceFactory.getInstance().getBankAccountService();
 	private static final String USER_ROLE = "User";
 	private static final String ADMIN_ROLE = "Admin";
 

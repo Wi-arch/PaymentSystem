@@ -5,14 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import by.training.payment.command.AbstractUserCommand;
+import by.training.payment.command.AbstractCommand;
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class UpdateUserPassword extends AbstractUserCommand {
+public class UpdateUserPassword extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(UpdateUserPassword.class);
 	private static final String SUCCESSFULLY_UPDATE_PASSWORD_STATUS = "*Status1014*";
@@ -24,7 +24,7 @@ public class UpdateUserPassword extends AbstractUserCommand {
 		String newPassword = request.getParameter(RequestParameter.NEW_PASSWORD.toString());
 		String confirmPassword = request.getParameter(RequestParameter.CONFIRM_NEW_PASSWORD.toString());
 		try {
-			USER_SERVICE.updateUserPassword(user, oldPassword, newPassword, confirmPassword);
+			userService.updateUserPassword(user, oldPassword, newPassword, confirmPassword);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_UPDATE_PASSWORD_STATUS);
 			request.getSession().setAttribute(RequestParameter.USER.toString(), user);
 		} catch (ServiceException e) {

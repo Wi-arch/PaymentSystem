@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class UserRegistration extends AbstractUserCommand {
+public class UserRegistration extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(UserRegistration.class);
 	private static final String SUCCESSFULLY_REGISTRATION_STATUS = "*Status1009*";
@@ -17,7 +17,7 @@ public class UserRegistration extends AbstractUserCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String confirmPassword = request.getParameter(RequestParameter.USER_PASSWORD_CONFIRM.toString());
 		try {
-			USER_SERVICE.registerUser(buildUser(request), confirmPassword);
+			userService.registerUser(buildUser(request), confirmPassword);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_REGISTRATION_STATUS);
 		} catch (ServiceException e) {
 			LOGGER.warn("Registration exception", e);

@@ -9,7 +9,7 @@ import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class UserAuthorization extends AbstractUserCommand {
+public class UserAuthorization extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(UserAuthorization.class);
 	private static final String WRONG_LOGIN_OR_PASSWORD_STATUS = "*Status1008*";
@@ -18,7 +18,7 @@ public class UserAuthorization extends AbstractUserCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String page = PageEnum.LOGIN_PAGE.getValue();
 		try {
-			User existingUser = USER_SERVICE.login(buildUser(request));
+			User existingUser = userService.login(buildUser(request));
 			if (existingUser != null) {
 				page = defineUserPage(existingUser);
 				request.getSession().setAttribute(RequestParameter.USER.toString(), existingUser);

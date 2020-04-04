@@ -5,14 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import by.training.payment.command.AbstractUserCommand;
+import by.training.payment.command.AbstractCommand;
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class UpdateUserSurname extends AbstractUserCommand {
+public class UpdateUserSurname extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(UpdateUserSurname.class);
 
@@ -21,7 +21,7 @@ public class UpdateUserSurname extends AbstractUserCommand {
 		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
 		String surname = request.getParameter(RequestParameter.USER_SURNAME.toString());
 		try {
-			USER_SERVICE.updateUserSurname(user, surname);
+			userService.updateUserSurname(user, surname);
 			request.setAttribute(RequestParameter.USER.toString(), user);
 		} catch (ServiceException e) {
 			LOGGER.warn("Cannot update user surname", e);

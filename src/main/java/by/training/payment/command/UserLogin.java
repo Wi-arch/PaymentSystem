@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.training.payment.entity.User;
 
-public class UserLogin extends AbstractUserCommand {
+public class UserLogin extends AbstractCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {

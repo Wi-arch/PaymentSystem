@@ -9,7 +9,7 @@ import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class RestoreUserPassword extends AbstractUserCommand {
+public class RestoreUserPassword extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(RestoreUserPassword.class);
 	private static final String SUCCESSFULLY_RESET_PASSWORD_STATUS = "*Status1017*";
@@ -18,7 +18,7 @@ public class RestoreUserPassword extends AbstractUserCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		User user = buildUser(request);
 		try {
-			USER_SERVICE.restoreUserPassword(user);
+			userService.restoreUserPassword(user);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_RESET_PASSWORD_STATUS);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));

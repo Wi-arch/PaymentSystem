@@ -5,14 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import by.training.payment.command.AbstractUserCommand;
+import by.training.payment.command.AbstractCommand;
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class ShowUserDataMenu extends AbstractUserCommand {
+public class ShowUserDataMenu extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(ShowUserDataMenu.class);
 
@@ -21,7 +21,7 @@ public class ShowUserDataMenu extends AbstractUserCommand {
 		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
 		if (user != null) {
 			try {
-				user = USER_SERVICE.getUserByLogin(user.getLogin());
+				user = userService.getUserByLogin(user.getLogin());
 				request.getSession().setAttribute(RequestParameter.USER.toString(), user);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
