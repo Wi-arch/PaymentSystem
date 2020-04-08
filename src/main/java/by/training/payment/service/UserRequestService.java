@@ -23,4 +23,8 @@ public interface UserRequestService {
 			PaymentSystem paymentSystem, CardExpirationDate cardExpirationDate) throws ServiceException;
 
 	List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException;
+
+	List<UserRequest> getAllUserRequests() throws ServiceException;
+
+	List<UserRequest> getAllUserRequestsInProcessing() throws ServiceException;
 }

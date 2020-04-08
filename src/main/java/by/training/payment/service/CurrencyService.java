@@ -12,4 +12,6 @@ public interface CurrencyService {
 	Currency getCurrencyByName(String name) throws ServiceException;
 
 	List<Currency> getAllCurrencies() throws ServiceException;
+
+	void updateAllCurrenciesFromNationalBank() throws ServiceException;
 }

@@ -60,15 +60,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserByLogin(String login) throws ServiceException {
-		User user = null;
-		if (login != null) {
-			try {
-				user = userDAO.getUserByLogin(login);
-			} catch (DAOException e) {
-				throw new ServiceException(e);
-			}
+		try {
+			return userDAO.getUserByLogin(login);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
 		}
-		return user;
 	}
 
 	@Override
@@ -140,9 +136,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private void isLoginPasswordEmailValid(User user) throws ServiceException {
-		userValidator.checkLogin(user.getLogin());
+		isLoginEmailValid(user);
 		userValidator.checkPassword(user.getPassword());
-		userValidator.checkEmail(user.getEmail());
 	}
 
 	private void isLoginEmailValid(User user) throws ServiceException {

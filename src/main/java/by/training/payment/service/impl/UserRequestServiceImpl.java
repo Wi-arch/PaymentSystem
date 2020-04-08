@@ -2,7 +2,6 @@ package by.training.payment.service.impl;
 
 import java.util.List;
 
-import by.training.payment.builder.RequestParameterBuilder;
 import by.training.payment.dao.UserRequestDAO;
 import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.Card;
@@ -14,6 +13,7 @@ import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.DAOException;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.factory.DAOFactory;
+import by.training.payment.factory.RequestParameterBuilder;
 import by.training.payment.service.UserRequestService;
 
 public class UserRequestServiceImpl implements UserRequestService {
@@ -23,15 +23,11 @@ public class UserRequestServiceImpl implements UserRequestService {
 
 	@Override
 	public List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException {
-		List<UserRequest> userRequestList = null;
-		if (login != null) {
-			try {
-				userRequestList = userRequestDAO.getAllUserRequestsByUserLogin(login);
-			} catch (DAOException e) {
-				throw new ServiceException(e);
-			}
+		try {
+			return userRequestDAO.getAllUserRequestsByUserLogin(login);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
 		}
-		return userRequestList;
 	}
 
 	@Override
@@ -46,7 +42,8 @@ public class UserRequestServiceImpl implements UserRequestService {
 			CardExpirationDate cardExpirationDate) throws ServiceException {
 		RequestParameter currencyParameter = builder.buildCurrencyRequestParameter(currency);
 		RequestParameter paymentSystemParameter = builder.buildPaymentSystemRequestParameter(paymentSystem);
-		RequestParameter cardExpirationDateParameter = builder.buildCardExpirationDateRequestParameter(cardExpirationDate);
+		RequestParameter cardExpirationDateParameter = builder
+				.buildCardExpirationDateRequestParameter(cardExpirationDate);
 		List<RequestParameter> requestParameterList = builder.buildRequestParameterList(currencyParameter,
 				paymentSystemParameter, cardExpirationDateParameter);
 		saveUserRequestWithParameterList(userRequest, requestParameterList);
@@ -64,10 +61,29 @@ public class UserRequestServiceImpl implements UserRequestService {
 			PaymentSystem paymentSystem, CardExpirationDate cardExpirationDate) throws ServiceException {
 		RequestParameter bankAccountParameter = builder.buildBankAccountRequestParameter(bankAccount);
 		RequestParameter paymentSystemParameter = builder.buildPaymentSystemRequestParameter(paymentSystem);
-		RequestParameter cardExpirationDateParameter = builder.buildCardExpirationDateRequestParameter(cardExpirationDate);
+		RequestParameter cardExpirationDateParameter = builder
+				.buildCardExpirationDateRequestParameter(cardExpirationDate);
 		List<RequestParameter> requestParameterList = builder.buildRequestParameterList(bankAccountParameter,
 				paymentSystemParameter, cardExpirationDateParameter);
 		saveUserRequestWithParameterList(userRequest, requestParameterList);
+	}
+
+	@Override
+	public List<UserRequest> getAllUserRequests() throws ServiceException {
+		try {
+			return userRequestDAO.getAllUserRequests();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<UserRequest> getAllUserRequestsInProcessing() throws ServiceException {
+		try {
+			return userRequestDAO.getAllUserRequestsInProcessing();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	private void saveUserRequestWithParameterList(UserRequest userRequest, List<RequestParameter> requestParameterList)
