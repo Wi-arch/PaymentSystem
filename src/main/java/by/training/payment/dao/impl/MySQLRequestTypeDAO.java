@@ -23,13 +23,11 @@ public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_REQUEST_TYPES);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						requestTypes.add(buildRequestType(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_REQUEST_TYPES);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					requestTypes.add(buildRequestType(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -47,14 +45,12 @@ public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_REQUEST_TYPE_BY_VALUE);
-				if (statement != null) {
-					statement.setString(1, value);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						requestType = buildRequestType(resultSet);
-					}
+			statement = connection.prepareStatement(GET_REQUEST_TYPE_BY_VALUE);
+			if (statement != null) {
+				statement.setString(1, value);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					requestType = buildRequestType(resultSet);
 				}
 			}
 		} catch (SQLException e) {

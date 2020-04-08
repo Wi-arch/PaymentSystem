@@ -24,6 +24,7 @@ import by.training.payment.pool.ProxyConnection;
 public class SQLUtil {
 
 	private static final Logger LOGGER = Logger.getLogger(SQLUtil.class);
+	protected static final int ZERO = 0;
 
 	private static final String USER_ROLE_VALUE = "user_role.user_role_value";
 
@@ -58,7 +59,7 @@ public class SQLUtil {
 	private static final String CURRENCY_IS_BASE_CURRENCY = "currency.currency_is_base_currency";
 
 	private static final String BANK_ACCOUNT_NUMBER = "bank_account.bank_account_number";
-	private static final String BANK_ACCOUNT_BALANCE = "bank_account.bank_account_balance";
+	protected static final String BANK_ACCOUNT_BALANCE = "bank_account.bank_account_balance";
 	private static final String BANK_ACCOUNT_IS_BLOCKED = "bank_account.bank_account_is_blocked";
 	private static final String BANK_ACCOUNT_OPENING_DATE = "bank_account.bank_account_opening_date";
 
@@ -82,7 +83,7 @@ public class SQLUtil {
 		card.setBankAccount(buildBankAccount(resultSet));
 		card.setBlocked(resultSet.getBoolean(CARD_IS_BLOCKED));
 		card.setCcv(resultSet.getString(CARD_CCV_CODE));
-		card.setExpirationDate(buildCardExpirationDate(resultSet));	
+		card.setExpirationDate(buildCardExpirationDate(resultSet));
 		card.setNumberMask(resultSet.getString(CARD_NUMBER_MASK));
 		card.setOpeningDate(resultSet.getTimestamp(CARD_OPENING_DATE));
 		card.setPaymentSystem(buildPaymentSystem(resultSet));
@@ -167,7 +168,7 @@ public class SQLUtil {
 		User user = new User();
 		user.setLogin(resultSet.getString(USER_LOGIN));
 		user.setBlocked(resultSet.getBoolean(USER_IS_BLOCKED));
-		user.setEmail(resultSet.getString(USER_EMAIL));		
+		user.setEmail(resultSet.getString(USER_EMAIL));
 		user.setName(resultSet.getString(USER_NAME));
 		user.setPassword(resultSet.getString(USER_PASSWORD));
 		user.setSurname(resultSet.getString(USER_SURNAME));
@@ -213,12 +214,22 @@ public class SQLUtil {
 		}
 	}
 
-	protected void closeConnection(ProxyConnection proxyConnection) {
-		if (proxyConnection != null) {
+	protected void closeConnection(ProxyConnection connection) {
+		if (connection != null) {
 			try {
-				proxyConnection.close();
+				connection.close();
 			} catch (SQLException e) {
 				LOGGER.error("Cannot close ProxyConnection", e);
+			}
+		}
+	}
+
+	protected void rollbackTransaction(ProxyConnection connection) {
+		if (connection != null) {
+			try {
+				connection.rollback();
+			} catch (SQLException e) {
+				LOGGER.error("Cannot rollback transaction", e);
 			}
 		}
 	}

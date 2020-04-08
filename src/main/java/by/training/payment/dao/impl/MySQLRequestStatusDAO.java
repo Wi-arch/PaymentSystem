@@ -17,20 +17,17 @@ public class MySQLRequestStatusDAO extends SQLUtil implements RequestStatusDAO {
 	private static final String GET_REQUEST_STATUS_BY_VALUE = "SELECT * FROM request_status WHERE request_status_value = ?";
 	private static final String GET_REQUEST_STATUS_LIST = "SELECT * FROM request_status";
 
-
 	@Override
 	public List<RequestStatus> getRequestStatusList() throws DAOException {
 		List<RequestStatus> requestStatus = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_REQUEST_STATUS_LIST);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						requestStatus.add(buildRequestStatus(resultSet));
-					}
+			statement = connection.prepareStatement(GET_REQUEST_STATUS_LIST);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					requestStatus.add(buildRequestStatus(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -48,14 +45,12 @@ public class MySQLRequestStatusDAO extends SQLUtil implements RequestStatusDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_REQUEST_STATUS_BY_VALUE);
-				if (statement != null) {
-					statement.setString(1, value);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						requestStatus = buildRequestStatus(resultSet);
-					}
+			statement = connection.prepareStatement(GET_REQUEST_STATUS_BY_VALUE);
+			if (statement != null) {
+				statement.setString(1, value);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					requestStatus = buildRequestStatus(resultSet);
 				}
 			}
 		} catch (SQLException e) {

@@ -17,20 +17,17 @@ public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpiratio
 	private static final String GET_CARD_EXPIRATION_DATE_BY_VALUE = "SELECT * FROM card_expiration_date WHERE card_expiration_date_value = ?";
 	private static final String GET_ALL_CARD_EXPIRATION_DATES = "SELECT * FROM card_expiration_date";
 
-
 	@Override
 	public List<CardExpirationDate> getAllCardExpirationDates() throws DAOException {
 		List<CardExpirationDate> cardExpirationDates = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_CARD_EXPIRATION_DATES);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						cardExpirationDates.add(buildCardExpirationDate(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_CARD_EXPIRATION_DATES);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					cardExpirationDates.add(buildCardExpirationDate(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -48,14 +45,12 @@ public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpiratio
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_CARD_EXPIRATION_DATE_BY_VALUE);
-				if (statement != null) {
-					statement.setString(1, value);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						cardExpirationDate = buildCardExpirationDate(resultSet);
-					}
+			statement = connection.prepareStatement(GET_CARD_EXPIRATION_DATE_BY_VALUE);
+			if (statement != null) {
+				statement.setString(1, value);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					cardExpirationDate = buildCardExpirationDate(resultSet);
 				}
 			}
 		} catch (SQLException e) {

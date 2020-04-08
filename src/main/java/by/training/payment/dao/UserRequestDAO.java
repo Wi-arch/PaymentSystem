@@ -18,10 +18,11 @@ public interface UserRequestDAO {
 
 	UserRequest getUserRequestById(int id) throws DAOException;
 
+	List<UserRequest> getAllUserRequestsInProcessing() throws DAOException;
+
 	void saveUserRequestWithParameterList(UserRequest userRequest, List<RequestParameter> requestParameters)
 			throws DAOException;
 
 	List<UserRequest> getAllUserRequestsByUserLogin(String login) throws DAOException;
-	
-	
+
 }

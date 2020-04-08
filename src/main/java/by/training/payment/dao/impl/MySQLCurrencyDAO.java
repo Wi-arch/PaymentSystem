@@ -25,16 +25,14 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 	public void addCurrency(Currency currency) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(ADD_CURRENCY);
-				if (statement != null) {
-					statement.setString(1, currency.getName());
-					statement.setBigDecimal(2, currency.getRate());
-					statement.setInt(3, currency.getScale());					
-					statement.setTimestamp(4, new Timestamp(currency.getUpdateDate().getTime()));
-					statement.setBoolean(5, currency.getIsBaseCurrency());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(ADD_CURRENCY);
+			if (statement != null) {
+				statement.setString(1, currency.getName());
+				statement.setBigDecimal(2, currency.getRate());
+				statement.setInt(3, currency.getScale());
+				statement.setTimestamp(4, new Timestamp(currency.getUpdateDate().getTime()));
+				statement.setBoolean(5, currency.getIsBaseCurrency());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot add currency", e);
@@ -47,16 +45,14 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 	public void updateCurrency(Currency currency) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(UPDATE_CURRENCY);
-				if (statement != null) {
-					statement.setBigDecimal(1, currency.getRate());
-					statement.setInt(2, currency.getScale());			
-					statement.setTimestamp(3, new Timestamp(currency.getUpdateDate().getTime()));
-					statement.setBoolean(4, currency.getIsBaseCurrency());
-					statement.setString(5, currency.getName());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(UPDATE_CURRENCY);
+			if (statement != null) {
+				statement.setBigDecimal(1, currency.getRate());
+				statement.setInt(2, currency.getScale());
+				statement.setTimestamp(3, new Timestamp(currency.getUpdateDate().getTime()));
+				statement.setBoolean(4, currency.getIsBaseCurrency());
+				statement.setString(5, currency.getName());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot update currency", e);
@@ -69,12 +65,10 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 	public void deleteCurrency(Currency currency) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(DELETE_CURRENCY);
-				if (statement != null) {
-					statement.setString(1, currency.getName());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(DELETE_CURRENCY);
+			if (statement != null) {
+				statement.setString(1, currency.getName());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot delete currency", e);
@@ -89,13 +83,11 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_CURRENCIES);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						currencies.add(buildCurrency(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_CURRENCIES);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					currencies.add(buildCurrency(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -113,14 +105,12 @@ public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_CURRENCY_BY_CURRENCY_NAME);
-				if (statement != null) {
-					statement.setString(1, name);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						currency = buildCurrency(resultSet);
-					}
+			statement = connection.prepareStatement(GET_CURRENCY_BY_CURRENCY_NAME);
+			if (statement != null) {
+				statement.setString(1, name);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					currency = buildCurrency(resultSet);
 				}
 			}
 		} catch (SQLException e) {
