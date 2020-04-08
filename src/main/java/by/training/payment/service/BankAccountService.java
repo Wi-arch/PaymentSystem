@@ -5,7 +5,10 @@ import java.util.List;
 import by.training.payment.entity.BankAccount;
 import by.training.payment.exception.ServiceException;
 
-public interface BankAccountService {
+public interface BankAccountService{
 
 	List<BankAccount> getAllBankAccountsByUserLogin(String login) throws ServiceException;
+
+	void lockBankAccount(BankAccount bankAccount) throws ServiceException;
+
 }
