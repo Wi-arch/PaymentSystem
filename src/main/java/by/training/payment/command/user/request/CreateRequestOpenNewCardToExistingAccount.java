@@ -11,7 +11,6 @@ import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.CardExpirationDate;
 import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.RequestType;
-import by.training.payment.entity.User;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
@@ -23,15 +22,14 @@ public class CreateRequestOpenNewCardToExistingAccount extends AbstractCreateReq
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
 		BankAccount bankAccount = new BankAccount(request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString()));
 		PaymentSystem paymentSystem = new PaymentSystem(request.getParameter(RequestParameter.PAYMENT_SYSTEM.toString()));
 		String cardExpirationDateValue = request.getParameter(RequestParameter.CARD_EXPIRATION_DATE.toString());
 		CardExpirationDate cardExpirationDate = new CardExpirationDate(Integer.valueOf(cardExpirationDateValue));
-		UserRequest userRequest = new UserRequest(user, openNewCardToExistingAccount);
+		UserRequest userRequest = createUserRequest(request, openNewCardToExistingAccount);
 		try {
 			userRequestService.saveRequestToOpenNewCardToExistingAccount(userRequest, bankAccount, paymentSystem, cardExpirationDate);
-			setUserAccountListInRequestAttribute(request, user);
+			setUserAccountListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));

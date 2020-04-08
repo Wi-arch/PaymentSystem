@@ -9,7 +9,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.Card;
 import by.training.payment.entity.RequestType;
-import by.training.payment.entity.User;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
@@ -21,12 +20,11 @@ public class CreateRequestUnlockCard extends AbstractCreateRequestCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
 		Card card = new Card(request.getParameter(RequestParameter.CARD_NUMBER.toString()));
-		UserRequest userRequest = new UserRequest(user, unlockCard);
+		UserRequest userRequest = createUserRequest(request, unlockCard);
 		try {
 			userRequestService.saveRequestToUnlockCard(userRequest, card);
-			setUserAccountListInRequestAttribute(request, user);
+			setUserAccountListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
