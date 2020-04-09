@@ -15,9 +15,9 @@ import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class CreateRequestOpenNewCardToExistingAccount extends AbstractCreateRequestCommand{
+public class CreateRequestOpenCardToExistingAccount extends AbstractCreateRequestCommand{
 
-	private static final Logger LOGGER = Logger.getLogger(CreateRequestOpenNewCardToExistingAccount.class);
+	private static final Logger LOGGER = Logger.getLogger(CreateRequestOpenCardToExistingAccount.class);
 	private RequestType openNewCardToExistingAccount = requestTypeFactory.getRequestType(OPEN_NEW_CARD_TO_EXISTING_ACCOUNT_REQUEST);	
 
 	@Override

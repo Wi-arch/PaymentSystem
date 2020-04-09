@@ -30,6 +30,7 @@ import by.training.payment.command.user.DeleteUserAccount;
 import by.training.payment.command.user.UpdateUserName;
 import by.training.payment.command.user.UpdateUserPassword;
 import by.training.payment.command.user.UpdateUserSurname;
+import by.training.payment.command.user.account.ShowUserBankAccountTransactions;
 import by.training.payment.command.user.card.CardDepositOperation;
 import by.training.payment.command.user.card.CardWriteOffOperation;
 import by.training.payment.command.user.card.LockUserCard;
@@ -42,7 +43,7 @@ import by.training.payment.command.user.redirect.ShowUserDataMenu;
 import by.training.payment.command.user.redirect.ShowUserRequestsMenu;
 import by.training.payment.command.user.request.CreateRequestOpenNewAccount;
 import by.training.payment.command.user.request.CreateRequestOpenNewCard;
-import by.training.payment.command.user.request.CreateRequestOpenNewCardToExistingAccount;
+import by.training.payment.command.user.request.CreateRequestOpenCardToExistingAccount;
 import by.training.payment.command.user.request.CreateRequestUnlockCard;
 
 public class CommandFactory {
@@ -67,9 +68,10 @@ public class CommandFactory {
 		commandMap.put(CommandName.CREATE_REQUEST_UNLOCK_CARD, new CreateRequestUnlockCard());
 		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_ACCOUNT, new CreateRequestOpenNewAccount());
 		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_CARD, new CreateRequestOpenNewCard());
-		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_CARD_TO_EXISTING_ACCOUNT, new CreateRequestOpenNewCardToExistingAccount());		
+		commandMap.put(CommandName.CREATE_REQUEST_OPEN_NEW_CARD_TO_EXISTING_ACCOUNT, new CreateRequestOpenCardToExistingAccount());		
 		commandMap.put(CommandName.SHOW_USER_CARDS_MENU, new ShowUserCardsMenu());
-		commandMap.put(CommandName.SHOW_USER_BANK_ACCOUNTS_MENU, new ShowUserBankAccountMenu());		
+		commandMap.put(CommandName.SHOW_USER_BANK_ACCOUNTS_MENU, new ShowUserBankAccountMenu());
+		commandMap.put(CommandName.SHOW_USER_ACCOUNT_TRANSACTIONS_TABLE, new ShowUserBankAccountTransactions());
 		commandMap.put(CommandName.RECHARGE_CARD, new CardDepositOperation());
 		commandMap.put(CommandName.MAKE_CARD_PAYMENT, new CardWriteOffOperation());
 		commandMap.put(CommandName.TRANSFER_FROM_CARD_TO_CARD, new TransferFromCardToCard());
