@@ -21,23 +21,24 @@ public class MailSender {
 	private static final String PASSWORD_KEY = "mail.smtp.password";
 	private static final String PORT_KEY = "mail.smtp.port";
 	private static final Properties PROPERTIES = new Properties();
-	private static Session mailSession;
-	private static String host;
-	private static String from;
-	private static String password;
-	private static int port;
+	private final Session mailSession;
+	private final String host;
+	private final String from;
+	private final String password;
+	private final int port;
 
 	private MailSender() {
 		try {
 			PROPERTIES.load(MailSender.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE));
-			host = PROPERTIES.getProperty(HOST_KEY);
-			from = PROPERTIES.getProperty(FROM_KEY);
-			password = PROPERTIES.getProperty(PASSWORD_KEY);
-			port = Integer.valueOf(PROPERTIES.getProperty(PORT_KEY));
-			mailSession = Session.getDefaultInstance(PROPERTIES);
 		} catch (IOException e) {
 			LOGGER.fatal("Cannot initialize mail properties", e);
+			throw new RuntimeException("Cannot initialize mail properties", e);
 		}
+		host = PROPERTIES.getProperty(HOST_KEY);
+		from = PROPERTIES.getProperty(FROM_KEY);
+		password = PROPERTIES.getProperty(PASSWORD_KEY);
+		port = Integer.valueOf(PROPERTIES.getProperty(PORT_KEY));
+		mailSession = Session.getDefaultInstance(PROPERTIES);
 	}
 
 	private static class MailSenderInstance {
@@ -49,6 +50,15 @@ public class MailSender {
 	}
 
 	public void sendMessage(String to, String subject, String text) {
+		new Thread() {
+			@Override
+			public void run() {
+				sendSinglMessage(to, subject, text);
+			}
+		}.start();
+	}
+
+	private void sendSinglMessage(String to, String subject, String text) {
 		try (Transport transport = mailSession.getTransport()) {
 			MimeMessage message = new MimeMessage(mailSession);
 			message.setFrom(new InternetAddress(from));
