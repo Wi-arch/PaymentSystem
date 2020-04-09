@@ -14,6 +14,7 @@ import by.training.payment.command.UserLogin;
 import by.training.payment.command.UserLogout;
 import by.training.payment.command.UserRegistration;
 import by.training.payment.command.admin.account.LockUserBankAccount;
+import by.training.payment.command.admin.account.ShowAdminBankAccountTransactions;
 import by.training.payment.command.admin.currency.UpdateCurrenciesFromNationalBank;
 import by.training.payment.command.admin.redirect.ShowAdminAccountsMenu;
 import by.training.payment.command.admin.redirect.ShowAdminCurrenciesMenu;
@@ -84,6 +85,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.FIND_ALL_USER_REQUESTS_BY_LOGIN, new FindUserRequestsByLogin());
 		commandMap.put(CommandName.FIND_ALL_USER_REQUESTS_IN_PROCESSING, new FindAllUserRequestsInProcessing());
 		commandMap.put(CommandName.SHOW_ADMIN_ACCOUNTS_MENU, new ShowAdminAccountsMenu());
+		commandMap.put(CommandName.SHOW_ADMIN_ACCOUNT_TRANSACTIONS_TABLE, new ShowAdminBankAccountTransactions());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {
