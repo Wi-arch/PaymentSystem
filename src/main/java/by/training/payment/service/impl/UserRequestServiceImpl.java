@@ -1,7 +1,7 @@
 package by.training.payment.service.impl;
 
 import java.util.List;
-
+import static by.training.payment.factory.RequestStatusFactory.*;
 import by.training.payment.dao.UserRequestDAO;
 import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.Card;
@@ -9,17 +9,22 @@ import by.training.payment.entity.CardExpirationDate;
 import by.training.payment.entity.Currency;
 import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.RequestParameter;
+import by.training.payment.entity.RequestStatus;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.DAOException;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.factory.DAOFactory;
 import by.training.payment.factory.RequestParameterBuilder;
+import by.training.payment.factory.RequestStatusFactory;
 import by.training.payment.service.UserRequestService;
+import by.training.payment.validator.UserRequestValidator;
 
 public class UserRequestServiceImpl implements UserRequestService {
 
 	private final UserRequestDAO userRequestDAO = DAOFactory.getInstance().getUserRequestDAO();
 	private final RequestParameterBuilder builder = new RequestParameterBuilder();
+	private final RequestStatusFactory requestStatusFactory = RequestStatusFactory.getInstance();
+	private final UserRequestValidator userRequestValidator = new UserRequestValidator();
 
 	@Override
 	public List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException {
@@ -61,8 +66,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 			PaymentSystem paymentSystem, CardExpirationDate cardExpirationDate) throws ServiceException {
 		RequestParameter bankAccountParameter = builder.buildBankAccountRequestParameter(bankAccount);
 		RequestParameter paymentSystemParameter = builder.buildPaymentSystemRequestParameter(paymentSystem);
-		RequestParameter cardExpirationDateParameter = builder
-				.buildCardExpirationDateRequestParameter(cardExpirationDate);
+		RequestParameter cardExpirationDateParameter = builder.buildCardExpirationDateRequestParameter(cardExpirationDate);
 		List<RequestParameter> requestParameterList = builder.buildRequestParameterList(bankAccountParameter,
 				paymentSystemParameter, cardExpirationDateParameter);
 		saveUserRequestWithParameterList(userRequest, requestParameterList);
@@ -86,21 +90,27 @@ public class UserRequestServiceImpl implements UserRequestService {
 		}
 	}
 
-	private void saveUserRequestWithParameterList(UserRequest userRequest, List<RequestParameter> requestParameterList)
-			throws ServiceException {
-		checkRequiredUserRequestFieldsForNull(userRequest);
-		checkRequestParameterListForNull(requestParameterList);
+	@Override
+	public void rejectUserRequest(UserRequest userRequest) throws ServiceException {
 		try {
-			userRequestDAO.saveUserRequestWithParameterList(userRequest, requestParameterList);
+			UserRequest exisingUserRequest = userRequestDAO.getUserRequestById(userRequest.getId());
+			userRequestValidator.checkRequestStatusIsInProcessing(exisingUserRequest);
+			RequestStatus rejectedStatus = requestStatusFactory.getRequestStatus(REJECTED_STATUS);
+			exisingUserRequest.setRequestStatus(rejectedStatus);
+			userRequestDAO.updateUserRequest(exisingUserRequest);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 	}
 
-	private void checkRequiredUserRequestFieldsForNull(UserRequest userRequest) throws ServiceException {
-		if (userRequest == null || userRequest.getUser() == null || userRequest.getUser().getLogin() == null
-				|| userRequest.getRequestType() == null || userRequest.getRequestType().getValue() == null) {
-			throw new ServiceException("Null user request fields");
+	private void saveUserRequestWithParameterList(UserRequest userRequest, List<RequestParameter> requestParameterList)
+			throws ServiceException {
+		userRequestValidator.checkRequiredUserRequestFieldsForNull(userRequest);
+		checkRequestParameterListForNull(requestParameterList);
+		try {
+			userRequestDAO.saveUserRequestWithParameterList(userRequest, requestParameterList);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
 		}
 	}
 

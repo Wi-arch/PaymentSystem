@@ -27,4 +27,6 @@ public interface UserRequestService {
 	List<UserRequest> getAllUserRequests() throws ServiceException;
 
 	List<UserRequest> getAllUserRequestsInProcessing() throws ServiceException;
+
+	void rejectUserRequest(UserRequest userRequest) throws ServiceException;
 }

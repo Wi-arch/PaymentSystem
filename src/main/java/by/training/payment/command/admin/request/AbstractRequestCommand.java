@@ -18,4 +18,9 @@ public abstract class AbstractRequestCommand extends AbstractCommand {
 		}
 		request.setAttribute(RequestParameter.USER_REQUEST_LIST.toString(), userRequestList);
 	}
+
+	protected UserRequest getUserRequestFromHttpRequest(HttpServletRequest request) {
+		String userRequestId = request.getParameter(RequestParameter.USER_REQUEST_ID.toString());
+		return new UserRequest(Integer.valueOf(userRequestId));
+	}
 }

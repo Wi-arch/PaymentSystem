@@ -11,6 +11,10 @@ public class RequestStatus {
 	public RequestStatus(String value) {
 		this.value = value;
 	}
+	
+	public RequestStatus(RequestStatus requestStatus) {
+		this.value = requestStatus.value;
+	}
 
 	public String getValue() {
 		return value;
