@@ -12,15 +12,15 @@ import by.training.payment.entity.BankAccount;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class LockUserBankAccount extends AbstractBankAccountCommand {
+public class UnlockUserBankAccount extends AbstractBankAccountCommand {
 
-	private static final Logger LOGGER = Logger.getLogger(LockUserBankAccount.class);
+	private static final Logger LOGGER = Logger.getLogger(UnlockUserBankAccount.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		BankAccount account = new BankAccount(request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString()));
 		try {
-			bankAccountService.lockBankAccount(account);
+			bankAccountService.unlockBankAccount(account);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));

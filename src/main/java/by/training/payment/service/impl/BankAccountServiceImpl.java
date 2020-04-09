@@ -31,8 +31,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 	@Override
 	public void lockBankAccount(BankAccount bankAccount) throws ServiceException {
 		bankAccountValidator.checkBankAccountNumberForNull(bankAccount);
+		String bankAccountNumber = bankAccount.getAccountNumber();
 		try {
-			String bankAccountNumber = bankAccount.getAccountNumber();
 			BankAccount existingBankAccount = bankAccountDAO.getBankAccountByAccountNumber(bankAccountNumber);
 			bankAccountValidator.checkIsBankAccountBlocked(existingBankAccount);
 			List<Card> cardList = cardDAO.getAllCardsByAccountNumber(bankAccountNumber);
@@ -42,6 +42,21 @@ public class BankAccountServiceImpl implements BankAccountService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	public void unlockBankAccount(BankAccount bankAccount) throws ServiceException {
+		bankAccountValidator.checkBankAccountNumberForNull(bankAccount);
+		String bankAccountNumber = bankAccount.getAccountNumber();
+		try {
+			BankAccount existingBankAccount = bankAccountDAO.getBankAccountByAccountNumber(bankAccountNumber);
+			bankAccountValidator.checkBankAccountNumberForNull(existingBankAccount);
+			existingBankAccount.setBlocked(false);
+			bankAccountDAO.updateBankAccount(existingBankAccount);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+
 	}
 
 	private void lockAllCards(List<Card> cardList) {
