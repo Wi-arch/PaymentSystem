@@ -1,10 +1,11 @@
-package by.training.payment.command.admin;
+package by.training.payment.command.admin.account;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.command.user.account.AbstractBankAccountCommand;
 import by.training.payment.entity.BankAccount;
@@ -26,7 +27,6 @@ public class LockUserBankAccount extends AbstractBankAccountCommand {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
 			LOGGER.warn("Cannot lock user bank account", e);
 		}
-		return null;// TODO
+		return PageEnum.ADMIN_ACCOUNTS_MENU.getValue();
 	}
-
 }
