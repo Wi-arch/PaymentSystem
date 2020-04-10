@@ -12,19 +12,19 @@ import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class AdminDeleteUserAccount extends AbstractCommand {
+public class UnlockUserAccount extends AbstractCommand {
 
-	private static final Logger LOGGER = Logger.getLogger(AdminDeleteUserAccount.class);
+	private static final Logger LOGGER = Logger.getLogger(UnlockUserAccount.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		User user = buildUser(request);
 		try {
-			userService.blockUser(user);
+			userService.unlockUser(user);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
-			LOGGER.warn("Cannot delete user account", e);
+			LOGGER.warn("Cannot unlock user account", e);
 		}
 		return PageEnum.ADMIN_USERS_MENU.getValue();
 	}

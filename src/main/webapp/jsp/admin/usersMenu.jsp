@@ -129,7 +129,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 								<form action="${pageContext.request.contextPath}/controller"
 									method="post">
-									<input type="hidden" name="COMMAND" value="DELETE_USER_ACCOUNT">
+									<input type="hidden" name="COMMAND" value="ADMIN_DELETE_USER_ACCOUNT">
 									<input type="hidden" name="USER_LOGIN"
 										value="${USER_BY_LOGIN.login}">
 									<button type="submit">
@@ -186,7 +186,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 									<form action="${pageContext.request.contextPath}/controller"
 										method="post">
 										<input type="hidden" name="COMMAND"
-											value="DELETE_USER_ACCOUNT"> <input type="hidden"
+											value="ADMIN_DELETE_USER_ACCOUNT"> <input type="hidden"
 											name="USER_LOGIN" value="{value.login}">
 										<button type="submit">
 											<fmt:message key="button.block" />

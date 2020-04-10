@@ -140,6 +140,18 @@ public class UserServiceImpl implements UserService {
 		updateUser(user);
 	}
 
+	@Override
+	public void unlockUser(User user) throws ServiceException {
+		userValidator.checkUserLoginForNull(user);
+		try {
+			User existingUser = userDAO.getUserByLogin(user.getLogin());
+			existingUser.setBlocked(false);
+			updateUser(existingUser);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private void isLoginPasswordEmailValid(User user) throws ServiceException {
 		isLoginEmailValid(user);
 		userValidator.checkIsPasswordValid(user.getPassword());
@@ -158,5 +170,4 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(e);
 		}
 	}
-
 }

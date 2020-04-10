@@ -29,6 +29,7 @@ import by.training.payment.command.admin.request.RejectUserRequest;
 import by.training.payment.command.admin.user.AdminDeleteUserAccount;
 import by.training.payment.command.admin.user.FindUserByLogin;
 import by.training.payment.command.admin.user.ShowAllUsers;
+import by.training.payment.command.admin.user.UnlockUserAccount;
 import by.training.payment.command.language.LanguageCommand;
 import by.training.payment.command.user.DeleteUserAccount;
 import by.training.payment.command.user.UpdateUserName;
@@ -96,6 +97,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.REJECT_USER_REQUEST, new RejectUserRequest());
 		commandMap.put(CommandName.HANDLE_USER_REQUEST, new HandleUserRequest());
 		commandMap.put(CommandName.ADMIN_DELETE_USER_ACCOUNT, new AdminDeleteUserAccount());
+		commandMap.put(CommandName.UNLOCK_USER_ACCOUNT, new UnlockUserAccount());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {
