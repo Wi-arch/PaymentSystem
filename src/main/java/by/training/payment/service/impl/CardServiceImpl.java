@@ -35,7 +35,7 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public List<Card> getAllCardsByUserLogin(String login) throws ServiceException {
-		userValidator.checkLogin(login);
+		userValidator.checkIsLoginValid(login);
 		try {
 			return cardDAO.getAllCardsByUserLogin(login);
 		} catch (DAOException e) {

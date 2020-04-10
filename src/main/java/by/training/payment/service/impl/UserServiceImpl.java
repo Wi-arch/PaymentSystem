@@ -78,10 +78,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void blockUser(User user) throws ServiceException {
-		userValidator.checkRequiredUserFieldsForNull(user);
-		userValidator.checkUserIsBlocked(user);
-		user.setBlocked(true);
-		updateUser(user);
+		userValidator.checkUserLoginForNull(user);
+		try {
+			User existingUser = userDAO.getUserByLogin(user.getLogin());
+			userValidator.checkUserIsBlocked(existingUser);
+			existingUser.setBlocked(true);
+			updateUser(existingUser);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
@@ -92,7 +97,7 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("Wrong user password *Status1011*");
 		}
 		userValidator.comparePasswords(newPassword, confirmPassword);
-		userValidator.checkPassword(newPassword);
+		userValidator.checkIsPasswordValid(newPassword);
 		userValidator.compareOldPasswordAndNewPassword(oldPassword, newPassword);
 		user.setPassword(sha1Hex(newPassword));
 		updateUser(user);
@@ -137,12 +142,12 @@ public class UserServiceImpl implements UserService {
 
 	private void isLoginPasswordEmailValid(User user) throws ServiceException {
 		isLoginEmailValid(user);
-		userValidator.checkPassword(user.getPassword());
+		userValidator.checkIsPasswordValid(user.getPassword());
 	}
 
 	private void isLoginEmailValid(User user) throws ServiceException {
-		userValidator.checkLogin(user.getLogin());
-		userValidator.checkEmail(user.getEmail());
+		userValidator.checkIsLoginValid(user.getLogin());
+		userValidator.checkIsEmailValid(user.getEmail());
 	}
 
 	private void updateUser(User user) throws ServiceException {

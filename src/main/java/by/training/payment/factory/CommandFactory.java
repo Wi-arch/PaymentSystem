@@ -26,6 +26,7 @@ import by.training.payment.command.admin.request.FindAllUserRequestsInProcessing
 import by.training.payment.command.admin.request.FindUserRequestsByLogin;
 import by.training.payment.command.admin.request.HandleUserRequest;
 import by.training.payment.command.admin.request.RejectUserRequest;
+import by.training.payment.command.admin.user.AdminDeleteUserAccount;
 import by.training.payment.command.admin.user.FindUserByLogin;
 import by.training.payment.command.admin.user.ShowAllUsers;
 import by.training.payment.command.language.LanguageCommand;
@@ -94,6 +95,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.UNLOCK_BANK_ACCOUNT, new UnlockUserBankAccount());
 		commandMap.put(CommandName.REJECT_USER_REQUEST, new RejectUserRequest());
 		commandMap.put(CommandName.HANDLE_USER_REQUEST, new HandleUserRequest());
+		commandMap.put(CommandName.ADMIN_DELETE_USER_ACCOUNT, new AdminDeleteUserAccount());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {
