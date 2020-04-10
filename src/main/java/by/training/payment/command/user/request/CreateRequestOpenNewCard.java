@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import static by.training.payment.factory.RequestTypeFactory.OPEN_NEW_CARD_REQUEST;
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
-import by.training.payment.entity.CardExpirationDate;
+import by.training.payment.entity.CardExpiry;
 import by.training.payment.entity.Currency;
 import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.RequestType;
@@ -25,7 +25,7 @@ public class CreateRequestOpenNewCard extends AbstractCreateRequestCommand {
 		Currency currency = new Currency(request.getParameter(RequestParameter.CURRENCY.toString()));
 		PaymentSystem paymentSystem = new PaymentSystem(request.getParameter(RequestParameter.PAYMENT_SYSTEM.toString()));
 		String cardExpirationDateValue = request.getParameter(RequestParameter.CARD_EXPIRATION_DATE.toString());
-		CardExpirationDate cardExpirationDate = new CardExpirationDate(Integer.valueOf(cardExpirationDateValue));
+		CardExpiry cardExpirationDate = new CardExpiry(Integer.valueOf(cardExpirationDateValue));
 		UserRequest userRequest = createUserRequest(request, openNewCard);
 		try {
 			userRequestService.saveRequestToOpenNewCard(userRequest, currency, paymentSystem, cardExpirationDate);

@@ -59,6 +59,15 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 	}
 
+	@Override
+	public BankAccount getBankAccountByNumber(String number) throws ServiceException {
+		try {
+			return bankAccountDAO.getBankAccountByAccountNumber(number);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private void lockAllCards(List<Card> cardList) {
 		if (cardList != null) {
 			for (Card card : cardList) {
@@ -68,4 +77,5 @@ public class BankAccountServiceImpl implements BankAccountService {
 			}
 		}
 	}
+
 }

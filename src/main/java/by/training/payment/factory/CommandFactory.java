@@ -24,6 +24,7 @@ import by.training.payment.command.admin.redirect.ShowAdminUsersMenu;
 import by.training.payment.command.admin.request.FindAllUserRequests;
 import by.training.payment.command.admin.request.FindAllUserRequestsInProcessing;
 import by.training.payment.command.admin.request.FindUserRequestsByLogin;
+import by.training.payment.command.admin.request.HandleUserRequest;
 import by.training.payment.command.admin.request.RejectUserRequest;
 import by.training.payment.command.admin.user.FindUserByLogin;
 import by.training.payment.command.admin.user.ShowAllUsers;
@@ -92,6 +93,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.SHOW_ADMIN_ACCOUNT_TRANSACTIONS_TABLE, new ShowAdminBankAccountTransactions());
 		commandMap.put(CommandName.UNLOCK_BANK_ACCOUNT, new UnlockUserBankAccount());
 		commandMap.put(CommandName.REJECT_USER_REQUEST, new RejectUserRequest());
+		commandMap.put(CommandName.HANDLE_USER_REQUEST, new HandleUserRequest());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.training.payment.dao.CardExpirationDateDAO;
-import by.training.payment.entity.CardExpirationDate;
+import by.training.payment.entity.CardExpiry;
 import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
@@ -18,8 +18,8 @@ public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpiratio
 	private static final String GET_ALL_CARD_EXPIRATION_DATES = "SELECT * FROM card_expiration_date";
 
 	@Override
-	public List<CardExpirationDate> getAllCardExpirationDates() throws DAOException {
-		List<CardExpirationDate> cardExpirationDates = new ArrayList<>();
+	public List<CardExpiry> getAllCardExpirationDates() throws DAOException {
+		List<CardExpiry> cardExpirationDates = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
@@ -40,8 +40,8 @@ public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpiratio
 	}
 
 	@Override
-	public CardExpirationDate getCardExpirationDateByValue(String value) throws DAOException {
-		CardExpirationDate cardExpirationDate = null;
+	public CardExpiry getCardExpirationDateByValue(String value) throws DAOException {
+		CardExpiry cardExpirationDate = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {

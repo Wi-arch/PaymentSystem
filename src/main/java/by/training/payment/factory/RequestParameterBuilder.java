@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static by.training.payment.factory.ParameterHeaderFactory.BANK_ACCOUNT_NUMBER_PARAMETER_HEADER;
-import static by.training.payment.factory.ParameterHeaderFactory.CARD_EXPIRY_DATE_PARAMETER_HEADER;
+import static by.training.payment.factory.ParameterHeaderFactory.CARD_EXPIRY_PARAMETER_HEADER;
 import static by.training.payment.factory.ParameterHeaderFactory.CARD_NUMBER_PARAMETER_HEADER;
 import static by.training.payment.factory.ParameterHeaderFactory.CURRENCY_NAME_PARAMETER_HEADER;
 import static by.training.payment.factory.ParameterHeaderFactory.PAYMENT_SYSTEM_PARAMETER_HEADER;
 
 import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.Card;
-import by.training.payment.entity.CardExpirationDate;
+import by.training.payment.entity.CardExpiry;
 import by.training.payment.entity.Currency;
 import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.RequestParameter;
@@ -29,11 +29,11 @@ public class RequestParameterBuilder {
 		return cardParameter;
 	}
 
-	public RequestParameter buildCardExpirationDateRequestParameter(CardExpirationDate cardExpirationDate)
+	public RequestParameter buildCardExpirationDateRequestParameter(CardExpiry cardExpirationDate)
 			throws ServiceException {
 		checkCardExpirationDateValueForNull(cardExpirationDate);
 		RequestParameter cardExpirationDateParameter = new RequestParameter();
-		cardExpirationDateParameter.setParameterHeader(factory.getParameterHeader(CARD_EXPIRY_DATE_PARAMETER_HEADER));
+		cardExpirationDateParameter.setParameterHeader(factory.getParameterHeader(CARD_EXPIRY_PARAMETER_HEADER));
 		cardExpirationDateParameter.setValue(String.valueOf(cardExpirationDate.getValue()));
 		return cardExpirationDateParameter;
 	}
@@ -78,7 +78,7 @@ public class RequestParameterBuilder {
 		}
 	}
 
-	private void checkCardExpirationDateValueForNull(CardExpirationDate cardExpirationDate) throws ServiceException {
+	private void checkCardExpirationDateValueForNull(CardExpiry cardExpirationDate) throws ServiceException {
 		if (cardExpirationDate == null || cardExpirationDate.getValue() == 0) {
 			throw new ServiceException("Null card expiration date");
 		}

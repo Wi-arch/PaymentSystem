@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.Card;
-import by.training.payment.entity.CardExpirationDate;
+import by.training.payment.entity.CardExpiry;
 import by.training.payment.entity.Currency;
 import by.training.payment.entity.ParameterHeader;
 import by.training.payment.entity.PaymentSystem;
@@ -43,7 +43,7 @@ public class SQLUtil {
 
 	private static final String REQUEST_STATUS_VALUE = "request_status.request_status_value";
 
-	private static final String PARAMETER_HEADER_NAME = "parameter_header.header_name";
+	private static final String PARAMETER_HEADER_NAME = "parameter_header.parameter_header_name";
 
 	private static final String REQUEST_PARAMETER_ID = "request_parameter.request_parameter_id";
 	private static final String REQUEST_PARAMETER_VALUE = "request_parameter.value";
@@ -126,8 +126,8 @@ public class SQLUtil {
 		return currency;
 	}
 
-	protected CardExpirationDate buildCardExpirationDate(ResultSet resultSet) throws SQLException {
-		CardExpirationDate cardExpirationDate = new CardExpirationDate();
+	protected CardExpiry buildCardExpirationDate(ResultSet resultSet) throws SQLException {
+		CardExpiry cardExpirationDate = new CardExpiry();
 		cardExpirationDate.setValue(resultSet.getInt(CARD_EXPIRATION_DATE_VALUE));
 		return cardExpirationDate;
 	}

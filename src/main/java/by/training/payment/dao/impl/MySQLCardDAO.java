@@ -15,8 +15,8 @@ import by.training.payment.pool.ProxyConnection;
 
 public class MySQLCardDAO extends SQLUtil implements CardDAO {
 
-	private static final String ADD_CARD = "INSERT INTO card (card_number, card_valid_until_date, card_number_mask, card_ccv_code, card_expiration_date_value, payment_system_value, bank_account_account, bank_user_login, card_is_blocked) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	private static final String UPDATE_CARD = "UPDATE card SET card_opening_date=?, card_valid_until_date=?, card_number_mask=?, card_ccv_code=?, card_expiration_date_value=?, payment_system_value=?, bank_account_account=?, bank_user_login=?, card_is_blocked=? WHERE card_number = ?;";
+	private static final String ADD_CARD = "INSERT INTO card (card_number, card_valid_until_date, card_number_mask, card_ccv_code, card_expiration_date_value, payment_system_name, bank_account_number, bank_user_login, card_is_blocked) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String UPDATE_CARD = "UPDATE card SET card_opening_date=?, card_valid_until_date=?, card_number_mask=?, card_ccv_code=?, card_expiration_date_value=?, payment_system_name=?, bank_account_number=?, bank_user_login=?, card_is_blocked=? WHERE card_number = ?;";
 	private static final String DELETE_CARD = "DELETE FROM card WHERE card_number = ?;";
 	private static final String GET_CARD_BY_CARD_NUMBER = "SELECT * FROM card INNER JOIN payment_system ON card.payment_system_name = payment_system.payment_system_name "
 			+ "INNER JOIN card_expiration_date ON card_expiration_date.card_expiration_date_value = card.card_expiration_date_value "
@@ -30,6 +30,12 @@ public class MySQLCardDAO extends SQLUtil implements CardDAO {
 			+ "INNER JOIN currency ON bank_account.currency_name = currency.currency_name "
 			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
 			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value;";
+	private static final String GET_ALL_UNBLOCKED_CARDS = "SELECT * FROM card INNER JOIN payment_system ON card.payment_system_name = payment_system.payment_system_name "
+			+ "INNER JOIN card_expiration_date ON card_expiration_date.card_expiration_date_value = card.card_expiration_date_value "
+			+ "INNER JOIN bank_account ON bank_account.bank_account_number = card.bank_account_number "
+			+ "INNER JOIN currency ON bank_account.currency_name = currency.currency_name "
+			+ "INNER JOIN bank_user ON bank_account.bank_user_login = bank_user.bank_user_login "
+			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value WHERE card.card_is_blocked='false';";
 	private static final String GET_ALL_CARDS_BY_USER_LOGIN = "SELECT * FROM card INNER JOIN payment_system ON card.payment_system_name = payment_system.payment_system_name "
 			+ "INNER JOIN card_expiration_date ON card_expiration_date.card_expiration_date_value = card.card_expiration_date_value "
 			+ "INNER JOIN bank_account ON bank_account.bank_account_number = card.bank_account_number "
@@ -200,4 +206,25 @@ public class MySQLCardDAO extends SQLUtil implements CardDAO {
 		return cards;
 	}
 
+	@Override
+	public List<Card> getAllUnblockedCards() throws DAOException {
+		List<Card> cards = new ArrayList<>();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
+			statement = connection.prepareStatement(GET_ALL_UNBLOCKED_CARDS);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					cards.add(buildCard(resultSet));
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Cannot load unblocked card list", e);
+		} finally {
+			closeStatement(statement);
+			closeResultSet(resultSet);
+		}
+		return cards;
+	}
 }

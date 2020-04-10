@@ -9,14 +9,14 @@ public class Card {
 	private Date validUntilDate;
 	private String numberMask;
 	private String ccv;
-	private CardExpirationDate expirationDate;
+	private CardExpiry expirationDate;
 	private PaymentSystem paymentSystem;
 	private BankAccount bankAccount;
 	private User user;
 	private boolean isBlocked;
 
 	public Card() {
-
+		
 	}
 
 	public Card(String number) {
@@ -63,11 +63,11 @@ public class Card {
 		this.ccv = ccv;
 	}
 
-	public CardExpirationDate getExpirationDate() {
+	public CardExpiry getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(CardExpirationDate expirationDate) {
+	public void setExpirationDate(CardExpiry expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 

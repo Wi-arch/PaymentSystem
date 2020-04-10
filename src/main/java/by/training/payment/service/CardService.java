@@ -22,4 +22,6 @@ public interface CardService {
 	List<Card> getAllCards() throws ServiceException;
 
 	void blockAllExpiredCards() throws ServiceException;
+
+	Card getCardByNumber(String number) throws ServiceException;
 }

@@ -13,4 +13,6 @@ public interface BankAccountService {
 
 	void unlockBankAccount(BankAccount bankAccount) throws ServiceException;
 
+	BankAccount getBankAccountByNumber(String number) throws ServiceException;
+
 }

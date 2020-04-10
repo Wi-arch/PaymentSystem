@@ -130,11 +130,24 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public void blockAllExpiredCards() throws ServiceException {
-		List<Card> cardList = getAllCards();
-		for (Card card : cardList) {
-			if (cardValidator.isExpiredDateCard(card)) {
-				lockCard(card);
+		try {
+			List<Card> cardList = cardDAO.getAllUnblockedCards();
+			for (Card card : cardList) {
+				if (cardValidator.isExpiredDateCard(card)) {
+					lockCard(card);
+				}
 			}
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public Card getCardByNumber(String number) throws ServiceException {
+		try {
+			return cardDAO.getCardByCardNumber(number);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
 		}
 	}
 

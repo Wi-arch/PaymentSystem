@@ -20,4 +20,6 @@ public interface CardDAO {
 	List<Card> getAllCardsByUserLogin(String login) throws DAOException;
 
 	List<Card> getAllCardsByAccountNumber(String number) throws DAOException;
+	
+	List<Card> getAllUnblockedCards () throws DAOException;
 }

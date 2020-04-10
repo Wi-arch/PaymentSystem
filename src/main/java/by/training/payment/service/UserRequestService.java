@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.Card;
-import by.training.payment.entity.CardExpirationDate;
+import by.training.payment.entity.CardExpiry;
 import by.training.payment.entity.Currency;
 import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.UserRequest;
@@ -17,10 +17,10 @@ public interface UserRequestService {
 	void saveRequestToOpenNewAccount(UserRequest userRequest, Currency currency) throws ServiceException;
 
 	void saveRequestToOpenNewCard(UserRequest userRequest, Currency currency, PaymentSystem paymentSystem,
-			CardExpirationDate cardExpirationDate) throws ServiceException;
+			CardExpiry cardExpirationDate) throws ServiceException;
 
 	void saveRequestToOpenNewCardToExistingAccount(UserRequest userRequest, BankAccount bankAccount,
-			PaymentSystem paymentSystem, CardExpirationDate cardExpirationDate) throws ServiceException;
+			PaymentSystem paymentSystem, CardExpiry cardExpirationDate) throws ServiceException;
 
 	List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException;
 
@@ -29,4 +29,6 @@ public interface UserRequestService {
 	List<UserRequest> getAllUserRequestsInProcessing() throws ServiceException;
 
 	void rejectUserRequest(UserRequest userRequest) throws ServiceException;
+
+	void handleUserRequest(UserRequest userRequest) throws ServiceException;
 }
