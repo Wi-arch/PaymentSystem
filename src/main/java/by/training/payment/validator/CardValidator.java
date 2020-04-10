@@ -49,7 +49,12 @@ public class CardValidator {
 	}
 
 	public boolean isExpiredDateCard(Card card) {
-		return card != null && card.getValidUntilDate() != null && card.getValidUntilDate().after(new Date());
+		return card != null && card.getValidUntilDate() != null && card.getValidUntilDate().before(new Date());
 	}
 
+	public void checkIsCardCanBeUnblocked(Card card) throws ServiceException {
+		if (isExpiredDateCard(card)) {
+			throw new ServiceException("Unable unlock expired card *Status1028*");
+		}
+	}
 }
