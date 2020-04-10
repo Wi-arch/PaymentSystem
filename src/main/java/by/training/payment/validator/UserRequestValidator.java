@@ -19,4 +19,10 @@ public class UserRequestValidator {
 			throw new ServiceException("Request has already been processed *Status1027*");
 		}
 	}
+
+	public void checkUserRequestForNull(UserRequest userRequest) throws ServiceException {
+		if (userRequest == null) {
+			throw new ServiceException("Null user request");
+		}
+	}
 }
