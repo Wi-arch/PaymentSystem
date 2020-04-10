@@ -52,7 +52,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 	private final UserRequestDAO userRequestDAO = daoFactory.getUserRequestDAO();
 	private final CardDAO cardDAO = daoFactory.getCardDAO();
 	private final ParameterHeaderFactory headerFactory = ParameterHeaderFactory.getInstance();
-	private final RequestParameterBuilder builder = new RequestParameterBuilder();
+	private final RequestParameterBuilder builder = RequestParameterBuilder.getInstance();
 	private final RequestStatusFactory requestStatusFactory = RequestStatusFactory.getInstance();
 	private final RequestStatus rejectedStatus = requestStatusFactory.getRequestStatus(REJECTED_STATUS);
 	private final ParameterHeader accountNumberHeader = headerFactory.getParameterHeader(BANK_ACCOUNT_NUMBER_PARAMETER_HEADER);
