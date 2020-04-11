@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.training.payment.command.PageEnum;
 
-@WebFilter(urlPatterns = { "/jsp/user/*", "/jsp/admin/*" })
+@WebFilter(filterName = "AccessFilter", urlPatterns = { "/jsp/user/*", "/jsp/admin/*" })
 public class AccessFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

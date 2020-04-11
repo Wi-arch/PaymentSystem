@@ -18,7 +18,7 @@ import by.training.payment.command.CommandName;
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 
-@WebFilter(urlPatterns = { "/controller" }, servletNames = { "Controller" })
+@WebFilter(filterName = "CommandFilter", urlPatterns = { "/controller" }, servletNames = { "Controller" })
 public class CommandFilter implements Filter {
 
 	private static final Set<String> COMMAND_NAME_SET = Arrays.asList(CommandName.values()).stream()
@@ -35,5 +35,4 @@ public class CommandFilter implements Filter {
 		}
 		chain.doFilter(request, response);
 	}
-
 }

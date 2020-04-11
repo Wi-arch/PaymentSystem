@@ -16,8 +16,8 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE }, urlPatterns = {
-		"/jsp/admin/*", "/jsp/user/*" })
+@WebFilter(filterName = "SessionLoginFilter", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
+		DispatcherType.INCLUDE }, urlPatterns = { "/jsp/admin/*", "/jsp/user/*" })
 public class SessionLoginFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -31,5 +31,4 @@ public class SessionLoginFilter implements Filter {
 		}
 		chain.doFilter(request, response);
 	}
-
 }
