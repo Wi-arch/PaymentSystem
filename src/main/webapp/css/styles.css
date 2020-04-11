@@ -7,8 +7,21 @@
 	background-color: #464646;
 	color: white;
 }
-/* --------------------------------------------------------------- */
-/* --------------------------------------------------------------- */
+
+@-webkit-keyframes autofill {
+    0%,100% {
+        color: #666;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-delay: 1s;
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+	-webkit-text-fill-color: white !important;
+}
+
 ul {
 	margin: 0px;
 	padding: 0px;
@@ -297,6 +310,7 @@ ul li:hover ul li {
 
 #success {
 	color: #39b54a;
+	color: #08760c;
 	padding: 5px 0px;
 }
 
@@ -1000,6 +1014,16 @@ ul li:hover ul li {
 	text-align:center;
 }
 
+.usersBox #blockButton {
+  background-color: #387DF5;
+  color: white;
+}	
+
+.usersBox #unblockButton {
+  background-color: #389DF5;
+  color: white;
+}	
+
 .usersBox button {
   background-color: #387DF5;
   color: white;
@@ -1075,18 +1099,14 @@ ul li:hover ul li {
 }	
 
 .adminRequetsBox h2{
+	position: relative;	
+	Left: 6%;	
 	padding: 5px 300px;
 	font-size: 36px;
 	text-align:center;
 }
 
 .adminRequetsBox h4{
-	padding: 16px 20px;
-	font-size: 26px;
-	text-align:center;
-}
-
-.adminRequetsBox .midlDiv{
 	padding: 16px 20px;
 	font-size: 26px;
 	text-align:center;
@@ -1108,8 +1128,8 @@ ul li:hover ul li {
 }	
 
 .adminRequetsBox input[type=text] {
-		height:45px;
-		opacity: 0.8;
+	height:45px;
+	opacity: 0.8;
 }	
 
 .adminRequetsBox input[type=text]:focus {
@@ -1200,9 +1220,157 @@ ul li:hover ul li {
 /*Admin requests box end*/
 
 
+/*Admin bank accounts box */
+.adminBankAccountsBox {
+	position: relative;	
+	top: 150px;	
+	Left: 10%;	
+	margin-bottom: 100px;	
+	width: 1500px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
 
+.adminBankAccountsBox form {
+	display:inline;
+}	
 
+.adminBankAccountsBox h2{
+	position: relative;	
+	Left: 6%;	
+	padding: 5px 300px;
+	font-size: 36px;
+	text-align:center;
+}
 
+.adminBankAccountsBox h4{
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminBankAccountsBox button {
+  background-color: #387DF5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;  
+  padding: 8px 20px;
+  border-radius: 4px;
+}	
+
+.adminBankAccountsBox button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
+
+.adminBankAccountsBox #blockButton {
+  background-color: #387DF5;
+  color: white;
+}	
+
+.adminBankAccountsBox #unblockButton {
+  background-color: #389DF5;
+  color: white;
+}	
+
+.adminBankAccountsBox input[type=text] {
+	height:45px;
+	opacity: 0.8;
+}	
+
+.adminBankAccountsBox input[type=text]:focus {
+  background-color: lightblue;
+}
+
+.adminBankAccountsBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminBankAccountsBox td {
+   text-align:center; 	
+   height:40px;
+}	
+
+.adminBankAccountsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.adminBankAccountsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.adminBankAccountsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.adminBankAccountsBox table button {
+  width: 160px;
+}	
+
+.adminBankAccountsBox table #handleButton {
+	background-color:  #39b54a;
+}	
+
+/*Admin admin Bank Accounts Box end*/
+
+/*Transaction Box box */
+.transactionsBox {
+	position: relative;	
+	top: 170px;	
+	Left: 17%;	
+	margin-bottom: 100px;	
+	width: 1200px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.transactionsBox h4{
+	position: relative;	
+	Left: 12%;	
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.transactionsBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.transactionsBox td {
+   text-align:center; 	
+   height:40px;
+}	
+
+.transactionsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.transactionsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.transactionsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+/*Transaction Box end*/
 
 
 
