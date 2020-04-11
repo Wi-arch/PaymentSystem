@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
 		userValidator.checkUserLoginForNull(user);
 		try {
 			User existingUser = userDAO.getUserByLogin(user.getLogin());
+			userValidator.checkUserLoginForNull(existingUser);
 			userValidator.checkUserIsBlocked(existingUser);
 			existingUser.setBlocked(true);
 			updateUser(existingUser);

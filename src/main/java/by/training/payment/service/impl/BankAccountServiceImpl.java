@@ -68,6 +68,15 @@ public class BankAccountServiceImpl implements BankAccountService {
 		}
 	}
 
+	@Override
+	public List<BankAccount> getAllBankAccounts() throws ServiceException {
+		try {
+			return bankAccountDAO.getAllBankAccounts();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private void lockAllCards(List<Card> cardList) {
 		if (cardList != null) {
 			for (Card card : cardList) {

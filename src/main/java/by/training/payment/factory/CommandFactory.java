@@ -13,8 +13,10 @@ import by.training.payment.command.UserAuthorization;
 import by.training.payment.command.UserLogin;
 import by.training.payment.command.UserLogout;
 import by.training.payment.command.UserRegistration;
-import by.training.payment.command.admin.account.LockUserBankAccount;
+import by.training.payment.command.admin.account.AdminLockUserBankAccount;
 import by.training.payment.command.admin.account.ShowAdminBankAccountTransactions;
+import by.training.payment.command.admin.account.ShowAllBankAccounts;
+import by.training.payment.command.admin.account.ShowAllUserAccountsByLogin;
 import by.training.payment.command.admin.account.UnlockUserBankAccount;
 import by.training.payment.command.admin.currency.UpdateCurrenciesFromNationalBank;
 import by.training.payment.command.admin.redirect.ShowAdminAccountsMenu;
@@ -81,7 +83,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.MAKE_CARD_PAYMENT, new CardWriteOffOperation());
 		commandMap.put(CommandName.TRANSFER_FROM_CARD_TO_CARD, new TransferFromCardToCard());
 		commandMap.put(CommandName.LOCK_CARD, new LockUserCard());
-		commandMap.put(CommandName.LOCK_BANK_ACCOUNT, new LockUserBankAccount());		
+		commandMap.put(CommandName.ADMIN_BLOCK_BANK_ACCOUNT, new AdminLockUserBankAccount());		
 		commandMap.put(CommandName.SHOW_ADMIN_CURRENCIES_MENU, new ShowAdminCurrenciesMenu());
 		commandMap.put(CommandName.UPDATE_CURRENCIES_FROM_NATIONAL_BANK, new UpdateCurrenciesFromNationalBank());
 		commandMap.put(CommandName.SHOW_ADMIN_USERS_MENU, new ShowAdminUsersMenu());
@@ -91,13 +93,15 @@ public class CommandFactory {
 		commandMap.put(CommandName.FIND_ALL_USER_REQUESTS, new FindAllUserRequests());
 		commandMap.put(CommandName.FIND_ALL_USER_REQUESTS_BY_LOGIN, new FindUserRequestsByLogin());
 		commandMap.put(CommandName.FIND_ALL_USER_REQUESTS_IN_PROCESSING, new FindAllUserRequestsInProcessing());
-		commandMap.put(CommandName.SHOW_ADMIN_ACCOUNTS_MENU, new ShowAdminAccountsMenu());
-		commandMap.put(CommandName.SHOW_ADMIN_ACCOUNT_TRANSACTIONS_TABLE, new ShowAdminBankAccountTransactions());
-		commandMap.put(CommandName.UNLOCK_BANK_ACCOUNT, new UnlockUserBankAccount());
+		commandMap.put(CommandName.SHOW_ADMIN_BANK_ACCOUNTS_MENU, new ShowAdminAccountsMenu());
+		commandMap.put(CommandName.ADMIN_SHOW_ALL_TRANSACTIONS_BY_ACCOUNT_NUMBER, new ShowAdminBankAccountTransactions());
+		commandMap.put(CommandName.ADMIN_UNBLOCK_BANK_ACCOUNT, new UnlockUserBankAccount());
 		commandMap.put(CommandName.REJECT_USER_REQUEST, new RejectUserRequest());
 		commandMap.put(CommandName.HANDLE_USER_REQUEST, new HandleUserRequest());
 		commandMap.put(CommandName.ADMIN_DELETE_USER_ACCOUNT, new AdminDeleteUserAccount());
 		commandMap.put(CommandName.UNLOCK_USER_ACCOUNT, new UnlockUserAccount());
+		commandMap.put(CommandName.FIND_ALL_USER_BANK_ACCOUNTS_BY_LOGIN, new ShowAllUserAccountsByLogin());
+		commandMap.put(CommandName.FIND_ALL_BANK_ACCOUNTS, new ShowAllBankAccounts());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {

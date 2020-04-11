@@ -15,4 +15,6 @@ public interface BankAccountService {
 
 	BankAccount getBankAccountByNumber(String number) throws ServiceException;
 
+	List<BankAccount> getAllBankAccounts() throws ServiceException;
+
 }
