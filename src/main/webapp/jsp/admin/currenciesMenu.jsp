@@ -12,6 +12,9 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css"
+	rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -87,7 +90,51 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				<tbody>
 					<c:forEach items="${CURRENCIES_LIST}" var="value">
 						<tr>
-							<td><c:out value="${value.name}" /></td>
+							<td><c:choose>
+									<c:when test="${value.name == 'BYN'}">
+										<i class="flag-icon flag-icon-by"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'CHF'}">
+										<i class="flag-icon flag-icon-ch"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'CNY'}">
+										<i class="flag-icon flag-icon-cn"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'EUR'}">
+										<i class="flag-icon flag-icon-eu"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'JPY'}">
+										<i class="flag-icon flag-icon-jp"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'PLN'}">
+										<i class="flag-icon flag-icon-pl"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'RUB'}">
+										<i class="flag-icon flag-icon-ru"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'SEK'}">
+										<i class="flag-icon flag-icon-se"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'UAH'}">
+										<i class="flag-icon flag-icon-ua"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'USD'}">
+										<i class="flag-icon flag-icon-us"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:otherwise>
+										<c:out value=" ${value.name}" />
+									</c:otherwise>
+								</c:choose></td>
 							<td><c:out value="${value.scale}" /></td>
 							<td><c:out value="${value.rate}" /></td>
 							<td><fmt:formatDate value="${value.updateDate}"
