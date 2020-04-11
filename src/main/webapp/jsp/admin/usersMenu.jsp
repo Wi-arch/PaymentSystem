@@ -67,6 +67,16 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</form>
 		</li>
 
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_ADMIN_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.accounts" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="usersBox">
@@ -111,28 +121,29 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</thead>
 				<tbody>
 					<tr>
-						<td><c:out value="${USER_BY_LOGIN.login}" /></td>
-						<td><c:out value="${USER_BY_LOGIN.email}" /></td>
-						<td><c:if test="${not empty USER_BY_LOGIN.name}">
+						<td width="22%"><c:out value="${USER_BY_LOGIN.login}" /></td>
+						<td width="22%"><c:out value="${USER_BY_LOGIN.email}" /></td>
+						<td width="23%"><c:if test="${not empty USER_BY_LOGIN.name}">
 								<c:out value="${USER_BY_LOGIN.name}" />
 							</c:if> <c:if test="${empty USER_BY_LOGIN.name}">
 								<c:out value="-" />
 							</c:if></td>
 
-						<td><c:if test="${not empty USER_BY_LOGIN.surname}">
+						<td width="23%"><c:if
+								test="${not empty USER_BY_LOGIN.surname}">
 								<c:out value="${USER_BY_LOGIN.surname}" />
 							</c:if> <c:if test="${empty USER_BY_LOGIN.surname}">
 								<c:out value="-" />
 							</c:if></td>
 
-						<td><c:if test="${not  USER_BY_LOGIN.isBlocked}">
+						<td width="10%"><c:if test="${not  USER_BY_LOGIN.isBlocked}">
 
 								<form action="${pageContext.request.contextPath}/controller"
 									method="post">
-									<input type="hidden" name="COMMAND" value="ADMIN_DELETE_USER_ACCOUNT">
-									<input type="hidden" name="USER_LOGIN"
-										value="${USER_BY_LOGIN.login}">
-									<button type="submit">
+									<input type="hidden" name="COMMAND"
+										value="ADMIN_DELETE_USER_ACCOUNT"> <input
+										type="hidden" name="USER_LOGIN" value="${USER_BY_LOGIN.login}">
+									<button type="submit" id="blockButton">
 										<fmt:message key="button.block" />
 									</button>
 								</form>
@@ -142,7 +153,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 									<input type="hidden" name="COMMAND" value="UNLOCK_USER_ACCOUNT">
 									<input type="hidden" name="USER_LOGIN"
 										value="${USER_BY_LOGIN.login}">
-									<button type="submit">
+									<button type="submit" id="unblockButton">
 										<fmt:message key="button.unlock" />
 									</button>
 								</form>
@@ -151,7 +162,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</tbody>
 			</table>
 		</c:if>
-		
+
 		<c:if test="${not empty USER_LIST}">
 
 			<table>
@@ -186,9 +197,9 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 									<form action="${pageContext.request.contextPath}/controller"
 										method="post">
 										<input type="hidden" name="COMMAND"
-											value="ADMIN_DELETE_USER_ACCOUNT"> <input type="hidden"
-											name="USER_LOGIN" value="{value.login}">
-										<button type="submit">
+											value="ADMIN_DELETE_USER_ACCOUNT"> <input
+											type="hidden" name="USER_LOGIN" value="${value.login}">
+										<button type="submit" id="blockButton">
 											<fmt:message key="button.block" />
 										</button>
 									</form>
@@ -200,7 +211,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 										<input type="hidden" name="COMMAND"
 											value="UNLOCK_USER_ACCOUNT"> <input type="hidden"
 											name="USER_LOGIN" value="${value.login}">
-										<button type="submit">
+										<button type="submit" id="unblockButton">
 											<fmt:message key="button.unlock" />
 										</button>
 									</form>

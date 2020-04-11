@@ -70,6 +70,16 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</form>
 		</li>
 
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_ADMIN_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.accounts" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="ratesBox">

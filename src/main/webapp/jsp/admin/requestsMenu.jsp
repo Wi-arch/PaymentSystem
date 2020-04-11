@@ -65,13 +65,24 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
+
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_ADMIN_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.accounts" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="adminRequetsBox">
 		<h2>
 			<fmt:message key="label.userRequests" />
 		</h2>
-		<div class="midlDiv">
+		<h4>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
 				<input type="hidden" name="COMMAND"
@@ -101,7 +112,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 							key="label.showOnlyRawRequests" />
 					</label> <input type="hidden" name="COMMAND" value="FIND_ALL_USER_REQUESTS">
 			</form>
-		</div>
+		</h4>
 		<c:if test="${not empty USER_REQUEST_LIST}">
 			<table>
 				<thead>
@@ -166,7 +177,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 										method="post">
 										<input type="hidden" name="COMMAND"
 											value="HANDLE_USER_REQUEST"> <input type="hidden"
-											name="USER_REQUEST_ID" value="${SER_REQUEST.id}">
+											name="USER_REQUEST_ID" value="${USER_REQUEST.id}">
 										<button type="submit" id="handleButton">
 											<fmt:message key="button.handle" />
 										</button>
@@ -176,7 +187,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 										method="post">
 										<input type="hidden" name="COMMAND"
 											value="REJECT_USER_REQUEST"> <input type="hidden"
-											name="USER_REQUEST_ID" value="${SER_REQUEST.id}">
+											name="USER_REQUEST_ID" value="${USER_REQUEST.id}">
 										<button type="submit">
 											<fmt:message key="button.reject" />
 										</button>

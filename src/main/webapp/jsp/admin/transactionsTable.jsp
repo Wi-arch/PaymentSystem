@@ -18,8 +18,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/styles.css">
+<link rel="stylesheet" href="css/styles.css">
 <title><fmt:message key="title.onlineBanking" /></title>
 </head>
 
@@ -66,7 +65,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-		
+
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
@@ -77,24 +76,64 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-
 	</ul>
 
+	<div class="transactionsBox">
+		<c:if test="${not empty TRANSACTION_LIST}">
+			<h4>
+				<fmt:message key="label.statementFromAccount" />
+				${param.BANK_ACCOUNT_NUMBER}
+			</h4>
+			<table>
+				<thead>
+					<tr>
+						<th scope="col"><fmt:message key="label.operationDate" /></th>
+						<th scope="col"><fmt:message key="label.description" /></th>
+						<th scope="col"><fmt:message key="label.operationType" /></th>
+						<th scope="col"><fmt:message key="label.amount" /></th>
+						<th scope="col"><fmt:message key="label.currency" /></th>
+						<th scope="col"><fmt:message key="label.status" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${TRANSACTION_LIST}" var="value">
+						<tr>
+							<td width="16%"><fmt:formatDate value="${value.date}"
+									pattern="dd-MM-yyyy HH:mm" /></td>
+							<td width="25%"><c:out value="${value.paymentPurpose}" /></td>
+							<td width="22%"><c:if test="${value.isWriteOff }">
+									<fmt:message key="label.writeOff" />
+								</c:if> <c:if test="${not value.isWriteOff }">
+									<fmt:message key="label.crediting" />
+								</c:if></td>
+							<td width="11%"><c:out value="${value.amount}" /></td>
+							<td width="11%"><c:out value="${value.currency.name}" /></td>
+							<td width="15%"><c:if test="${value.isCompleted }">
+									<fmt:message key="label.completed" />
+								</c:if> <c:if test="${not value.isCompleted }">
+									<fmt:message key="label.notCompleted" />
+								</c:if></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if test="${empty TRANSACTION_LIST}">
+			<h4>
+				<fmt:message key="label.noAccountTransactions" />
+			</h4>
+		</c:if>
 
-
-	<div class="ratesBox">
-		<h3>
-			<fmt:message key="text.safeUsePaymentTitle" />
-		</h3>
-		<h4>
-			<fmt:message key="text.safeUsePayment1" />
-		</h4>
-		<h4>
-			<fmt:message key="text.safeUsePayment2" />
-		</h4>
-		<h4>
-			<fmt:message key="text.safeUsePayment3" />
-		</h4>
+		<c:if test="${not empty ERROR_MESSAGE}">
+			<h2 id="error">
+				<fmt:message key="${ERROR_MESSAGE}" />
+			</h2>
+		</c:if>
+		<c:if test="${not empty RESULT_MESSAGE}">
+			<h2 id="result">
+				<fmt:message key="${RESULT_MESSAGE}" />
+			</h2>
+		</c:if>
 	</div>
 
 	<div id="footer">
@@ -102,7 +141,5 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<ctg:copyright-tag />
 		</div>
 	</div>
-
 </body>
 </html>
-
