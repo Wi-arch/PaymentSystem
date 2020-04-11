@@ -1,4 +1,4 @@
-package by.training.payment.command.user;
+package by.training.payment.command.user.redirect;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

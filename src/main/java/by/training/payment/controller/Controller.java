@@ -15,6 +15,7 @@ import by.training.payment.exception.NoJDBCDriverException;
 import by.training.payment.exception.NoJDBCPropertiesFileException;
 import by.training.payment.factory.CommandFactory;
 import by.training.payment.pool.PoolConnection;
+import by.training.payment.util.DailyTaskHandlerThread;
 
 @SuppressWarnings("serial")
 @WebServlet("/controller")
@@ -31,6 +32,7 @@ public class Controller extends HttpServlet {
 		} catch (NoJDBCDriverException | NoJDBCPropertiesFileException e) {
 			LOGGER.fatal("Cannot initialize connection pool", e);
 		}
+		new DailyTaskHandlerThread().start();
 	}
 
 	@Override

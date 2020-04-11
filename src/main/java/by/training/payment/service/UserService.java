@@ -25,4 +25,6 @@ public interface UserService {
 	void updateUserName(User user, String name) throws ServiceException;
 
 	void updateUserSurname(User user, String surname) throws ServiceException;
+
+	void unlockUser(User user) throws ServiceException;
 }

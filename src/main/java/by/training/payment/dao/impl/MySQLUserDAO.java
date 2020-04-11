@@ -27,17 +27,15 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 	public void addUser(User user) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(ADD_USER);
-				if (statement != null) {
-					statement.setString(1, user.getLogin());
-					statement.setString(2, user.getPassword());
-					statement.setString(3, user.getEmail());
-					statement.setString(4, user.getUserRole().getRole());
-					statement.setString(5, user.getName());
-					statement.setString(6, user.getSurname());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(ADD_USER);
+			if (statement != null) {
+				statement.setString(1, user.getLogin());
+				statement.setString(2, user.getPassword());
+				statement.setString(3, user.getEmail());
+				statement.setString(4, user.getUserRole().getRole());
+				statement.setString(5, user.getName());
+				statement.setString(6, user.getSurname());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot add user", e);
@@ -50,18 +48,16 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 	public void updateUser(User user) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(UPDATE_USER);
-				if (statement != null) {
-					statement.setString(1, user.getPassword());
-					statement.setString(2, user.getEmail());
-					statement.setString(3, user.getUserRole().getRole());
-					statement.setString(4, user.getName());
-					statement.setString(5, user.getSurname());
-					statement.setBoolean(6, user.getIsBlocked());
-					statement.setString(7, user.getLogin());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(UPDATE_USER);
+			if (statement != null) {
+				statement.setString(1, user.getPassword());
+				statement.setString(2, user.getEmail());
+				statement.setString(3, user.getUserRole().getRole());
+				statement.setString(4, user.getName());
+				statement.setString(5, user.getSurname());
+				statement.setBoolean(6, user.getIsBlocked());
+				statement.setString(7, user.getLogin());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot update user", e);
@@ -74,12 +70,10 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 	public void deleteUser(User user) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(DELETE_USER);
-				if (statement != null) {
-					statement.setString(1, user.getLogin());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(DELETE_USER);
+			if (statement != null) {
+				statement.setString(1, user.getLogin());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot delete user", e);
@@ -94,13 +88,11 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_USERS);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						userList.add(buildUser(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_USERS);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					userList.add(buildUser(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -118,14 +110,12 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_USER_BY_LOGIN);
-				if (statement != null) {
-					statement.setString(1, login);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						user = buildUser(resultSet);
-					}
+			statement = connection.prepareStatement(GET_USER_BY_LOGIN);
+			if (statement != null) {
+				statement.setString(1, login);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					user = buildUser(resultSet);
 				}
 			}
 		} catch (SQLException e) {
@@ -143,14 +133,12 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_USER_BY_EMAIL);
-				if (statement != null) {
-					statement.setString(1, email);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						user = buildUser(resultSet);
-					}
+			statement = connection.prepareStatement(GET_USER_BY_EMAIL);
+			if (statement != null) {
+				statement.setString(1, email);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					user = buildUser(resultSet);
 				}
 			}
 		} catch (SQLException e) {
@@ -168,15 +156,13 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD);
-				if (statement != null) {
-					statement.setString(1, login);
-					statement.setString(2, password);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						user = buildUser(resultSet);
-					}
+			statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD);
+			if (statement != null) {
+				statement.setString(1, login);
+				statement.setString(2, password);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					user = buildUser(resultSet);
 				}
 			}
 		} catch (SQLException e) {
@@ -194,15 +180,13 @@ public class MySQLUserDAO extends SQLUtil implements UserDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_EMAIL);
-				if (statement != null) {
-					statement.setString(1, login);
-					statement.setString(2, email);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						user = buildUser(resultSet);
-					}
+			statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_EMAIL);
+			if (statement != null) {
+				statement.setString(1, login);
+				statement.setString(2, email);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					user = buildUser(resultSet);
 				}
 			}
 		} catch (SQLException e) {

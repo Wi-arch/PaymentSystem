@@ -43,19 +43,16 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 			+ "INNER JOIN user_role ON user_role.user_role_value = bank_user.user_role_value "
 			+ "WHERE user_request.user_request_id = ?;";
 
-
 	@Override
 	public void addRequestParameter(RequestParameter requestParameter) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(ADD_REQUEST_PARAMETER);
-				if (statement != null) {
-					statement.setString(1, requestParameter.getParameterHeader().getName());
-					statement.setInt(2, requestParameter.getUserRequest().getId());
-					statement.setString(3, requestParameter.getValue());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(ADD_REQUEST_PARAMETER);
+			if (statement != null) {
+				statement.setString(1, requestParameter.getParameterHeader().getName());
+				statement.setInt(2, requestParameter.getUserRequest().getId());
+				statement.setString(3, requestParameter.getValue());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot add request parameter", e);
@@ -68,15 +65,13 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 	public void updateRequestParameter(RequestParameter requestParameter) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(UPDATE_REQUEST_PARAMETER);
-				if (statement != null) {
-					statement.setString(1, requestParameter.getParameterHeader().getName());
-					statement.setInt(2, requestParameter.getUserRequest().getId());
-					statement.setString(3, requestParameter.getValue());
-					statement.setInt(4, requestParameter.getId());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(UPDATE_REQUEST_PARAMETER);
+			if (statement != null) {
+				statement.setString(1, requestParameter.getParameterHeader().getName());
+				statement.setInt(2, requestParameter.getUserRequest().getId());
+				statement.setString(3, requestParameter.getValue());
+				statement.setInt(4, requestParameter.getId());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot update request parameter", e);
@@ -89,12 +84,10 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 	public void deleteRequestParameter(RequestParameter requestParameter) throws DAOException {
 		PreparedStatement statement = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(DELETE_REQUEST_PARAMETER);
-				if (statement != null) {
-					statement.setInt(1, requestParameter.getId());
-					statement.executeUpdate();
-				}
+			statement = connection.prepareStatement(DELETE_REQUEST_PARAMETER);
+			if (statement != null) {
+				statement.setInt(1, requestParameter.getId());
+				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Cannot delete request parameter", e);
@@ -109,14 +102,12 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_REQUEST_PARAMETER_BY_ID);
-				if (statement != null) {
-					statement.setInt(1, id);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						requestParameter = buildRequestParameter(resultSet);
-					}
+			statement = connection.prepareStatement(GET_REQUEST_PARAMETER_BY_ID);
+			if (statement != null) {
+				statement.setInt(1, id);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					requestParameter = buildRequestParameter(resultSet);
 				}
 			}
 		} catch (SQLException e) {
@@ -134,13 +125,11 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_REQUEST_PARAMETERS);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						requestParameters.add(buildRequestParameter(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_REQUEST_PARAMETERS);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					requestParameters.add(buildRequestParameter(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -158,14 +147,12 @@ public class MySQLRequestParameterDAO extends SQLUtil implements RequestParamete
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_REQUEST_PARAMETERS_BY_USER_REQUEST_ID);
-				if (statement != null) {
-					statement.setInt(1, userRequestId);
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						requestParameters.add(buildRequestParameter(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_REQUEST_PARAMETERS_BY_USER_REQUEST_ID);
+			if (statement != null) {
+				statement.setInt(1, userRequestId);
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					requestParameters.add(buildRequestParameter(resultSet));
 				}
 			}
 		} catch (SQLException e) {

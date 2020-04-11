@@ -4,6 +4,25 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>PaymentSystem</display-name>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/jsp/user/*</url-pattern>
+		<url-pattern>/jsp/admin/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CommandFilter</filter-name>
+		<url-pattern>/controller</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UserSessionUpdaterFilter</filter-name>
+		<url-pattern>/jsp/user/*</url-pattern>
+		<url-pattern>/jsp/admin/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>SessionLoginFilter</filter-name>
+		<url-pattern>/jsp/user/*</url-pattern>
+		<url-pattern>/jsp/admin/*</url-pattern>
+	</filter-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>

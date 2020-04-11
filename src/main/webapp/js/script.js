@@ -41,3 +41,38 @@ function closeFormNewCard() {
 	document.getElementById("openFormNewCard").style.display = "none";
 	document.getElementById("userCreateRequestBox").style.display = "block";
 }
+
+
+
+
+function next(cardList){  
+	var i = cardList.length -1;
+  if (i == a.length -1) {
+    i = 0;
+  } else {
+    i++
+  }
+  document.getElementById('output').value = cardList[i]; 
+}
+function previous(cardList){
+	var i = cardList.length -1;
+  if (i == 0) {
+    i = a.length -1;
+  } else {
+    i--
+  }
+    document.getElementById('output').value = cardList[i]; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

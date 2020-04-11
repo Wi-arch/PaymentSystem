@@ -16,12 +16,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.mysql.cj.jdbc.Driver;
 import org.apache.log4j.Logger;
 
+import by.training.payment.exception.DAOException;
 import by.training.payment.exception.NoJDBCDriverException;
 import by.training.payment.exception.NoJDBCPropertiesFileException;
 
 public enum PoolConnection {
 
 	INSTANCE;
+
 	private static final Logger LOGGER = Logger.getLogger(PoolConnection.class);
 	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
 	private static final String DATABASE_URL_KEY = "url";
@@ -52,13 +54,14 @@ public enum PoolConnection {
 		}
 	}
 
-	public ProxyConnection getConnection() {
+	public ProxyConnection getConnection() throws DAOException {
 		ProxyConnection connection = null;
 		try {
 			connection = availableConnection.poll(MAXIMUM_SECONDS_TIMEOUT, TimeUnit.SECONDS);
-			if (connection != null) {
-				unavailableConnection.push(connection);
+			if (connection == null) {
+				throw new DAOException("Connection has been timed out *Status998*");
 			}
+			unavailableConnection.push(connection);
 		} catch (InterruptedException e) {
 			LOGGER.warn("Cannot get connection", e);
 			Thread.currentThread().interrupt();

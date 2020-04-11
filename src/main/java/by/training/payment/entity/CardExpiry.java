@@ -1,13 +1,13 @@
 package by.training.payment.entity;
 
-public class CardExpirationDate {
+public class CardExpiry {
 
 	private int value;
 
-	public CardExpirationDate() {
+	public CardExpiry() {
 	}
 
-	public CardExpirationDate(int value) {
+	public CardExpiry(int value) {
 		this.value = value;
 	}
 
@@ -35,7 +35,7 @@ public class CardExpirationDate {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CardExpirationDate other = (CardExpirationDate) obj;
+		CardExpiry other = (CardExpiry) obj;
 		if (value != other.value)
 			return false;
 		return true;
@@ -43,7 +43,7 @@ public class CardExpirationDate {
 
 	@Override
 	public String toString() {
-		return "CardExpirationDate [value=" + value + "]";
+		return "CardExpiry [value=" + value + "]";
 	}
 
 }

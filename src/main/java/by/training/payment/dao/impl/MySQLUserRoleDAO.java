@@ -23,13 +23,11 @@ public class MySQLUserRoleDAO extends SQLUtil implements UserRoleDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_ALL_USER_ROLES);
-				if (statement != null) {
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
-						userRoleList.add(buildUserRole(resultSet));
-					}
+			statement = connection.prepareStatement(GET_ALL_USER_ROLES);
+			if (statement != null) {
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					userRoleList.add(buildUserRole(resultSet));
 				}
 			}
 		} catch (SQLException e) {
@@ -47,14 +45,12 @@ public class MySQLUserRoleDAO extends SQLUtil implements UserRoleDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			if (connection != null) {
-				statement = connection.prepareStatement(GET_USER_ROLE_BY_VALUE);
-				if (statement != null) {
-					statement.setString(1, value);
-					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
-						userRole = buildUserRole(resultSet);
-					}
+			statement = connection.prepareStatement(GET_USER_ROLE_BY_VALUE);
+			if (statement != null) {
+				statement.setString(1, value);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					userRole = buildUserRole(resultSet);
 				}
 			}
 		} catch (SQLException e) {

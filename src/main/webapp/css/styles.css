@@ -7,8 +7,21 @@
 	background-color: #464646;
 	color: white;
 }
-/* --------------------------------------------------------------- */
-/* --------------------------------------------------------------- */
+
+@-webkit-keyframes autofill {
+    0%,100% {
+        color: #666;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-delay: 1s;
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+	-webkit-text-fill-color: white !important;
+}
+
 ul {
 	margin: 0px;
 	padding: 0px;
@@ -106,44 +119,6 @@ ul li:hover ul li {
 	display: block;
 }
 
-/* --------------------------------------------------------------- */
-/* --------------------------------------------------------------- */
-.topnav {
-	background-color: #333;
-	overflow: hidden;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	opacity: 0.8;
-}
-
-.topnav .icon {
-	display: none;
-}
-
-.topnav a {
-	float: right;
-	display: block;
-	color: #f2f2f2;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	font-size: 17px;
-	background-color: #333;
-	border: none;
-}
-
-.topnav a:hover {
-	background-color: #ddd;
-	color: black;
-}
-
-.topnav a.active {
-	background-color: #387DF5;
-	color: white;
-}
-/* --------------------------------------------------------------- */
-/* --------------------------------------------------------------- */
 .box {
 	position: absolute;
 	top: 50%;
@@ -335,6 +310,7 @@ ul li:hover ul li {
 
 #success {
 	color: #39b54a;
+	color: #08760c;
 	padding: 5px 0px;
 }
 
@@ -424,7 +400,7 @@ ul li:hover ul li {
 	top: 50%;
 	Left: 50%;
 	transform: translate(-50%, -50%);
-	width: 550px;
+	width: 730px;
 	background: rgba(0, 0, 0, .8);
 	box-sizing: border-box;
 	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
@@ -439,12 +415,38 @@ ul li:hover ul li {
 	background-color: #AD0734;
 	color: white;
 	height: 50px;
+	text-align:center;	
 }
+
+.ratesBox td {
+	width: 25%;
+	text-align:center; 	
+}	
 
 .ratesBox table {
 	opacity: 0.8;
 	width: 100%;
 }
+
+.ratesBox button {
+  float: right;	
+  background-color: #387DF5;;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top:-40px;
+
+  margin-left:70%; 
+  position: relative;
+  font-size: 16px;
+  font-weight: bold;
+}	
+
+.ratesBox button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
 
 .userDataBox {
 	position: absolute;
@@ -474,7 +476,7 @@ ul li:hover ul li {
 	text-align: center;
 	padding: 10px 30px;
 	font-size: 15px;
-	background-color: #009900;
+	background-color: #39b52a; 
 	border-radius: 4px;
 	border: none;
 }
@@ -619,7 +621,12 @@ ul li:hover ul li {
 	background: #39b54a;
 	color: white;
 	height: 50px;
+	text-align:center;
 }
+
+.requestsBox td {
+   text-align:center; 	
+}	
 
 .requestsBox table {
 	opacity: 0.8;
@@ -894,4 +901,483 @@ ul li:hover ul li {
 	background: white;
 }
 /* Custom radio button END */
+
+
+/*User cards box*/
+
+.userCardsBox {
+	position: absolute;
+	top: 50%;
+	Left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	height:400px;
+	padding: 10px;
+	background: rgba(0, 0, 0, .8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+	border-radius: 4px;
+}
+
+.userCardsBox h3 {
+	text-align: center;
+}
+
+.userCardsBox button{
+	float: left;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	padding: 10px 30px;
+	font-size: 18px;
+	background: rgba(0, 0, 0, .1);
+	color: white;
+	border-radius: 4px;
+	border: none;
+}
+
+.userCardsBox button:hover {
+	background-color: #ddd;
+	color: black;
+	border-radius: 5px;
+}
+
+/*User cards box END */
+
+
+/*User bank account box*/
+
+.userBankAccountBox {
+	position: absolute;
+	top: 50%;
+	Left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	height:400px;
+	padding: 10px;
+	background: rgba(0, 0, 0, .8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+	border-radius: 4px;
+}
+
+.userBankAccountBox h3 {
+	text-align: center;
+}
+
+.userBankAccountBox button{
+	float: left;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	padding: 10px 30px;
+	font-size: 18px;
+	background: rgba(0, 0, 0, .1);
+	color: white;
+	border-radius: 4px;
+	border: none;
+}
+
+.userBankAccountBox button:hover {
+	background-color: #ddd;
+	color: black;
+	border-radius: 5px;
+}
+
+/*User bank account box END */
+
+/*Users box */
+.usersBox {
+	position: relative;	
+	top: 200px;	
+	Left: 20%;	
+	margin-bottom: 100px;	
+	width: 1200px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.usersBox form {
+	display:inline;
+}	
+
+.usersBox h2{
+	padding: 5px 300px;
+	font-size: 36px;
+	text-align:center;
+}
+
+.usersBox h4{
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.usersBox #blockButton {
+  background-color: #387DF5;
+  color: white;
+}	
+
+.usersBox #unblockButton {
+  background-color: #389DF5;
+  color: white;
+}	
+
+.usersBox button {
+  background-color: #387DF5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;  
+  padding: 8px 20px;
+  border-radius: 4px;  
+}	
+
+.usersBox button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
+
+.usersBox input[type=text] {
+  height:45px;
+  opacity: 0.8;
+}	
+
+.usersBox input[type=text]:focus {
+  background-color: lightblue;
+}
+
+.usersBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.usersBox td {
+   text-align:center; 	
+}	
+
+.usersBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.usersBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.usersBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.usersBox table button {
+  width: 160px;
+}	
+/*Users box end*/
+
+
+/*Admin requests box */
+
+.adminRequetsBox {
+	position: relative;	
+	top: 150px;	
+	Left: 10%;	
+	margin-bottom: 100px;	
+	width: 1500px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.adminRequetsBox form {
+	display:inline;
+}	
+
+.adminRequetsBox h2{
+	position: relative;	
+	Left: 6%;	
+	padding: 5px 300px;
+	font-size: 36px;
+	text-align:center;
+}
+
+.adminRequetsBox h4{
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminRequetsBox button {
+  background-color: #387DF5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;  
+  padding: 8px 20px;
+  border-radius: 4px;
+}	
+
+.adminRequetsBox button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
+
+.adminRequetsBox input[type=text] {
+	height:45px;
+	opacity: 0.8;
+}	
+
+.adminRequetsBox input[type=text]:focus {
+  background-color: lightblue;
+}
+
+.adminRequetsBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminRequetsBox td {
+   text-align:center; 	
+   height:40px;
+}	
+
+.adminRequetsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.adminRequetsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.adminRequetsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.adminRequetsBox table button {
+  width: 160px;
+}	
+
+.adminRequetsBox table #handleButton {
+	background-color:  #39b54a;
+}	
+
+.adminRequetsBox .checkbox {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	margin: 10px 0 0 20px;
+}
+.adminRequetsBox .checkbox + label {
+	position: relative;
+	padding: 0 0 0 70px;
+	cursor: pointer;
+}
+.adminRequetsBox .checkbox + label:before {
+	content: '';
+	position: absolute;
+	left: 0;
+    top: 4px;
+	width: 50px;
+	height: 26px;
+	border-radius: 13px;
+	background: #CDD1DA;
+	box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
+	transition: .2s;
+}
+.adminRequetsBox .checkbox + label:after {
+	content: '';
+	position: absolute;
+	top: 6px;
+	left: 2px;
+	width: 22px;
+	height: 22px;
+	border-radius: 10px;
+	background: #FFF;
+	box-shadow: 0 2px 5px rgba(0,0,0,.3);
+	transition: .2s;
+}
+.adminRequetsBox .checkbox:checked + label:before {	
+	background: #39b54a;
+}
+.adminRequetsBox .checkbox:checked + label:after {
+	left: 26px;
+}
+.adminRequetsBox .checkbox:focus + label:before {
+	box-shadow: inset 0 2px 3px rgba(0,0,0,.2), 0 0 0 3px rgba(255,255,0,.7);
+}
+
+/*Admin requests box end*/
+
+
+/*Admin bank accounts box */
+.adminBankAccountsBox {
+	position: relative;	
+	top: 150px;	
+	Left: 10%;	
+	margin-bottom: 100px;	
+	width: 1500px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.adminBankAccountsBox form {
+	display:inline;
+}	
+
+.adminBankAccountsBox h2{
+	position: relative;	
+	Left: 6%;	
+	padding: 5px 300px;
+	font-size: 36px;
+	text-align:center;
+}
+
+.adminBankAccountsBox h4{
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminBankAccountsBox button {
+  background-color: #387DF5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;  
+  padding: 8px 20px;
+  border-radius: 4px;
+}	
+
+.adminBankAccountsBox button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
+
+.adminBankAccountsBox #blockButton {
+  background-color: #387DF5;
+  color: white;
+}	
+
+.adminBankAccountsBox #unblockButton {
+  background-color: #389DF5;
+  color: white;
+}	
+
+.adminBankAccountsBox input[type=text] {
+	height:45px;
+	opacity: 0.8;
+}	
+
+.adminBankAccountsBox input[type=text]:focus {
+  background-color: lightblue;
+}
+
+.adminBankAccountsBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminBankAccountsBox td {
+   text-align:center; 	
+   height:40px;
+}	
+
+.adminBankAccountsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.adminBankAccountsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.adminBankAccountsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.adminBankAccountsBox table button {
+  width: 160px;
+}	
+
+.adminBankAccountsBox table #handleButton {
+	background-color:  #39b54a;
+}	
+
+/*Admin admin Bank Accounts Box end*/
+
+/*Transaction Box box */
+.transactionsBox {
+	position: relative;	
+	top: 170px;	
+	Left: 17%;	
+	margin-bottom: 100px;	
+	width: 1200px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
+
+.transactionsBox h4{
+	position: relative;	
+	Left: 12%;	
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.transactionsBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.transactionsBox td {
+   text-align:center; 	
+   height:40px;
+}	
+
+.transactionsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.transactionsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.transactionsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+/*Transaction Box end*/
+
+
+
+
+
+
+
+
+
 

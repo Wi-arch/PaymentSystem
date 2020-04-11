@@ -12,6 +12,9 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css"
+	rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -39,7 +42,8 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
-				<input type="hidden" name="COMMAND" value="SHOW_CURRENCIES">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_CURRENCIES_MENU">
 				<button type="submit" class="active">
 					<fmt:message key="button.currencyRates" />
 				</button>
@@ -78,9 +82,25 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					</form>
 				</li>
 			</ul></li>
-
-		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
-		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myAccounts" />
+				</button>
+			</form>
+		</li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_USER_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myCards" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="ratesBox">
@@ -96,15 +116,62 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 						<th scope="col"><fmt:message key="label.currency" /></th>
 						<th scope="col"><fmt:message key="label.scale" /></th>
 						<th scope="col"><fmt:message key="label.rate" /></th>
+						<th scope="col"><fmt:message key="label.updateDate" /></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${CURRENCIES_LIST}" var="value">
 						<c:if test="${not value.isBaseCurrency}">
 							<tr>
-								<td><c:out value="${value.name}" /></td>
+								<td><c:choose>
+										<c:when test="${value.name == 'BYN'}">
+											<i class="flag-icon flag-icon-by"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'CHF'}">
+											<i class="flag-icon flag-icon-ch"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'CNY'}">
+											<i class="flag-icon flag-icon-cn"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'EUR'}">
+											<i class="flag-icon flag-icon-eu"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'JPY'}">
+											<i class="flag-icon flag-icon-jp"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'PLN'}">
+											<i class="flag-icon flag-icon-pl"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'RUB'}">
+											<i class="flag-icon flag-icon-ru"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'SEK'}">
+											<i class="flag-icon flag-icon-se"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'UAH'}">
+											<i class="flag-icon flag-icon-ua"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:when test="${value.name == 'USD'}">
+											<i class="flag-icon flag-icon-us"></i>
+											<c:out value=" ${value.name}" />
+										</c:when>
+										<c:otherwise>
+											<c:out value=" ${value.name}" />
+										</c:otherwise>
+									</c:choose></td>
 								<td><c:out value="${value.scale}" /></td>
 								<td><c:out value="${value.rate}" /></td>
+								<td><fmt:formatDate value="${value.updateDate}"
+										pattern="dd-MM-yyyy HH:mm" /></td>
 							</tr>
 						</c:if>
 					</c:forEach>
