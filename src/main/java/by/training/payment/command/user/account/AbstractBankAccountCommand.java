@@ -17,6 +17,7 @@ import by.training.payment.util.ExceptionParser;
 public abstract class AbstractBankAccountCommand extends AbstractCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(AbstractBankAccountCommand.class);
+	private static final String ACCOUNTS_NOT_FOUND = "label.accountsNotFound";
 
 	protected void setUserAccountListInRequestAttribute(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
@@ -30,8 +31,8 @@ public abstract class AbstractBankAccountCommand extends AbstractCommand {
 			}
 		}
 	}
-	
-	protected void setBankAccountTransactionListInRequestAttribute(HttpServletRequest request) {
+
+	protected void setBankAccountTransactionListByAccountNumberInRequestAttribute(HttpServletRequest request) {
 		String accountNumber = request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString());
 		try {
 			List<Transaction> transactionList = transactionService.getAllTransactionsByBankAccountNumber(accountNumber);
@@ -40,5 +41,12 @@ public abstract class AbstractBankAccountCommand extends AbstractCommand {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
 			LOGGER.warn("Cannot load transactions by user account number", e);
 		}
+	}
+
+	protected void setBankAccountListInRequestAttribute(HttpServletRequest request, List<BankAccount> bankAccounts) {
+		if (bankAccounts == null || bankAccounts.isEmpty()) {
+			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), ACCOUNTS_NOT_FOUND);
+		}
+		request.setAttribute(RequestParameter.BANK_ACCOUNT_LIST.toString(), bankAccounts);
 	}
 }

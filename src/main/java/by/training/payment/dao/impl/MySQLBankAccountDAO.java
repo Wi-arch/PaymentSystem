@@ -235,9 +235,9 @@ public class MySQLBankAccountDAO extends SQLUtil implements BankAccountDAO {
 		CallableStatement callableStatement = null;
 		try {
 			connection.setAutoCommit(false);
-			statement = connection.prepareStatement(UPDATE_BANK_ACCOUNT_IS_BLOCKED);
-			statement.setString(1, bankAccount.getAccountNumber());
-			statement.setBoolean(2, bankAccount.getIsBlocked());
+			statement = connection.prepareStatement(UPDATE_BANK_ACCOUNT_IS_BLOCKED);			
+			statement.setBoolean(1, bankAccount.getIsBlocked());
+			statement.setString(2, bankAccount.getAccountNumber());
 			statement.executeUpdate();
 			callableStatement = connection.prepareCall(UPDATE_CARD_IS_BLOCKED);
 			for (Card card : cardList) {

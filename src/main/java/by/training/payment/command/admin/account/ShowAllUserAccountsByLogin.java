@@ -1,5 +1,6 @@
 package by.training.payment.command.admin.account;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,19 +13,19 @@ import by.training.payment.entity.BankAccount;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.util.ExceptionParser;
 
-public class AdminLockUserBankAccount extends AbstractBankAccountCommand {
+public class ShowAllUserAccountsByLogin extends AbstractBankAccountCommand {
 
-	private static final Logger LOGGER = Logger.getLogger(AdminLockUserBankAccount.class);
+	private static final Logger LOGGER = Logger.getLogger(ShowAllUserAccountsByLogin.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		BankAccount account = new BankAccount(request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString()));
+		String userLogin = request.getParameter(RequestParameter.USER_LOGIN.toString());
 		try {
-			bankAccountService.lockBankAccount(account);
-			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
+			List<BankAccount> bankAccountList = bankAccountService.getAllBankAccountsByUserLogin(userLogin);
+			setBankAccountListInRequestAttribute(request, bankAccountList);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
-			LOGGER.warn("Cannot lock user bank account", e);
+			LOGGER.warn("Cannot load user account list by user login", e);
 		}
 		return PageEnum.ADMIN_ACCOUNTS_MENU.getValue();
 	}
