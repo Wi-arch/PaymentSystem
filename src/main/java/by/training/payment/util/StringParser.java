@@ -9,7 +9,7 @@ public class StringParser {
 	private static final String SCALE_REGEX = ".*\\{.*\"Cur_Abbreviation\":\"CURRENCY_NAME\",\"Cur_Scale\":(\\d+).*?\\}.*";
 	private static final String RATE_REGEX = ".*\\{.*\"Cur_Abbreviation\":\"CURRENCY_NAME\".*?\"Cur_OfficialRate\":(\\d{1}\\.\\d{4})\\}.*";
 	private static final String CURRENCY_NAME = "CURRENCY_NAME";
-	private static final String CURRENCY_NAME_REGEX = "[A-Z] {3}";
+	private static final String CURRENCY_NAME_REGEX = "[A-Z]{3}";
 	private static final String NATIONAL_BANK_CURRENCY_RATE_REGEX = "^\\[(?:\\{.*\"Cur_Abbreviation\":\"[A-Z]{3}\",\"Cur_Scale\":\\d+,.*\"Cur_OfficialRate\":\\d+\\.\\d+\\},?)*\\]$";
 
 	private StringParser() {
