@@ -1,16 +1,16 @@
-package by.training.payment.command.admin.account;
+package by.training.payment.command.admin.card;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.training.payment.command.PageEnum;
-import by.training.payment.command.user.account.AbstractBankAccountCommand;
+import by.training.payment.command.user.card.AbstractCardCommand;
 
-public class ShowAdminBankAccountTransactions extends AbstractBankAccountCommand {
+public class ShowAdminCardTransactions extends AbstractCardCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		setTransactionListByAccountNumberInRequestAttribute(request);
+		setTransactionListByCardNumberInRequestAttribute(request);
 		return PageEnum.ADMIN_TRANSACTIONS_TABLE.getValue();
 	}
 }

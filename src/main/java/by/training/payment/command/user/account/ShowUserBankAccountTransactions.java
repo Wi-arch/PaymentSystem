@@ -9,7 +9,7 @@ public class ShowUserBankAccountTransactions extends AbstractBankAccountCommand 
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		setBankAccountTransactionListByAccountNumberInRequestAttribute(request);
+		setTransactionListByAccountNumberInRequestAttribute(request);
 		return PageEnum.USER_TRANSACTION_TABLE.getValue();
 	}
 }
