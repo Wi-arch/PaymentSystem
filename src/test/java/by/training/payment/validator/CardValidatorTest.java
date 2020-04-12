@@ -26,6 +26,16 @@ public class CardValidatorTest {
 	private final String emptyPaymentPurpose = "";
 
 	@Test
+	public void testCheckIsCardNumberLengthValidPositive() throws ServiceException {
+		CARD_VALIDATOR.checkIsCardNumberLengthValid(validSenderCardNumber);
+	}
+
+	@Test(expected = ServiceException.class)
+	public void testCheckIsCardNumberLengthValidNegative() throws ServiceException {
+		CARD_VALIDATOR.checkIsCardNumberLengthValid(validUserCcvCode);
+	}
+
+	@Test
 	public void testCheckIsAmountPositivePositive() throws ServiceException {
 		CARD_VALIDATOR.checkIsAmountPositive(positiveAmount);
 	}
