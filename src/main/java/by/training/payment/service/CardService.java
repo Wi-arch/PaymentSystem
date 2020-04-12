@@ -24,4 +24,6 @@ public interface CardService {
 	void blockAllExpiredCards() throws ServiceException;
 
 	Card getCardByNumber(String number) throws ServiceException;
+
+	void unlockCard(Card card) throws ServiceException;
 }
