@@ -11,6 +11,7 @@ import by.training.payment.exception.ServiceException;
 public class CardValidator {
 
 	private static final int ONE = 1;
+	private static final int VALID_CARD_NUMBER_LENGTH = 16;
 
 	public void checkIsAmountPositive(BigDecimal amount) throws ServiceException {
 		if (amount == null || amount.compareTo(BigDecimal.ZERO) < ONE) {
@@ -55,6 +56,12 @@ public class CardValidator {
 	public void checkIsCardCanBeUnblocked(Card card) throws ServiceException {
 		if (isExpiredDateCard(card)) {
 			throw new ServiceException("Unable unlock expired card *Status1028*");
+		}
+	}
+
+	public void checkIsCardNumberLengthValid(String cardNumber) throws ServiceException {
+		if (cardNumber == null || cardNumber.length() != VALID_CARD_NUMBER_LENGTH) {
+			throw new ServiceException("Invalid card number length");
 		}
 	}
 }

@@ -177,8 +177,8 @@ public class CardServiceImpl implements CardService {
 	}
 
 	private BigDecimal convertCurrency(BigDecimal amount, Currency from, Currency to) throws ServiceException {
-		currencyValidator.checkCurrencyNameAndRateForNull(from);
-		currencyValidator.checkCurrencyNameAndRateForNull(to);
+		currencyValidator.checkCurrencyFieldsForNull(from);
+		currencyValidator.checkCurrencyFieldsForNull(to);
 		if (from.equals(to)) {
 			return amount;
 		}

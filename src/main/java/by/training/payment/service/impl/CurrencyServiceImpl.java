@@ -68,7 +68,8 @@ public class CurrencyServiceImpl implements CurrencyService {
 		}
 	}
 
-	private void updateCurrencyFromCurrencyRatesString(Currency currency, String currencyRates) {
+	private void updateCurrencyFromCurrencyRatesString(Currency currency, String currencyRates)
+			throws ServiceException {
 		if (!currency.getIsBaseCurrency()) {
 			String currencyName = currency.getName();
 			BigDecimal rate = StringParser.getRateFromCurrencyRatesStringByCurrencyName(currencyRates, currencyName);

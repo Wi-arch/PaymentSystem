@@ -11,15 +11,9 @@ public class CurrencyValidator {
 		}
 	}
 
-	public void checkCurrencyNameAndRateForNull(Currency currency) throws ServiceException {
-		if (currency == null || currency.getName() == null || currency.getRate() == null) {
-			throw new ServiceException("Null currency rate or name");
-		}
-	}
-
 	public void checkCurrencyFieldsForNull(Currency currency) throws ServiceException {
 		if (currency == null || currency.getName() == null || currency.getRate() == null) {
-			throw new ServiceException("Null currency");
+			throw new ServiceException("Null currency fileds");
 		}
 	}
 }
