@@ -18,8 +18,14 @@ import by.training.payment.command.admin.account.ShowAdminBankAccountTransaction
 import by.training.payment.command.admin.account.ShowAllBankAccounts;
 import by.training.payment.command.admin.account.ShowAllUserAccountsByLogin;
 import by.training.payment.command.admin.account.UnlockUserBankAccount;
+import by.training.payment.command.admin.card.AdminLockUserCard;
+import by.training.payment.command.admin.card.AdminUnlockUserCard;
+import by.training.payment.command.admin.card.ShowAdminCardTransactions;
+import by.training.payment.command.admin.card.ShowAllCards;
+import by.training.payment.command.admin.card.ShowAllCardsByUserLogin;
 import by.training.payment.command.admin.currency.UpdateCurrenciesFromNationalBank;
 import by.training.payment.command.admin.redirect.ShowAdminAccountsMenu;
+import by.training.payment.command.admin.redirect.ShowAdminCardsMenu;
 import by.training.payment.command.admin.redirect.ShowAdminCurrenciesMenu;
 import by.training.payment.command.admin.redirect.ShowAdminRequestsMenu;
 import by.training.payment.command.admin.redirect.ShowAdminUsersMenu;
@@ -102,6 +108,12 @@ public class CommandFactory {
 		commandMap.put(CommandName.UNLOCK_USER_ACCOUNT, new UnlockUserAccount());
 		commandMap.put(CommandName.FIND_ALL_USER_BANK_ACCOUNTS_BY_LOGIN, new ShowAllUserAccountsByLogin());
 		commandMap.put(CommandName.FIND_ALL_BANK_ACCOUNTS, new ShowAllBankAccounts());
+		commandMap.put(CommandName.SHOW_ADMIN_CARDS_MENU, new ShowAdminCardsMenu());
+		commandMap.put(CommandName.ADMIN_FIND_ALL_USER_CARDS_BY_LOGIN, new ShowAllCardsByUserLogin());
+		commandMap.put(CommandName.ADMIN_FIND_ALL_CARDS, new ShowAllCards());
+		commandMap.put(CommandName.ADMIN_BLOCK_CARD, new AdminLockUserCard());
+		commandMap.put(CommandName.ADMIN_UNBLOCK_CARD, new AdminUnlockUserCard());
+		commandMap.put(CommandName.ADMIN_SHOW_ALL_TRANSACTIONS_BY_CARD_NUMBER, new ShowAdminCardTransactions());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {
