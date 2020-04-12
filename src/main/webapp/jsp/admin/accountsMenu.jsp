@@ -76,6 +76,16 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
+
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_ADMIN_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.cards" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="adminBankAccountsBox">
@@ -130,8 +140,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 							<td width="12%"><c:out value="${value.balance}" /></td>
 							<td width="12%"><c:out value="${value.currency.name}" /></td>
 							<c:if test="${value.isBlocked }">
-								<td width="12%" id="error"><fmt:message
-										key="label.blocked" /></td>
+								<td width="12%" id="error"><fmt:message key="label.blocked" /></td>
 							</c:if>
 							<c:if test="${not value.isBlocked }">
 								<td width="12%" id="success"><fmt:message

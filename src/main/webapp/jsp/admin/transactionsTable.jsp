@@ -76,13 +76,28 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
+
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_ADMIN_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.cards" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="transactionsBox">
 		<c:if test="${not empty TRANSACTION_LIST}">
 			<h4>
-				<fmt:message key="label.statementFromAccount" />
-				${param.BANK_ACCOUNT_NUMBER}
+				<c:if test="${not empty param.BANK_ACCOUNT_NUMBER}">
+					<fmt:message key="label.statementFromAccount" />
+				${param.BANK_ACCOUNT_NUMBER}</c:if>
+
+				<c:if test="${not empty param.CARD_NUMBER}">
+					<fmt:message key="label.statementFromCard" />
+				${param.CARD_NUMBER_MASK}</c:if>
 			</h4>
 			<table>
 				<thead>
@@ -120,7 +135,13 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		</c:if>
 		<c:if test="${empty TRANSACTION_LIST}">
 			<h4>
-				<fmt:message key="label.noAccountTransactions" />
+				<c:if test="${not empty param.BANK_ACCOUNT_NUMBER}">
+					<fmt:message key="label.noAccountTransactions" />
+				</c:if>
+
+				<c:if test="${not empty param.CARD_NUMBER}">
+					<fmt:message key="label.noCardTransactions" />
+				</c:if>
 			</h4>
 		</c:if>
 

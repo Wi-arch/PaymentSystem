@@ -151,6 +151,20 @@ public class CardServiceImpl implements CardService {
 		}
 	}
 
+	@Override
+	public void unlockCard(Card card) throws ServiceException {
+		cardValidator.checkCardNumberForNull(card);
+		try {
+			Card existingCard = cardDAO.getCardByCardNumber(card.getNumber());
+			cardValidator.checkCardNumberForNull(existingCard);
+			cardValidator.checkIsCardCanBeUnblocked(existingCard);
+			existingCard.setBlocked(false);
+			cardDAO.updateCard(existingCard);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	private Transaction buildTransaction(BankAccount bankAccount, BigDecimal amount, Currency currency,
 			String paymentPurpose) {
 		Transaction transaction = new Transaction();
@@ -175,5 +189,4 @@ public class CardServiceImpl implements CardService {
 		return amount.multiply(scaleTo).multiply(rateFrom.divide(rateTo, TWO, RoundingMode.HALF_UP)).divide(scaleFrom)
 				.setScale(TWO, RoundingMode.HALF_UP);
 	}
-
 }

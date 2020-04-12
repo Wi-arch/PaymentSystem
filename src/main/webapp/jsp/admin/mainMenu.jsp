@@ -66,7 +66,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-		
+
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
@@ -78,6 +78,15 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</form>
 		</li>
 
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_ADMIN_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.cards" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 

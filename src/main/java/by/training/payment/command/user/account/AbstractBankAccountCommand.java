@@ -32,7 +32,7 @@ public abstract class AbstractBankAccountCommand extends AbstractCommand {
 		}
 	}
 
-	protected void setBankAccountTransactionListByAccountNumberInRequestAttribute(HttpServletRequest request) {
+	protected void setTransactionListByAccountNumberInRequestAttribute(HttpServletRequest request) {
 		String accountNumber = request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString());
 		try {
 			List<Transaction> transactionList = transactionService.getAllTransactionsByBankAccountNumber(accountNumber);
