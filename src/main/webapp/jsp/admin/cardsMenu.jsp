@@ -18,8 +18,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/styles.css">
+<link rel="stylesheet" href="css/styles.css">
 <title><fmt:message key="title.onlineBanking" /></title>
 </head>
 
@@ -51,7 +50,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
 				<input type="hidden" name="COMMAND" value="SHOW_ADMIN_USERS_MENU">
-				<button type="submit" class="active">
+				<button type="submit">
 					<fmt:message key="button.users" />
 				</button>
 			</form>
@@ -82,151 +81,109 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
 				<input type="hidden" name="COMMAND" value="SHOW_ADMIN_CARDS_MENU">
-				<button type="submit">
+				<button type="submit" class="active">
 					<fmt:message key="button.cards" />
 				</button>
 			</form>
 		</li>
 	</ul>
 
-	<div class="usersBox">
+	<div class="adminCardsBox">
 
 		<h2>
-			<fmt:message key="label.listOfUsers" />
+			<fmt:message key="label.userPaymentCards" />
 		</h2>
 		<h4>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
-				<input type="hidden" name="COMMAND" value="FIND_USER_BY_LOGIN">
-
-				<fmt:message key="label.findUser" />
+				<input type="hidden" name="COMMAND"
+					value="ADMIN_FIND_ALL_USER_CARDS_BY_LOGIN">
+				<fmt:message key="label.findUserCards" />
 				<input type="text" name="USER_LOGIN" placeholder="Login" required
-					title="" value=""
-					onchange="this.setAttribute('value', this.value);"
-					oninvalid="this.setCustomValidity('<fmt:message
-						key="text.requiredField" />')"
-					oninput="setCustomValidity('')" />
+					title="" value="" />
 				<button type="submit">
 					<i class="fa fa-search"></i>
 				</button>
 			</form>
+			<p>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
-				<input type="hidden" name="COMMAND" value="SHOW_ALL_USERS">
+				<input type="hidden" name="COMMAND" value="ADMIN_FIND_ALL_CARDS">
 				<button type="submit">
-					<fmt:message key="button.findAllUsers" />
+					<fmt:message key="label.findAllPaymentCards" />
 				</button>
 			</form>
 		</h4>
-		<c:if test="${not empty USER_BY_LOGIN}">
+		<c:if test="${not empty CARD_LIST}">
 			<table>
 				<thead>
 					<tr>
 						<th scope="col"><fmt:message key="label.login" /></th>
-						<th scope="col"><fmt:message key="label.email" /></th>
-						<th scope="col"><fmt:message key="label.name" /></th>
-						<th scope="col"><fmt:message key="label.surname" /></th>
+						<th scope="col"><fmt:message key="label.cardNumber" /></th>
+						<th scope="col"><fmt:message key="label.creatingDate" /></th>
+						<th scope="col"><fmt:message key="label.expiryDate" /></th>
+						<th scope="col"><fmt:message key="label.balance" /></th>
+						<th scope="col"><fmt:message key="label.currency" /></th>
+						<th scope="col"><fmt:message key="label.paymentSystem" /></th>
+						<th scope="col"><fmt:message key="label.status" /></th>
+						<th scope="col"></th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td width="22%"><c:out value="${USER_BY_LOGIN.login}" /></td>
-						<td width="22%"><c:out value="${USER_BY_LOGIN.email}" /></td>
-						<td width="23%"><c:if test="${not empty USER_BY_LOGIN.name}">
-								<c:out value="${USER_BY_LOGIN.name}" />
-							</c:if> <c:if test="${empty USER_BY_LOGIN.name}">
-								<c:out value="-" />
-							</c:if></td>
-
-						<td width="23%"><c:if
-								test="${not empty USER_BY_LOGIN.surname}">
-								<c:out value="${USER_BY_LOGIN.surname}" />
-							</c:if> <c:if test="${empty USER_BY_LOGIN.surname}">
-								<c:out value="-" />
-							</c:if></td>
-
-						<td width="10%"><c:if test="${not  USER_BY_LOGIN.isBlocked}">
-
-								<form action="${pageContext.request.contextPath}/controller"
-									method="post">
-									<input type="hidden" name="COMMAND"
-										value="ADMIN_DELETE_USER_ACCOUNT"> <input
-										type="hidden" name="USER_LOGIN" value="${USER_BY_LOGIN.login}">
-									<button type="submit" id="blockButton">
-										<fmt:message key="button.block" />
-									</button>
-								</form>
-							</c:if> <c:if test="${USER_BY_LOGIN.isBlocked}">
-								<form action="${pageContext.request.contextPath}/controller"
-									method="post">
-									<input type="hidden" name="COMMAND" value="UNLOCK_USER_ACCOUNT">
-									<input type="hidden" name="USER_LOGIN"
-										value="${USER_BY_LOGIN.login}">
-									<button type="submit" id="unblockButton">
-										<fmt:message key="button.unlock" />
-									</button>
-								</form>
-							</c:if></td>
-					</tr>
-				</tbody>
-			</table>
-		</c:if>
-
-		<c:if test="${not empty USER_LIST}">
-
-			<table>
-				<thead>
-					<tr>
-						<th scope="col"><fmt:message key="label.login" /></th>
-						<th scope="col"><fmt:message key="label.email" /></th>
-						<th scope="col"><fmt:message key="label.name" /></th>
-						<th scope="col"><fmt:message key="label.surname" /></th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${USER_LIST}" var="value">
+					<c:forEach items="${CARD_LIST}" var="value">
 						<tr>
-							<td width="22%"><c:out value="${value.login}" /></td>
-							<td width="22%"><c:out value="${value.email}" /></td>
-							<td width="23%"><c:if test="${not empty value.name}">
-									<c:out value="${value.name}" />
-								</c:if> <c:if test="${empty value.name}">
-									<c:out value="-" />
-								</c:if></td>
-
-							<td width="23%"><c:if test="${not empty value.surname}">
-									<c:out value="${value.surname}" />
-								</c:if> <c:if test="${empty value.surname}">
-									<c:out value="-" />
-								</c:if></td>
-
+							<td width="11%"><c:out value="${value.user.login}" /></td>
+							<td width="11%"><c:out value="${value.numberMask}" /></td>
+							<td width="10%"><fmt:formatDate value="${value.openingDate}"
+									pattern="dd-MM-yyyy" /></td>
+							<td width="10%"><fmt:formatDate
+									value="${value.validUntilDate}" pattern="dd-MM-yyyy" /></td>
+							<td width="9%"><c:out value="${value.bankAccount.balance}" /></td>
+							<td width="8%"><c:out
+									value="${value.bankAccount.currency.name}" /></td>
+							<td width="11%"><c:out value="${value.paymentSystem.name}" /></td>
+							<c:if test="${value.isBlocked }">
+								<td width="10%" id="error"><fmt:message key="label.blocked" /></td>
+							</c:if>
+							<c:if test="${not value.isBlocked }">
+								<td width="10%" id="success"><fmt:message
+										key="label.active" /></td>
+							</c:if>
 							<td width="10%"><c:if test="${not value.isBlocked}">
-
 									<form action="${pageContext.request.contextPath}/controller"
 										method="post">
-										<input type="hidden" name="COMMAND"
-											value="ADMIN_DELETE_USER_ACCOUNT"> <input
-											type="hidden" name="USER_LOGIN" value="${value.login}">
+										<input type="hidden" name="COMMAND" value="ADMIN_BLOCK_CARD">
+										<input type="hidden" name="CARD_NUMBER"
+											value="${value.number}">
 										<button type="submit" id="blockButton">
 											<fmt:message key="button.block" />
 										</button>
 									</form>
-
 								</c:if> <c:if test="${value.isBlocked}">
-
 									<form action="${pageContext.request.contextPath}/controller"
 										method="post">
-										<input type="hidden" name="COMMAND"
-											value="UNLOCK_USER_ACCOUNT"> <input type="hidden"
-											name="USER_LOGIN" value="${value.login}">
+										<input type="hidden" name="COMMAND" value="ADMIN_UNBLOCK_CARD">
+										<input type="hidden" name="CARD_NUMBER"
+											value="${value.number}">
 										<button type="submit" id="unblockButton">
 											<fmt:message key="button.unlock" />
 										</button>
 									</form>
-
 								</c:if></td>
+							<td width="10%">
+								<form action="${pageContext.request.contextPath}/controller"
+									method="post">
+									<input type="hidden" name="COMMAND"
+										value="ADMIN_SHOW_ALL_TRANSACTIONS_BY_CARD_NUMBER"> <input
+										type="hidden" name="CARD_NUMBER" value="${value.number}">
+									<input type="hidden" name="CARD_NUMBER_MASK"
+										value="${value.numberMask}">
+									<button type="submit" id="handleButton">
+										<fmt:message key="button.statement" />
+									</button>
+								</form>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -251,4 +208,3 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	</div>
 </body>
 </html>
-

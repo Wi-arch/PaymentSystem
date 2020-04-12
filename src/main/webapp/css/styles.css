@@ -1372,7 +1372,106 @@ ul li:hover ul li {
 
 /*Transaction Box end*/
 
+/*Admin cards box */
+.adminCardsBox {
+	position: relative;	
+	top: 150px;	
+	Left: 8%;	
+	margin-bottom: 100px;	
+	width: 1600px;
+	background: rgba(0, 0, 0, .6);	
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+}
 
+.adminCardsBox form {
+	display:inline;
+}	
+
+.adminCardsBox h2{
+	position: relative;	
+	Left: 9%;	
+	padding: 5px 200px;
+	font-size: 36px;
+	text-align:center;
+}
+
+.adminCardsBox h4{
+	padding: 16px 20px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminCardsBox button {
+  background-color: #387DF5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;  
+  padding: 8px 20px;
+  border-radius: 4px;
+}	
+
+.adminCardsBox button:hover {
+  background-color: #1956D2;
+  opacity: 0.9;
+}	
+
+.adminCardsBox #blockButton {
+  background-color: #387DF5;
+  color: white;
+}	
+
+.adminCardsBox #unblockButton {
+  background-color: #389DF5;
+  color: white;
+}	
+
+.adminCardsBox input[type=text] {
+	height:45px;
+	opacity: 0.8;
+}	
+
+.adminCardsBox input[type=text]:focus {
+  background-color: lightblue;
+}
+
+.adminCardsBox th {
+	background-color: lightblue;
+	color: black;
+	height: 50px;
+	font-size: 26px;
+	text-align:center;
+}
+
+.adminCardsBox td {
+   text-align:center; 	
+   height:40px;
+}	
+
+.adminCardsBox tr:nth-child(even) {
+	background-color: #ddd;
+	color: black;
+}
+
+.adminCardsBox tr:nth-child(odd) {
+	background-color: #fff;
+	color: black;
+}
+
+.adminCardsBox table {
+	opacity: 0.8;
+	width: 100%;
+}
+
+.adminCardsBox table button {
+  width: 160px;
+}	
+
+.adminCardsBox table #handleButton {
+	background-color:  #39b54a;
+}	
+/*Admin admin Cards Box end*/
 
 
 
