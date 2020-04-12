@@ -263,7 +263,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 	}
 
 	private Card buildCard(String cardNumber, CardExpiry cardExpiry, String ccv, PaymentSystem paymentSystem,
-			String accountNumber, User user) {
+			String accountNumber, User user) throws ServiceException {
 		Card card = new Card(sha1Hex(cardNumber));
 		card.setValidUntilDate(CardUtil.getValidUntilDate(cardExpiry));
 		card.setNumberMask(CardUtil.getCardNumberMaskFromCardNumber(cardNumber));
