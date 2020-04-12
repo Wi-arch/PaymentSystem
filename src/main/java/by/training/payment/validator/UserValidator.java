@@ -29,13 +29,15 @@ public class UserValidator {
 	}
 
 	public void checkUserIsBlocked(User user) throws ServiceException {
-		if (user != null && user.getIsBlocked()) {
+		checkUserForNull(user);
+		if (user.getIsBlocked()) {
 			throw new ServiceException("User blocked *Status1001*");
 		}
 	}
 
 	public void checkUserLoginPasswordForNull(User user) throws ServiceException {
-		if (user == null || user.getLogin() == null || user.getPassword() == null) {
+		checkUserLoginForNull(user);
+		if (user.getPassword() == null) {
 			throw new ServiceException("User fields null *Status1000*");
 		}
 	}
@@ -47,8 +49,8 @@ public class UserValidator {
 	}
 
 	public void checkRequiredUserFieldsForNull(User user) throws ServiceException {
-		if (user == null || user.getLogin() == null || user.getPassword() == null || user.getEmail() == null
-				|| user.getUserRole() == null) {
+		checkUserLoginPasswordForNull(user);
+		if (user.getEmail() == null || user.getUserRole() == null) {
 			throw new ServiceException("User fields null *Status1000*");
 		}
 	}
@@ -72,8 +74,15 @@ public class UserValidator {
 	}
 
 	public void checkUserLoginForNull(User user) throws ServiceException {
-		if (user == null || user.getLogin() == null) {
-			throw new ServiceException("Null user login");
+		checkUserForNull(user);
+		if (user.getLogin() == null) {
+			throw new ServiceException("Null user login *Status1000*");
+		}
+	}
+
+	public void checkUserForNull(User user) throws ServiceException {
+		if (user == null) {
+			throw new ServiceException("Null user");
 		}
 	}
 }
