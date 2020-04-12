@@ -29,7 +29,7 @@ public class RequestParameterValidator {
 		}
 	}
 
-	public void checkIsCardExpityRequestParameter(RequestParameter parameter) throws ServiceException {
+	public void checkIsCardExpiryRequestParameter(RequestParameter parameter) throws ServiceException {
 		checkRequestParameterValueForNull(parameter);
 		if (!cardExpiryHeader.equals(parameter.getParameterHeader()) || !StringUtils.isNumeric(parameter.getValue())) {
 			throw new ServiceException("Invalid card expity request parameter");

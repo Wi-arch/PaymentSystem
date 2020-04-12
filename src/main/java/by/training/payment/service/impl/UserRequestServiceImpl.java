@@ -248,7 +248,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 	}
 
 	private CardExpiry getCardExpiryFromRequestParameter(RequestParameter parameter) throws ServiceException {
-		requestParameterValidator.checkIsCardExpityRequestParameter(parameter);
+		requestParameterValidator.checkIsCardExpiryRequestParameter(parameter);
 		return new CardExpiry(Integer.valueOf(parameter.getValue()));
 	}
 
