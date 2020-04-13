@@ -7,6 +7,13 @@ import by.training.payment.exception.ServiceException;
 import by.training.payment.factory.ServiceFactory;
 import by.training.payment.service.BankAccountService;
 
+/**
+ * The {@link BankAccountNumberGenerator} used to generate random, not used bank
+ * account numbers.
+ * 
+ * @author Alexandr Borovets
+ * @since JDK1.8
+ */
 public enum BankAccountNumberGenerator {
 
 	INSTANCE;
@@ -34,11 +41,11 @@ public enum BankAccountNumberGenerator {
 	 * already in use.
 	 * 
 	 * @return {@link String} value containing a randomly generated, free bank
-	 *         account number
+	 *         account number. Never <code>null</code>.
 	 * @throws ServiceException if an exception occurred while receiving
 	 *                          {@link BankAccount} by account number when calling a
 	 *                          method
-	 *                          {@BankAccountNumberGenerator#isBankAccountNumberFree}
+	 *                          {@link BankAccountNumberGenerator#isBankAccountNumberFree(String)}
 	 */
 	public String generateRandomFreeBankAccountNumber() throws ServiceException {
 		StringBuilder number = null;
@@ -65,7 +72,7 @@ public enum BankAccountNumberGenerator {
 	 * @param accountNumber {@link String} to be checked
 	 * @return <code>true<code> if and only if accountNumber not used
 	 * @throws ServiceException if an exception occurred when calling a method
-	 *                          {@BankAccountService#getBankAccountByNumber}
+	 *                          {@link BankAccountService#getBankAccountByNumber(String)}
 	 */
 	private boolean isBankAccountNumberFree(String accountNumber) throws ServiceException {
 		return bankAccountService.getBankAccountByNumber(accountNumber) == null;
