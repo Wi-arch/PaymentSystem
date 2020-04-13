@@ -67,6 +67,13 @@ public class UserValidator {
 		}
 	}
 
+	public void checkUserCanLogin(User user) throws ServiceException {
+		if (user == null) {
+			throw new ServiceException("Wrong user login or password *Status1008*");
+		}
+		checkUserIsBlocked(user);
+	}
+
 	public void compareOldPasswordAndNewPassword(String oldPassword, String newPassword) throws ServiceException {
 		if (oldPassword != null && oldPassword.equals(newPassword)) {
 			throw new ServiceException("New password should not match the old password *Status1015*");

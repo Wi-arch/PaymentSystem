@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 		User existingUser = null;
 		try {
 			existingUser = userDAO.getUserByLoginAndPassword(user.getLogin(), user.getPassword());
-			userValidator.checkUserIsBlocked(existingUser);
+			userValidator.checkUserCanLogin(existingUser);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
