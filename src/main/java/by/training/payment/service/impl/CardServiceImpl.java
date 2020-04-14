@@ -19,7 +19,6 @@ import by.training.payment.service.CardService;
 import by.training.payment.validator.BankAccountValidator;
 import by.training.payment.validator.CardValidator;
 import by.training.payment.validator.CurrencyValidator;
-import by.training.payment.validator.UserValidator;
 
 public class CardServiceImpl implements CardService {
 
@@ -28,14 +27,12 @@ public class CardServiceImpl implements CardService {
 	private final CardDAO cardDAO = daoFactory.getCardDAO();
 	private final CurrencyDAO currencyDAO = daoFactory.getCurrencyDAO();
 	private final BankAccountDAO bankAccountDAO = daoFactory.getBankAccountDAO();
-	private final UserValidator userValidator = new UserValidator();
 	private final CardValidator cardValidator = new CardValidator();
 	private final BankAccountValidator bankAccountValidator = new BankAccountValidator();
 	private final CurrencyValidator currencyValidator = new CurrencyValidator();
 
 	@Override
 	public List<Card> getAllCardsByUserLogin(String login) throws ServiceException {
-		userValidator.checkIsLoginValid(login);
 		try {
 			return cardDAO.getAllCardsByUserLogin(login);
 		} catch (DAOException e) {

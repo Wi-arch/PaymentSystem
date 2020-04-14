@@ -13,7 +13,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLCurrencyDAO extends SQLUtil implements CurrencyDAO {
+public class CurrencyDAOImpl extends SQLUtil implements CurrencyDAO {
 
 	private static final String ADD_CURRENCY = "INSERT INTO currency (currency_name, currency_rate, currency_scale, currency_update_date, currency_is_base_currency) VALUES (?, ?, ?, ?, ?);";
 	private static final String UPDATE_CURRENCY = "UPDATE currency SET currency_rate=?, currency_scale=?, currency_update_date=?, currency_is_base_currency=? WHERE currency_name = ?;";

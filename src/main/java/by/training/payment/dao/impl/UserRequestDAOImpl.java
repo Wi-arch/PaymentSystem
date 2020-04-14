@@ -18,7 +18,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLUserRequestDAO extends SQLUtil implements UserRequestDAO {
+public class UserRequestDAOImpl extends SQLUtil implements UserRequestDAO {
 
 	private static final String ADD_USER_REQUEST = "INSERT INTO user_request (bank_user_login, request_type_value) VALUES (?, ?);";
 	private static final String UPDATE_USER_REQUEST = "UPDATE user_request SET bank_user_login=?, request_type_value=?, request_status_value=?, request_creation_date=?, request_handle_date=? WHERE user_request_id=?;";

@@ -13,7 +13,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLCardDAO extends SQLUtil implements CardDAO {
+public class CardDAOImpl extends SQLUtil implements CardDAO {
 
 	private static final String ADD_CARD = "INSERT INTO card (card_number, card_valid_until_date, card_number_mask, card_ccv_code, card_expiration_date_value, payment_system_name, bank_account_number, bank_user_login, card_is_blocked) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private static final String UPDATE_CARD = "UPDATE card SET card_opening_date=?, card_valid_until_date=?, card_number_mask=?, card_ccv_code=?, card_expiration_date_value=?, payment_system_name=?, bank_account_number=?, bank_user_login=?, card_is_blocked=? WHERE card_number = ?;";

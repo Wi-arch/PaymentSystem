@@ -12,7 +12,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLUserDAO extends SQLUtil implements UserDAO {
+public class UserDAOImpl extends SQLUtil implements UserDAO {
 
 	private static final String ADD_USER = "INSERT INTO bank_user (bank_user_login, bank_user_password, bank_user_email, user_role_value, bank_user_name, bank_user_surname) VALUES (?, ?, ?, ?, ?, ?);";
 	private static final String UPDATE_USER = "UPDATE bank_user SET bank_user_password = ?, bank_user_email = ?, user_role_value = ?, bank_user_name = ? ,bank_user_surname = ?, bank_user_is_blocked = ? WHERE bank_user_login = ?;";

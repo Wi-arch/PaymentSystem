@@ -20,7 +20,7 @@ import by.training.payment.factory.DAOFactory;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLBankAccountDAO extends SQLUtil implements BankAccountDAO {
+public class BankAccountDAOImpl extends SQLUtil implements BankAccountDAO {
 
 	private static final String ADD_BANK_ACCOUNT = "INSERT INTO bank_account (bank_account_number, bank_account_balance, currency_name, bank_user_login) VALUES (?, ?, ?, ?);";
 	private static final String UPDATE_BANK_ACCOUNT = "UPDATE bank_account SET bank_account_opening_date=?, bank_account_balance=?, currency_name=?, bank_user_login=?, bank_account_is_blocked=? WHERE bank_account_number = ?;";
