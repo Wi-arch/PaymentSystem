@@ -2,6 +2,7 @@ package by.training.payment.util;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -33,6 +34,9 @@ public class DailyTaskHandlerThread extends Thread {
 	/** Constant containing integer zero */
 	private static final int ZERO = 0;
 
+	/** Constant containing integer one */
+	private static final int ONE = 1;
+
 	/**
 	 * {@link Date} containing the date of the next event. Gets the value of the
 	 * next day after completing the daily task
@@ -48,8 +52,10 @@ public class DailyTaskHandlerThread extends Thread {
 	}
 
 	/**
-	 * Starts the chain of daily tasks on condition of a new day.The first run of
-	 * the task chain occurs when the application starts.
+	 * Starts the chain of daily tasks on condition of a new day. Checks if a new
+	 * day has arrived, if so, it starts the chain of daily tasks. Verification is
+	 * carried out every minute. The first run of the task chain occurs when the
+	 * thread starting.
 	 */
 	@Override
 	public void run() {
@@ -57,6 +63,7 @@ public class DailyTaskHandlerThread extends Thread {
 			if (isEventDateComing()) {
 				handleChainOfTasks();
 			}
+			putCurrentThreadToSleepForOneMinute();
 		}
 	}
 
@@ -121,6 +128,18 @@ public class DailyTaskHandlerThread extends Thread {
 			currencyService.updateAllCurrenciesFromNationalBank();
 		} catch (ServiceException e) {
 			LOGGER.error("Cannot handle update all currencies daily task", e);
+		}
+	}
+
+	/**
+	 * Causes the currently executing thread to sleep for one minute.
+	 */
+	private void putCurrentThreadToSleepForOneMinute() {
+		try {
+			TimeUnit.MINUTES.sleep(ONE);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			LOGGER.warn("Thread is interrupted", e);
 		}
 	}
 
