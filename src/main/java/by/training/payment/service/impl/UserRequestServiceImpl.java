@@ -45,8 +45,6 @@ import by.training.payment.validator.UserRequestValidator;
 
 public class UserRequestServiceImpl implements UserRequestService {
 
-	private static final MailSender MAIL_SENDER = MailSender.getInstance();
-	private static final String REQUEST_PROCESSED_SUCCESSFULLY = "Заявка успешно обработана";
 	private final DAOFactory daoFactory = DAOFactory.getInstance();
 	private final RequestParameterDAO requestParameterDAO = daoFactory.getRequestParameterDAO();
 	private final UserRequestDAO userRequestDAO = daoFactory.getUserRequestDAO();
@@ -63,6 +61,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 	private final CardValidator cardValidator = new CardValidator();
 	private final UserRequestValidator userRequestValidator = new UserRequestValidator();
 	private final RequestParameterValidator requestParameterValidator = new RequestParameterValidator();
+	private final MailSender mailSender = MailSender.getInstance();
 
 	@Override
 	public List<UserRequest> getAllUserRequestsByUserLogin(String login) throws ServiceException {
@@ -175,14 +174,13 @@ public class UserRequestServiceImpl implements UserRequestService {
 	}
 
 	private void openNewAccount(UserRequest userRequest, List<RequestParameter> parameters) throws ServiceException {
-		RequestParameter currencyParameter = getRequestParameterByHeader(parameters, currencyHeader);		
+		RequestParameter currencyParameter = getRequestParameterByHeader(parameters, currencyHeader);
 		Currency currency = getCurrencyFromRequestParameter(currencyParameter);
 		String accountNumber = BankAccountNumberGenerator.INSTANCE.generateRandomFreeBankAccountNumber();
 		BankAccount bankAccount = buildBankAccount(accountNumber, currency, userRequest.getUser());
 		try {
 			userRequestDAO.handleUserRequestToOpenAccount(userRequest, bankAccount);
-			String text = "Заявка на открытие счет обработана. Номер счета " + accountNumber;
-			sendSuccessfulProcessingReqeustMessage(userRequest.getUser().getEmail(), text);
+			mailSender.sendMessageAccountOpenRequestComplete(userRequest.getUser().getEmail(), accountNumber);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -201,9 +199,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 		Card card = buildCard(cardNumber, cardExpiry, ccv, paymentSystem, accountNumber, userRequest.getUser());
 		try {
 			userRequestDAO.handleUserRequestToOpenCardToExistingAccount(userRequest, card);
-			String text = "Заявка на открытие карты к счету " + accountNumber + " обработана. Номер карты " + cardNumber
-					+ ". CCV код " + ccv;
-			sendSuccessfulProcessingReqeustMessage(userRequest.getUser().getEmail(), text);
+			mailSender.sendMessageOpenCardToExistingAccountRequestComplete(userRequest.getUser().getEmail(),accountNumber, cardNumber, ccv);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -223,8 +219,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 		Card card = buildCard(cardNumber, cardExpiry, ccv, paymentSystem, accountNumber, userRequest.getUser());
 		try {
 			userRequestDAO.handleUserRequestToOpenCard(userRequest, card, bankAccount);
-			String text = "Заявка на открытие карты обработана. Номер карты " + cardNumber + ". CCV код " + ccv;
-			sendSuccessfulProcessingReqeustMessage(userRequest.getUser().getEmail(), text);
+			mailSender.sendMessageOpenCardRequestComplete(userRequest.getUser().getEmail(), cardNumber, ccv);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -236,15 +231,10 @@ public class UserRequestServiceImpl implements UserRequestService {
 			Card card = cardDAO.getCardByCardNumber(cardNumberParameter.getValue());
 			cardValidator.checkIsCardCanBeUnblocked(card);
 			userRequestDAO.handleUserRequestToUnlockCard(userRequest, card);
-			String text = "Заявка на разблокировку карты " + card.getNumberMask() + " обработана.";
-			sendSuccessfulProcessingReqeustMessage(userRequest.getUser().getEmail(), text);
+			mailSender.sendMessageUnlockCardRequestComplete(userRequest.getUser().getEmail(), card.getNumberMask());
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-	}
-
-	private void sendSuccessfulProcessingReqeustMessage(String to, String text) {
-		MAIL_SENDER.sendMessage(to, REQUEST_PROCESSED_SUCCESSFULLY, text);
 	}
 
 	private CardExpiry getCardExpiryFromRequestParameter(RequestParameter parameter) throws ServiceException {

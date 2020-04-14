@@ -1,8 +1,8 @@
 package by.training.payment.service.impl;
 
-import java.util.List;
-
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
+
+import java.util.List;
 
 import by.training.payment.dao.UserDAO;
 import by.training.payment.entity.User;
@@ -16,13 +16,9 @@ import by.training.payment.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {
 
+	private final MailSender mailSender = MailSender.getInstance();
 	private final UserValidator userValidator = new UserValidator();
 	private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-	private final MailSender mailSender = MailSender.getInstance();
-	private static final String REGISTRATION_SUBJECT = "Регистрация завершена успешно";
-	private static final String RESET_PASSWORD_SUBJECT = "Восстановление пароля";
-	private static final String REGISTRATION_TEXT = "Спасибо за регистрацию на PaymentSystem. Ваш логин ";
-	private static final String RESET_PASSWORD_TEXT = "Пароль успешно изменён. Новый пароль ";
 
 	@Override
 	public void registerUser(User user, String confirmPassword) throws ServiceException {
@@ -38,7 +34,7 @@ public class UserServiceImpl implements UserService {
 			}
 			user.setPassword(sha1Hex(user.getPassword()));
 			userDAO.addUser(user);
-			mailSender.sendMessage(user.getEmail(), REGISTRATION_SUBJECT, REGISTRATION_TEXT + user.getLogin());
+			mailSender.sendMessageRegistrationComplete(user.getEmail(), user.getLogin());
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -115,7 +111,7 @@ public class UserServiceImpl implements UserService {
 			String newPassowrd = PasswordGenerator.generateRandomValidPassword();
 			existingUser.setPassword(sha1Hex(newPassowrd));
 			updateUser(existingUser);
-			mailSender.sendMessage(user.getEmail(), RESET_PASSWORD_SUBJECT, RESET_PASSWORD_TEXT + newPassowrd);
+			mailSender.sendMessageResetPasswordComplete(user.getEmail(), newPassowrd);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -171,4 +167,5 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(e);
 		}
 	}
+
 }

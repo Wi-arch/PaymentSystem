@@ -2,6 +2,7 @@ package by.training.payment.util;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -85,6 +86,18 @@ public class MailSender {
 	 */
 	private final int port;
 
+	private static final String MESSAGES_FILE_NAME = "messages";
+	private static final String REGISTRATION_SUBJECT_KEY = "subject.registrationCompleted";
+	private static final String RESET_PASSWORD_SUBJECT_KEY = "subject.passwordRecovery";
+	private static final String REGISTRATION_TEXT_KEY = "text.registrationText";
+	private static final String RESET_PASSWORD_TEXT_KEY = "text.resetPasswordText";
+	private static final String REQUEST_PROCESSED_SUCCESSFULLY_KEY = "subject.requestProcessedSuccessfully";
+	private static final String OPEN_ACCOUNT_REQUEST_PROCESSED_KEY = "text.accountOpeningRequestProcessed";
+	private static final String OPEN_CARD_TO_EXISTING_ACCOUNT_PROCESSED_KEY = "text.cardOpeningToExistingAccountRequestProcessed";
+	private static final String OPEN_CARD_REQUEST_PROCESSED_KEY = "text.cardOpeningRequestProcessed";
+	private static final String UNLOCK_CARD_REQUEST_PROCESSED_KEY = "text.cardUnlockRequestProcessed";
+	private final ResourceBundle resourceBundle = ResourceBundle.getBundle(MESSAGES_FILE_NAME);
+
 	/**
 	 * Private constructor, used to create a single instance of the class.
 	 * Initializes all required fields.
@@ -134,6 +147,58 @@ public class MailSender {
 				sendSinglMessage(to, subject, text);
 			}
 		}.start();
+	}
+
+	public void sendMessageRegistrationComplete(String to, String login) {
+		sendMessage(to, resourceBundle.getString(REGISTRATION_SUBJECT_KEY), getRegistrationResultMessage(login));
+	}
+
+	public void sendMessageResetPasswordComplete(String to, String password) {
+		sendMessage(to, resourceBundle.getString(RESET_PASSWORD_SUBJECT_KEY), getResetPasswordResultMessage(password));
+	}
+
+	public void sendMessageAccountOpenRequestComplete(String to, String accountNumber) {
+		String text = getOpenAccountResultMessage(accountNumber);
+		sendMessage(to, resourceBundle.getString(REQUEST_PROCESSED_SUCCESSFULLY_KEY), text);
+	}
+
+	public void sendMessageUnlockCardRequestComplete(String to, String cardMask) {
+		String text = getUnlockCardResultMessage(cardMask);
+		sendMessage(to, resourceBundle.getString(REQUEST_PROCESSED_SUCCESSFULLY_KEY), text);
+	}
+
+	public void sendMessageOpenCardRequestComplete(String to, String cardNumber, String ccv) {
+		String text = getOpenCardResultMessage(cardNumber, ccv);
+		sendMessage(to, resourceBundle.getString(REQUEST_PROCESSED_SUCCESSFULLY_KEY), text);
+	}
+
+	public void sendMessageOpenCardToExistingAccountRequestComplete(String to, String accountNumber, String cardNumber,	String ccv) {
+		String text = getOpenCardToExistingAccountResultMessage(accountNumber, cardNumber, ccv);
+		sendMessage(to, resourceBundle.getString(REQUEST_PROCESSED_SUCCESSFULLY_KEY), text);
+	}
+
+	private String getOpenCardResultMessage(String cardNumber, String ccv) {
+		return String.format(resourceBundle.getString(OPEN_CARD_REQUEST_PROCESSED_KEY), cardNumber, ccv);
+	}
+
+	private String getUnlockCardResultMessage(String cardNumber) {
+		return String.format(resourceBundle.getString(UNLOCK_CARD_REQUEST_PROCESSED_KEY), cardNumber);
+	}
+
+	private String getOpenAccountResultMessage(String accountNumber) {
+		return String.format(resourceBundle.getString(OPEN_ACCOUNT_REQUEST_PROCESSED_KEY), accountNumber);
+	}
+
+	private String getOpenCardToExistingAccountResultMessage(String accountNumber, String cardNumber, String ccv) {
+		return String.format(resourceBundle.getString(OPEN_CARD_TO_EXISTING_ACCOUNT_PROCESSED_KEY), accountNumber, cardNumber, ccv);
+	}
+
+	private String getRegistrationResultMessage(String login) {
+		return String.format(resourceBundle.getString(REGISTRATION_TEXT_KEY), login);
+	}
+
+	private String getResetPasswordResultMessage(String password) {
+		return String.format(resourceBundle.getString(RESET_PASSWORD_TEXT_KEY), password);
 	}
 
 	/**
