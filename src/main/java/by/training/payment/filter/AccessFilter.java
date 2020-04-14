@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
@@ -16,8 +15,7 @@ import by.training.payment.command.PageEnum;
 @WebFilter(filterName = "AccessFilter", urlPatterns = { "/jsp/user/*", "/jsp/admin/*" })
 public class AccessFilter implements Filter {
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpsResponse = (HttpServletResponse) response;
 		httpsResponse.sendRedirect(httpRequest.getContextPath() + PageEnum.HOME_PAGE.getValue());
