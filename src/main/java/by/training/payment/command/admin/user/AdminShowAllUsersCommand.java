@@ -12,7 +12,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminShowAllUsersCommand extends AbstractCommand {
 
@@ -28,7 +27,7 @@ public class AdminShowAllUsersCommand extends AbstractCommand {
 			}
 			request.setAttribute(RequestParameter.USER_LIST.toString(), userList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load user list", e);
 		}
 		return PageEnum.ADMIN_USERS_MENU.getValue();

@@ -14,7 +14,6 @@ import by.training.payment.entity.Currency;
 import by.training.payment.entity.Transaction;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public abstract class AbstractCardCommand extends AbstractCommand {
 
@@ -28,18 +27,18 @@ public abstract class AbstractCardCommand extends AbstractCommand {
 				List<Card> cardList = cardService.getAllCardsByUserLogin(user.getLogin());
 				request.setAttribute(RequestParameter.CARD_LIST.toString(), cardList);
 			} catch (ServiceException e) {
-				request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+				setErrorMessageInRequestAttribute(request, e);
 				LOGGER.warn("Cannot load user card list by user login", e);
 			}
 		}
 	}
 
 	protected void makeSinglCardPayment(HttpServletRequest request, boolean writeOffPayment) throws ServiceException {
-		Card card = new Card(request.getParameter(RequestParameter.CARD_NUMBER.toString()));
-		BigDecimal amount = new BigDecimal(request.getParameter(RequestParameter.AMOUNT.toString()));
-		Currency currency = new Currency(request.getParameter(RequestParameter.CURRENCY.toString()));
-		String paymentPurpose = request.getParameter(RequestParameter.PAYMENT_PURPOSE.toString());
-		String ccvCode = request.getParameter(RequestParameter.CCV_CODE.toString());
+		BigDecimal amount = getAmountFromHttpRequest(request);
+		String ccvCode = getCcvCodeFromHttpRequest(request);
+		String paymentPurpose = getPaymentPurposeFromHttpRequest(request);
+		Currency currency = getCurrencyFromHttpRequest(request);
+		Card card = getCardFromHttpRequest(request);
 		cardService.makeSinglCardPayment(card, amount, currency, paymentPurpose, ccvCode, writeOffPayment);
 		request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 	}
@@ -50,7 +49,7 @@ public abstract class AbstractCardCommand extends AbstractCommand {
 			List<Transaction> transactionList = transactionService.getAllTransactionsByCardNumber(cardNumber);
 			request.setAttribute(RequestParameter.TRANSACTION_LIST.toString(), transactionList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load transactions by card number", e);
 		}
 	}
@@ -60,5 +59,26 @@ public abstract class AbstractCardCommand extends AbstractCommand {
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), CARDS_NOT_FOUND);
 		}
 		request.setAttribute(RequestParameter.CARD_LIST.toString(), cardList);
+	}
+
+	protected BigDecimal getAmountFromHttpRequest(HttpServletRequest request) {
+		BigDecimal amount = null;
+		String stringAmount = request.getParameter(RequestParameter.AMOUNT.toString());
+		try {
+			if (stringAmount != null) {
+				amount = new BigDecimal(stringAmount);
+			}
+		} catch (NumberFormatException e) {
+			LOGGER.warn("Invalid payment amount", e);
+		}
+		return amount;
+	}
+
+	protected String getCcvCodeFromHttpRequest(HttpServletRequest request) {
+		return request.getParameter(RequestParameter.CCV_CODE.toString());
+	}
+
+	protected String getPaymentPurposeFromHttpRequest(HttpServletRequest request) {
+		return request.getParameter(RequestParameter.PAYMENT_PURPOSE.toString());
 	}
 }

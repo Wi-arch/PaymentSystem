@@ -10,7 +10,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminLockUserAccountCommand extends AbstractCommand {
 
@@ -23,7 +22,7 @@ public class AdminLockUserAccountCommand extends AbstractCommand {
 			userService.blockUser(user);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot delete user account", e);
 		}
 		return PageEnum.ADMIN_USERS_MENU.getValue();

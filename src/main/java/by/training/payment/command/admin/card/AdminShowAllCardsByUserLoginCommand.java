@@ -12,7 +12,6 @@ import by.training.payment.command.RequestParameter;
 import by.training.payment.command.user.card.AbstractCardCommand;
 import by.training.payment.entity.Card;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminShowAllCardsByUserLoginCommand extends AbstractCardCommand {
 
@@ -25,7 +24,7 @@ public class AdminShowAllCardsByUserLoginCommand extends AbstractCardCommand {
 			List<Card> cardList = cardService.getAllCardsByUserLogin(login);
 			setCardListInRequestAttribute(request, cardList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load card list", e);
 		}
 		return PageEnum.ADMIN_CARDS_MENU.getValue();

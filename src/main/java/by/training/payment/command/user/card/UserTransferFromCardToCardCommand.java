@@ -12,7 +12,6 @@ import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.Card;
 import by.training.payment.entity.Currency;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserTransferFromCardToCardCommand extends AbstractCardCommand {
 
@@ -22,15 +21,15 @@ public class UserTransferFromCardToCardCommand extends AbstractCardCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		Card cardFrom = new Card(request.getParameter(RequestParameter.SENDER_CARD_NUMBER.toString()));
 		Card cardTo = new Card(request.getParameter(RequestParameter.RECEIVER_CARD_NUMBER.toString()));
-		BigDecimal amount = new BigDecimal(request.getParameter(RequestParameter.AMOUNT.toString()));
-		Currency currency = new Currency(request.getParameter(RequestParameter.CURRENCY.toString()));
-		String paymentPurpose = request.getParameter(RequestParameter.PAYMENT_PURPOSE.toString());
-		String ccvCode = request.getParameter(RequestParameter.CCV_CODE.toString());
+		BigDecimal amount = getAmountFromHttpRequest(request);
+		String paymentPurpose = getPaymentPurposeFromHttpRequest(request);
+		String ccvCode = getCcvCodeFromHttpRequest(request);
+		Currency currency = getCurrencyFromHttpRequest(request);
 		try {
 			cardService.makeTransferFromCardToCard(cardFrom, amount, currency, paymentPurpose, ccvCode, cardTo);
 			setUserCardListInRequestAttribute(request);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot make transfer from card to card", e);
 		}
 		return PageEnum.USER_CARDS_MENU.getValue();

@@ -12,7 +12,6 @@ import by.training.payment.entity.BankAccount;
 import by.training.payment.entity.Transaction;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public abstract class AbstractBankAccountCommand extends AbstractCommand {
 
@@ -26,7 +25,7 @@ public abstract class AbstractBankAccountCommand extends AbstractCommand {
 				List<BankAccount> bankAccounts = bankAccountService.getAllBankAccountsByUserLogin(user.getLogin());
 				request.setAttribute(RequestParameter.BANK_ACCOUNT_LIST.toString(), bankAccounts);
 			} catch (ServiceException e) {
-				request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+				setErrorMessageInRequestAttribute(request, e);
 				LOGGER.warn("Cannot load user card list by user login", e);
 			}
 		}
@@ -38,7 +37,7 @@ public abstract class AbstractBankAccountCommand extends AbstractCommand {
 			List<Transaction> transactionList = transactionService.getAllTransactionsByBankAccountNumber(accountNumber);
 			request.setAttribute(RequestParameter.TRANSACTION_LIST.toString(), transactionList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load transactions by user account number", e);
 		}
 	}

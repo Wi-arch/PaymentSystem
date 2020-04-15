@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserAuthorizationCommand extends AbstractCommand {
 
@@ -21,8 +20,8 @@ public class UserAuthorizationCommand extends AbstractCommand {
 			page = defineUserPage(existingUser);
 			request.getSession().setAttribute(RequestParameter.USER.toString(), existingUser);
 		} catch (ServiceException e) {
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("User login exception", e);
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
 		}
 		return page;
 	}

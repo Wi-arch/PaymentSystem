@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import by.training.payment.command.PageEnum;
-import by.training.payment.command.RequestParameter;
 import by.training.payment.command.user.account.AbstractBankAccountCommand;
 import by.training.payment.entity.BankAccount;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminShowAllBankAccountsCommand extends AbstractBankAccountCommand {
 
@@ -24,7 +22,7 @@ public class AdminShowAllBankAccountsCommand extends AbstractBankAccountCommand 
 			List<BankAccount> bankAccountList = bankAccountService.getAllBankAccounts();
 			setBankAccountListInRequestAttribute(request, bankAccountList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load all bank accounts", e);
 		}
 		return PageEnum.ADMIN_ACCOUNTS_MENU.getValue();

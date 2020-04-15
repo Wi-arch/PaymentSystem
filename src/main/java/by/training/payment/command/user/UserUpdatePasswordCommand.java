@@ -10,7 +10,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserUpdatePasswordCommand extends AbstractCommand {
 
@@ -28,7 +27,7 @@ public class UserUpdatePasswordCommand extends AbstractCommand {
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_UPDATE_PASSWORD_STATUS);
 			request.getSession().setAttribute(RequestParameter.USER.toString(), user);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot update user password", e);
 		}
 		return PageEnum.USER_PERSONAL_DATA_MENU.getValue();

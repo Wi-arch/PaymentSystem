@@ -10,7 +10,6 @@ import by.training.payment.command.RequestParameter;
 import by.training.payment.command.user.account.AbstractBankAccountCommand;
 import by.training.payment.entity.BankAccount;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminLockUserBankAccountCommand extends AbstractBankAccountCommand {
 
@@ -18,12 +17,12 @@ public class AdminLockUserBankAccountCommand extends AbstractBankAccountCommand 
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		BankAccount account = new BankAccount(request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString()));
+		BankAccount account = getBankAccountFromHttpRequest(request);
 		try {
 			bankAccountService.lockBankAccount(account);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot lock user bank account", e);
 		}
 		return PageEnum.ADMIN_ACCOUNTS_MENU.getValue();

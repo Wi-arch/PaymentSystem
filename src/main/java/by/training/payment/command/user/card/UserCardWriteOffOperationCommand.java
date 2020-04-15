@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import by.training.payment.command.PageEnum;
-import by.training.payment.command.RequestParameter;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserCardWriteOffOperationCommand extends AbstractCardCommand {
 
@@ -21,8 +19,8 @@ public class UserCardWriteOffOperationCommand extends AbstractCardCommand {
 			makeSinglCardPayment(request, IS_WRITE_OFF_OPERATION);
 			setUserCardListInRequestAttribute(request);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
-			LOGGER.warn("Cannot recharge user card", e);
+			setErrorMessageInRequestAttribute(request, e);
+			LOGGER.warn("Cannot make write-off user operation", e);
 		}
 		return PageEnum.USER_CARDS_MENU.getValue();
 	}

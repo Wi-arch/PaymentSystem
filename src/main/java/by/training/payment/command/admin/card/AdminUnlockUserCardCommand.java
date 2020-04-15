@@ -10,7 +10,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.Card;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminUnlockUserCardCommand extends AbstractCommand {
 
@@ -18,12 +17,12 @@ public class AdminUnlockUserCardCommand extends AbstractCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		Card card = new Card(request.getParameter(RequestParameter.CARD_NUMBER.toString()));
+		Card card = getCardFromHttpRequest(request);
 		try {
 			cardService.unlockCard(card);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot unlock user card", e);
 		}
 		return PageEnum.ADMIN_CARDS_MENU.getValue();

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import by.training.payment.command.PageEnum;
 import by.training.payment.exception.NoJDBCDriverException;
 import by.training.payment.exception.NoJDBCPropertiesFileException;
 import by.training.payment.factory.CommandFactory;
@@ -38,7 +37,7 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(PageEnum.HOME_PAGE.getValue()).forward(request, response);
+		doPost(request, response);
 	}
 
 	@Override

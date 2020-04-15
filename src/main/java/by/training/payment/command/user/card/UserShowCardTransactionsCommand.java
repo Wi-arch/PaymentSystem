@@ -12,7 +12,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.Transaction;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserShowCardTransactionsCommand extends AbstractCommand {
 
@@ -25,7 +24,7 @@ public class UserShowCardTransactionsCommand extends AbstractCommand {
 			List<Transaction> transactionList = transactionService.getAllTransactionsByCardNumber(cardNumber);
 			request.setAttribute(RequestParameter.TRANSACTION_LIST.toString(), transactionList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load card transactions", e);
 		}
 		return PageEnum.USER_TRANSACTION_TABLE.getValue();

@@ -2,6 +2,9 @@ package by.training.payment.command;
 
 import javax.servlet.http.HttpServletRequest;
 
+import by.training.payment.entity.BankAccount;
+import by.training.payment.entity.Card;
+import by.training.payment.entity.Currency;
 import by.training.payment.entity.User;
 import by.training.payment.entity.UserRole;
 import by.training.payment.factory.ServiceFactory;
@@ -11,6 +14,7 @@ import by.training.payment.service.CurrencyService;
 import by.training.payment.service.TransactionService;
 import by.training.payment.service.UserRequestService;
 import by.training.payment.service.UserService;
+import by.training.payment.util.ExceptionParser;
 
 public abstract class AbstractCommand implements Command {
 
@@ -45,4 +49,19 @@ public abstract class AbstractCommand implements Command {
 		}
 	}
 
+	protected void setErrorMessageInRequestAttribute(HttpServletRequest request, Throwable e) {
+		request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+	}
+
+	protected BankAccount getBankAccountFromHttpRequest(HttpServletRequest request) {
+		return new BankAccount(request.getParameter(RequestParameter.BANK_ACCOUNT_NUMBER.toString()));
+	}
+
+	protected Card getCardFromHttpRequest(HttpServletRequest request) {
+		return new Card(request.getParameter(RequestParameter.CARD_NUMBER.toString()));
+	}
+
+	protected Currency getCurrencyFromHttpRequest(HttpServletRequest request) {
+		return new Currency(request.getParameter(RequestParameter.CURRENCY.toString()));
+	}
 }
