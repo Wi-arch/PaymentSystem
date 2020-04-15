@@ -19,8 +19,11 @@
 		<url-pattern>/jsp/admin/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-		<filter-name>SessionLoginFilter</filter-name>
+		<filter-name>UserSessionFilter</filter-name>
 		<url-pattern>/jsp/user/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AdminSessionFilter</filter-name>
 		<url-pattern>/jsp/admin/*</url-pattern>
 	</filter-mapping>
 	<welcome-file-list>
