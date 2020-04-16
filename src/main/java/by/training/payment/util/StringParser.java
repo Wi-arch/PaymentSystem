@@ -16,18 +16,12 @@ public class StringParser {
 	/**
 	 * Regular expression to get scale value from {@link String}
 	 */
-	private static final String SCALE_REGEX = ".*\\{.*\"Cur_Abbreviation\":\"CURRENCY_NAME\",\"Cur_Scale\":(\\d+).*?\\}.*";
+	private static final String SCALE_REGEX = ".*\\{.*\"Cur_Abbreviation\":\"%s\",\"Cur_Scale\":(\\d+).*?\\}.*";
 
 	/**
 	 * Regular expression to get rate value from {@link String}
 	 */
-	private static final String RATE_REGEX = ".*\\{.*\"Cur_Abbreviation\":\"CURRENCY_NAME\".*?\"Cur_OfficialRate\":(\\d{1}\\.\\d{4})\\}.*";
-
-	/**
-	 * Constant {@link String} containing CURRENCY_NAME which will be replaced by
-	 * dynamic data in the regular expressions
-	 */
-	private static final String CURRENCY_NAME = "CURRENCY_NAME";
+	private static final String RATE_REGEX = ".*\\{.*\"Cur_Abbreviation\":\"%s\".*?\"Cur_OfficialRate\":(\\d{1}\\.\\d{4})\\}.*";
 
 	/**
 	 * Regular expression check {@link String} whether it contains 3 upper case
@@ -74,8 +68,7 @@ public class StringParser {
 			throws ServiceException {
 		checkIsCurrencyNameValid(currencyName);
 		checkIsCurrencyRateValid(currencyRate);
-		String currentScaleRegex = SCALE_REGEX.replace(CURRENCY_NAME, currencyName);
-		String scale = currencyRate.replaceAll(currentScaleRegex, "$1");
+		String scale = currencyRate.replaceAll(String.format(SCALE_REGEX, currencyName), "$1");
 		return Integer.valueOf(scale);
 	}
 
@@ -103,8 +96,7 @@ public class StringParser {
 			throws ServiceException {
 		checkIsCurrencyNameValid(currencyName);
 		checkIsCurrencyRateValid(currencyRate);
-		String currenctRateRegex = RATE_REGEX.replace(CURRENCY_NAME, currencyName);
-		String rate = currencyRate.replaceAll(currenctRateRegex, "$1");
+		String rate = currencyRate.replaceAll(String.format(RATE_REGEX, currencyName), "$1");
 		return new BigDecimal(rate);
 	}
 
