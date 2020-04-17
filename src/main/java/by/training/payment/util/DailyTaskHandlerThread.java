@@ -48,7 +48,8 @@ public class DailyTaskHandlerThread extends Thread {
 	 * thread.
 	 */
 	public DailyTaskHandlerThread() {
-		this.setDaemon(true);
+		setDaemon(true);
+		setName(DailyTaskHandlerThread.class.getSimpleName());
 	}
 
 	/**
