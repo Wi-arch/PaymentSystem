@@ -39,7 +39,8 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
-				<input type="hidden" name="COMMAND" value="SHOW_CURRENCIES">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_CURRENCIES_MENU">
 				<button type="submit">
 					<fmt:message key="button.currencyRates" />
 				</button>
@@ -79,10 +80,25 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					</form>
 				</li>
 			</ul></li>
-
-
-		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
-		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myAccounts" />
+				</button>
+			</form>
+		</li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_USER_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myCards" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 	<div class="requestsBox">
@@ -123,9 +139,11 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 									<fmt:message key="label.cardUnlockRequest" />
 								</c:if> <c:if test="${value.requestType.value=='Account opening'}">
 									<fmt:message key="label.accountOpeningRequest" />
-								</c:if> <c:if test="${value.requestType.value=='Opening a card to an existing account'}">
+								</c:if> <c:if
+									test="${value.requestType.value=='Opening a card to an existing account'}">
 									<fmt:message key="label.cardIssueToExistingAccount" />
-								</c:if> <c:if test="${value.requestType.value=='Card opening with opening a new account'}">
+								</c:if> <c:if
+									test="${value.requestType.value=='Card opening with opening a new account'}">
 									<fmt:message key="label.cardIssueWithOpeningNewAccount" />
 								</c:if></td>
 							<c:if test="${value.requestStatus.value=='In processing'}">
