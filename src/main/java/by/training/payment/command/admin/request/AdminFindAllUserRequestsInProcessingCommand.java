@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import by.training.payment.command.PageEnum;
-import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminFindAllUserRequestsInProcessingCommand extends AbstractRequestCommand {
 
@@ -23,7 +21,7 @@ public class AdminFindAllUserRequestsInProcessingCommand extends AbstractRequest
 			List<UserRequest> userRequestList = userRequestService.getAllUserRequestsInProcessing();
 			setUserRequestsInRequestAttribute(request, userRequestList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load all user requests", e);
 		}
 		return PageEnum.ADMIN_REQUESTS_MENU.getValue();

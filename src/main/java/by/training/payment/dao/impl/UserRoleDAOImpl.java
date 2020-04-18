@@ -6,59 +6,60 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.training.payment.dao.PaymentSystemDAO;
-import by.training.payment.entity.PaymentSystem;
+import by.training.payment.dao.UserRoleDAO;
+import by.training.payment.entity.UserRole;
 import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLPaymentSystemDAO extends SQLUtil implements PaymentSystemDAO {
+public class UserRoleDAOImpl extends SQLUtil implements UserRoleDAO {
 
-	private static final String GET_PAYMENT_SYSTEM_BY_NAME = "SELECT * FROM payment_system WHERE payment_system_name = ?";
-	private static final String GET_ALL_PAYMENT_SYSTEMS = "SELECT * FROM payment_system";
+	private static final String GET_ALL_USER_ROLES = "SELECT * FROM user_role";
+	private static final String GET_USER_ROLE_BY_VALUE = "SELECT * FROM user_role WHERE user_role_value = ?";
 
 	@Override
-	public List<PaymentSystem> getAllPaymentSystems() throws DAOException {
-		List<PaymentSystem> paymentSystems = new ArrayList<>();
+	public List<UserRole> getAllUserRoles() throws DAOException {
+		List<UserRole> userRoleList = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			statement = connection.prepareStatement(GET_ALL_PAYMENT_SYSTEMS);
+			statement = connection.prepareStatement(GET_ALL_USER_ROLES);
 			if (statement != null) {
 				resultSet = statement.executeQuery();
 				while (resultSet.next()) {
-					paymentSystems.add(buildPaymentSystem(resultSet));
+					userRoleList.add(buildUserRole(resultSet));
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load payment system list", e);
+			throw new DAOException("Cannot load user role list", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
 		}
-		return paymentSystems;
+		return userRoleList;
 	}
 
 	@Override
-	public PaymentSystem getPaymentSystemByName(String name) throws DAOException {
-		PaymentSystem paymentSystem = null;
+	public UserRole getUserRoleByValue(String value) throws DAOException {
+		UserRole userRole = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			statement = connection.prepareStatement(GET_PAYMENT_SYSTEM_BY_NAME);
+			statement = connection.prepareStatement(GET_USER_ROLE_BY_VALUE);
 			if (statement != null) {
-				statement.setString(1, name);
+				statement.setString(1, value);
 				resultSet = statement.executeQuery();
 				if (resultSet.next()) {
-					paymentSystem = buildPaymentSystem(resultSet);
+					userRole = buildUserRole(resultSet);
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load payment system", e);
+			throw new DAOException("Cannot load user role by value", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
 		}
-		return paymentSystem;
+		return userRole;
 	}
+
 }

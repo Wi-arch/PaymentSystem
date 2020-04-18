@@ -10,7 +10,7 @@ public enum PageEnum {
 	USER_TRANSACTION_TABLE("/jsp/user/transactionTable.jsp"), ADMIN_CURRENCIES_MENU("/jsp/admin/currenciesMenu.jsp"),
 	ADMIN_USERS_MENU("/jsp/admin/usersMenu.jsp"), ADMIN_REQUESTS_MENU("/jsp/admin/requestsMenu.jsp"),
 	ADMIN_ACCOUNTS_MENU("/jsp/admin/accountsMenu.jsp"), ADMIN_TRANSACTIONS_TABLE("/jsp/admin/transactionsTable.jsp"),
-	ADMIN_CARDS_MENU("/jsp/admin/cardsMenu.jsp");
+	ADMIN_CARDS_MENU("/jsp/admin/cardsMenu.jsp"), RESTORE_PASSWORD_PAGE("jsp/restorePassword.jsp");
 
 	private String value;
 

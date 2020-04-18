@@ -19,8 +19,11 @@
 		<url-pattern>/jsp/admin/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-		<filter-name>SessionLoginFilter</filter-name>
+		<filter-name>UserSessionFilter</filter-name>
 		<url-pattern>/jsp/user/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AdminSessionFilter</filter-name>
 		<url-pattern>/jsp/admin/*</url-pattern>
 	</filter-mapping>
 	<welcome-file-list>
@@ -41,4 +44,15 @@
 		<error-code>500</error-code>
 		<location>/jsp/error/error500.jsp</location>
 	</error-page>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>PaymentSystem</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<!--Specify NONE to indicate that the server must accept the constrained 
+				requests on any connection, including an unprotected one. -->
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
 </web-app>

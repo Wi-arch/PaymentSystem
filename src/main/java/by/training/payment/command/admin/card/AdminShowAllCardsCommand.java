@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import by.training.payment.command.PageEnum;
-import by.training.payment.command.RequestParameter;
 import by.training.payment.command.user.card.AbstractCardCommand;
 import by.training.payment.entity.Card;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminShowAllCardsCommand extends AbstractCardCommand {
 
@@ -24,7 +22,7 @@ public class AdminShowAllCardsCommand extends AbstractCardCommand {
 			List<Card> cardList = cardService.getAllCards();
 			setCardListInRequestAttribute(request, cardList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load card list", e);
 		}
 		return PageEnum.ADMIN_CARDS_MENU.getValue();

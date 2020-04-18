@@ -39,7 +39,8 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
-				<input type="hidden" name="COMMAND" value="SHOW_CURRENCIES">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_CURRENCIES_MENU">
 				<button type="submit">
 					<fmt:message key="button.currencyRates" />
 				</button>
@@ -78,9 +79,25 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					</form>
 				</li>
 			</ul></li>
-
-		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
-		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myAccounts" />
+				</button>
+			</form>
+		</li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_USER_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myCards" />
+				</button>
+			</form>
+		</li>
 	</ul>
 
 
@@ -119,14 +136,11 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</h4>
 		</form>
-
 		<h4>
 			<button onclick="openForm()">
 				<fmt:message key="button.changePassword" />
 			</button>
 		</h4>
-
-
 		<form action="${pageContext.request.contextPath}/controller"
 			method="post">
 			<input type="hidden" name="COMMAND" value="DELETE_USER_ACCOUNT">
@@ -139,7 +153,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</h4>
 			<br>
 		</form>
-
 		<c:if test="${not empty ERROR_MESSAGE}">
 			<h3 id="error">
 				<fmt:message key="${ERROR_MESSAGE}" />
@@ -150,9 +163,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				<fmt:message key="${RESULT_MESSAGE}" />
 			</h3>
 		</c:if>
-
 	</div>
-
 	<div class="form-popup" id="inputPasswordForm">
 		<form action="${pageContext.request.contextPath}/controller"
 			class="form-container" method="post">
@@ -195,7 +206,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</button>
 		</form>
 	</div>
-
 
 	<div id="footer">
 		<div>

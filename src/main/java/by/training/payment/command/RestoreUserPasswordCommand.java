@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class RestoreUserPasswordCommand extends AbstractCommand {
 
@@ -21,9 +20,9 @@ public class RestoreUserPasswordCommand extends AbstractCommand {
 			userService.restoreUserPassword(user);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_RESET_PASSWORD_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot reset user password", e);
 		}
-		return PageEnum.HOME_PAGE.getValue();
+		return PageEnum.RESTORE_PASSWORD_PAGE.getValue();
 	}
 }

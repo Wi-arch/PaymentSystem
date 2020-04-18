@@ -6,19 +6,19 @@ import by.training.payment.dao.impl.*;
 public class DAOFactory {
 
 	private static final DAOFactory INSTANCE = new DAOFactory();
-	private final BankAccountDAO bankAccountDAO = new MySQLBankAccountDAO();
-	private final CardDAO cardDAO = new MySQLCardDAO();
-	private final CardExpirationDateDAO cardExpirationDateDAO = new MySQLCardExpirationDateDAO();
-	private final CurrencyDAO currencyDAO = new MySQLCurrencyDAO();
-	private final ParameterHeaderDAO parameterHeaderDAO = new MySQLParameterHeaderDAO();
-	private final PaymentSystemDAO paymentSystemDAO = new MySQLPaymentSystemDAO();
-	private final RequestParameterDAO requestParameterDAO = new MySQLRequestParameterDAO();
-	private final RequestStatusDAO requestStatusDAO = new MySQLRequestStatusDAO();
-	private final RequestTypeDAO requestTypeDAO = new MySQLRequestTypeDAO();
-	private final TransactionDAO transactionDAO = new MySQLTransactionDAO();
-	private final UserDAO userDAO = new MySQLUserDAO();
-	private final UserRequestDAO userRequestDAO = new MySQLUserRequestDAO();
-	private final UserRoleDAO userRoleDAO = new MySQLUserRoleDAO();
+	private final BankAccountDAO bankAccountDAO = new BankAccountDAOImpl();
+	private final CardDAO cardDAO = new CardDAOImpl();
+	private final CardExpirationDateDAO cardExpirationDateDAO = new CardExpirationDateDAOImpl();
+	private final CurrencyDAO currencyDAO = new CurrencyDAOImpl();
+	private final ParameterHeaderDAO parameterHeaderDAO = new ParameterHeaderDAOImpl();
+	private final PaymentSystemDAO paymentSystemDAO = new PaymentSystemDAOImpl();
+	private final RequestParameterDAO requestParameterDAO = new RequestParameterDAOImpl();
+	private final RequestStatusDAO requestStatusDAO = new RequestStatusDAOImpl();
+	private final RequestTypeDAO requestTypeDAO = new RequestTypeDAOImpl();
+	private final TransactionDAO transactionDAO = new TransactionDAOImpl();
+	private final UserDAO userDAO = new UserDAOImpl();
+	private final UserRequestDAO userRequestDAO = new UserRequestDAOImpl();
+	private final UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
 
 	private DAOFactory() {
 	}

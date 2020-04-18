@@ -16,16 +16,18 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 
-@WebFilter(filterName = "SessionLoginFilter", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
-		DispatcherType.INCLUDE }, urlPatterns = { "/jsp/admin/*", "/jsp/user/*" })
-public class SessionLoginFilter implements Filter {
+@WebFilter(filterName = "UserSessionFilter", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
+		DispatcherType.INCLUDE }, urlPatterns = { "/jsp/user/*" })
+public class UserSessionFilter implements Filter {
+
+	private static final String USER_ROLE = "User";
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpsResponse = (HttpServletResponse) response;
 		User user = (User) httpRequest.getSession().getAttribute(RequestParameter.USER.toString());
-		if (user == null || user.getIsBlocked()) {
+		if (user == null || user.getIsBlocked() || !user.getUserRole().getRole().equals(USER_ROLE)) {
 			httpsResponse.sendRedirect(httpRequest.getContextPath() + PageEnum.LOGIN_PAGE.getValue());
 			return;
 		}

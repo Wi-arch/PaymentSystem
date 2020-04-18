@@ -6,59 +6,60 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.training.payment.dao.RequestTypeDAO;
-import by.training.payment.entity.RequestType;
+import by.training.payment.dao.RequestStatusDAO;
+import by.training.payment.entity.RequestStatus;
 import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLRequestTypeDAO extends SQLUtil implements RequestTypeDAO {
+public class RequestStatusDAOImpl extends SQLUtil implements RequestStatusDAO {
 
-	private static final String GET_REQUEST_TYPE_BY_VALUE = "SELECT * FROM request_type WHERE request_type_value = ?";
-	private static final String GET_ALL_REQUEST_TYPES = "SELECT * FROM request_type";
+	private static final String GET_REQUEST_STATUS_BY_VALUE = "SELECT * FROM request_status WHERE request_status_value = ?";
+	private static final String GET_REQUEST_STATUS_LIST = "SELECT * FROM request_status";
 
 	@Override
-	public List<RequestType> getAllRequestTypes() throws DAOException {
-		List<RequestType> requestTypes = new ArrayList<>();
+	public List<RequestStatus> getRequestStatusList() throws DAOException {
+		List<RequestStatus> requestStatus = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			statement = connection.prepareStatement(GET_ALL_REQUEST_TYPES);
+			statement = connection.prepareStatement(GET_REQUEST_STATUS_LIST);
 			if (statement != null) {
 				resultSet = statement.executeQuery();
 				while (resultSet.next()) {
-					requestTypes.add(buildRequestType(resultSet));
+					requestStatus.add(buildRequestStatus(resultSet));
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load request type list", e);
+			throw new DAOException("Cannot load request status list", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
 		}
-		return requestTypes;
+		return requestStatus;
 	}
 
 	@Override
-	public RequestType getRequestTypeByValue(String value) throws DAOException {
-		RequestType requestType = null;
+	public RequestStatus getRequestStatusByValue(String value) throws DAOException {
+		RequestStatus requestStatus = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			statement = connection.prepareStatement(GET_REQUEST_TYPE_BY_VALUE);
+			statement = connection.prepareStatement(GET_REQUEST_STATUS_BY_VALUE);
 			if (statement != null) {
 				statement.setString(1, value);
 				resultSet = statement.executeQuery();
 				if (resultSet.next()) {
-					requestType = buildRequestType(resultSet);
+					requestStatus = buildRequestStatus(resultSet);
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load request type", e);
+			throw new DAOException("Cannot load request status", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
 		}
-		return requestType;
+		return requestStatus;
 	}
+
 }

@@ -9,7 +9,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminHandleUserRequestCommand extends AbstractRequestCommand {
 
@@ -22,7 +21,7 @@ public class AdminHandleUserRequestCommand extends AbstractRequestCommand {
 			userRequestService.handleUserRequest(userRequest);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot handle user request", e);
 		}
 		return PageEnum.ADMIN_REQUESTS_MENU.getValue();

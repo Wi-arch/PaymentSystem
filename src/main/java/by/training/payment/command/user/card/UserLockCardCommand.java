@@ -9,7 +9,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.Card;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserLockCardCommand extends AbstractCardCommand {
 
@@ -17,13 +16,13 @@ public class UserLockCardCommand extends AbstractCardCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		Card card = new Card(request.getParameter(RequestParameter.CARD_NUMBER.toString()));
+		Card card = getCardFromHttpRequest(request);
 		try {
 			cardService.lockCard(card);
 			setUserCardListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_COMPLETED_OPERATION_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot lock user card", e);
 		}
 		return PageEnum.USER_CARDS_MENU.getValue();

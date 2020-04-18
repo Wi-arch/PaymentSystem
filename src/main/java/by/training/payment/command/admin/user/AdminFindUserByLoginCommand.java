@@ -10,7 +10,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminFindUserByLoginCommand extends AbstractCommand {
 
@@ -20,7 +19,6 @@ public class AdminFindUserByLoginCommand extends AbstractCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String userLogin = request.getParameter(RequestParameter.USER_LOGIN.toString());
-
 		try {
 			User user = userService.getUserByLogin(userLogin);
 			if (user == null) {
@@ -28,7 +26,7 @@ public class AdminFindUserByLoginCommand extends AbstractCommand {
 			}
 			request.setAttribute(RequestParameter.USER_BY_LOGIN.toString(), user);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load user by login", e);
 		}
 		return PageEnum.ADMIN_USERS_MENU.getValue();

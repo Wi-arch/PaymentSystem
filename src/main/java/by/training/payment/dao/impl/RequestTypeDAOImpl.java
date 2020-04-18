@@ -6,59 +6,59 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.training.payment.dao.ParameterHeaderDAO;
-import by.training.payment.entity.ParameterHeader;
+import by.training.payment.dao.RequestTypeDAO;
+import by.training.payment.entity.RequestType;
 import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLParameterHeaderDAO extends SQLUtil implements ParameterHeaderDAO {
+public class RequestTypeDAOImpl extends SQLUtil implements RequestTypeDAO {
 
-	private static final String GET_PARAMETER_HEADER_BY_NAME = "SELECT * FROM parameter_header WHERE parameter_header_name = ?";
-	private static final String GET_ALL_PARAMETER_HEADERS = "SELECT * FROM parameter_header";
+	private static final String GET_REQUEST_TYPE_BY_VALUE = "SELECT * FROM request_type WHERE request_type_value = ?";
+	private static final String GET_ALL_REQUEST_TYPES = "SELECT * FROM request_type";
 
 	@Override
-	public List<ParameterHeader> getAllParameterHeaders() throws DAOException {
-		List<ParameterHeader> parameterHeaders = new ArrayList<>();
+	public List<RequestType> getAllRequestTypes() throws DAOException {
+		List<RequestType> requestTypes = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			statement = connection.prepareStatement(GET_ALL_PARAMETER_HEADERS);
+			statement = connection.prepareStatement(GET_ALL_REQUEST_TYPES);
 			if (statement != null) {
 				resultSet = statement.executeQuery();
 				while (resultSet.next()) {
-					parameterHeaders.add(buildParameterHeader(resultSet));
+					requestTypes.add(buildRequestType(resultSet));
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load parameter header list", e);
+			throw new DAOException("Cannot load request type list", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
 		}
-		return parameterHeaders;
+		return requestTypes;
 	}
 
 	@Override
-	public ParameterHeader getParameterHeaderByValue(String value) throws DAOException {
-		ParameterHeader parameterHeader = null;
+	public RequestType getRequestTypeByValue(String value) throws DAOException {
+		RequestType requestType = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try (ProxyConnection connection = PoolConnection.INSTANCE.getConnection()) {
-			statement = connection.prepareStatement(GET_PARAMETER_HEADER_BY_NAME);
+			statement = connection.prepareStatement(GET_REQUEST_TYPE_BY_VALUE);
 			if (statement != null) {
 				statement.setString(1, value);
 				resultSet = statement.executeQuery();
 				if (resultSet.next()) {
-					parameterHeader = buildParameterHeader(resultSet);
+					requestType = buildRequestType(resultSet);
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Cannot load parameter header", e);
+			throw new DAOException("Cannot load request type", e);
 		} finally {
 			closeStatement(statement);
 			closeResultSet(resultSet);
 		}
-		return parameterHeader;
+		return requestType;
 	}
 }

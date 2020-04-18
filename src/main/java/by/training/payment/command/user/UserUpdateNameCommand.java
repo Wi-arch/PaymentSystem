@@ -10,7 +10,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserUpdateNameCommand extends AbstractCommand {
 
@@ -24,8 +23,8 @@ public class UserUpdateNameCommand extends AbstractCommand {
 			userService.updateUserName(user, name);
 			request.setAttribute(RequestParameter.USER.toString(), user);
 		} catch (ServiceException e) {
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot update user name", e);
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
 		}
 		return PageEnum.USER_PERSONAL_DATA_MENU.getValue();
 	}

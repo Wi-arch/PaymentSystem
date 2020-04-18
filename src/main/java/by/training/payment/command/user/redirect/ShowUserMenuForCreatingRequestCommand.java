@@ -11,6 +11,7 @@ public class ShowUserMenuForCreatingRequestCommand extends AbstractCreateRequest
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		setUserAccountListInRequestAttribute(request);
+		setUserAvailableToUnlockCardListInRequestAttribute(request);
 		return PageEnum.USER_CREATING_REQUEST_MENU.getValue();
 	}
 }

@@ -26,4 +26,6 @@ public interface CardService {
 	Card getCardByNumber(String number) throws ServiceException;
 
 	void unlockCard(Card card) throws ServiceException;
+
+	List<Card> getAvailableToUnlockCardListByUserLogin(String login) throws ServiceException;
 }

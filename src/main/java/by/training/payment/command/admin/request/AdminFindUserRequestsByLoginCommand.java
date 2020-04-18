@@ -11,7 +11,6 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminFindUserRequestsByLoginCommand extends AbstractRequestCommand {
 
@@ -20,12 +19,11 @@ public class AdminFindUserRequestsByLoginCommand extends AbstractRequestCommand 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String userLogin = request.getParameter(RequestParameter.USER_LOGIN.toString());
-
 		try {
 			List<UserRequest> userRequestList = userRequestService.getAllUserRequestsByUserLogin(userLogin);
 			setUserRequestsInRequestAttribute(request, userRequestList);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot load user request by login", e);
 		}
 		return PageEnum.ADMIN_REQUESTS_MENU.getValue();

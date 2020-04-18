@@ -35,7 +35,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
@@ -46,7 +45,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
@@ -56,7 +54,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-
 		<li><a href="#"><fmt:message key="button.myRequests" /></a>
 			<ul>
 				<li>
@@ -84,7 +81,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				method="post">
 				<input type="hidden" name="COMMAND"
 					value="SHOW_USER_BANK_ACCOUNTS_MENU">
-				<button type="submit">
+				<button type="submit" class="active">
 					<fmt:message key="button.myAccounts" />
 				</button>
 			</form>
@@ -101,20 +98,68 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	</ul>
 
 
+	<div class="userBankAccountsBox">
 
-	<div class="ratesBox">
-		<h3>
-			<fmt:message key="text.safeUsePaymentTitle" />
-		</h3>
-		<h4>
-			<fmt:message key="text.safeUsePayment1" />
-		</h4>
-		<h4>
-			<fmt:message key="text.safeUsePayment2" />
-		</h4>
-		<h4>
-			<fmt:message key="text.safeUsePayment3" />
-		</h4>
+		<c:if test="${empty BANK_ACCOUNT_LIST}">
+			<h2>
+				<fmt:message key="label.label.accountsNotFound" />
+			</h2>
+		</c:if>
+
+		<c:if test="${not empty BANK_ACCOUNT_LIST}">
+			<h2>
+				<fmt:message key="label.myAccounts" />
+			</h2>
+			<table>
+				<thead>
+					<tr>
+						<th scope="col"><fmt:message key="label.accountNumber" /></th>
+						<th scope="col"><fmt:message key="label.balance" /></th>
+						<th scope="col"><fmt:message key="label.currency" /></th>
+						<th scope="col"><fmt:message key="label.status" /></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${BANK_ACCOUNT_LIST}" var="value">
+						<tr>
+							<td width="35%"><c:out value="${value.accountNumber}" /></td>
+							<td width="20%"><c:out value="${value.balance}" /></td>
+							<td width="17%"><c:out value="${value.currency.name}" /></td>
+							<c:if test="${value.isBlocked }">
+								<td width="18%" id="error"><fmt:message key="label.blocked" /></td>
+							</c:if>
+							<c:if test="${not value.isBlocked }">
+								<td width="18%" id="success"><fmt:message
+										key="label.active" /></td>
+							</c:if>
+							<td width="10%">
+								<form action="${pageContext.request.contextPath}/controller"
+									method="post">
+									<input type="hidden" name="COMMAND"
+										value="SHOW_USER_ACCOUNT_TRANSACTIONS_TABLE"> <input
+										type="hidden" name="BANK_ACCOUNT_NUMBER"
+										value="${value.accountNumber}">
+									<button type="submit">
+										<fmt:message key="button.statement" />
+									</button>
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if test="${not empty ERROR_MESSAGE}">
+			<h2 id="error">
+				<fmt:message key="${ERROR_MESSAGE}" />
+			</h2>
+		</c:if>
+		<c:if test="${not empty RESULT_MESSAGE}">
+			<h2 id="result">
+				<fmt:message key="${RESULT_MESSAGE}" />
+			</h2>
+		</c:if>
 	</div>
 
 	<div id="footer">
@@ -122,7 +167,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<ctg:copyright-tag />
 		</div>
 	</div>
-
+	<script src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>
 

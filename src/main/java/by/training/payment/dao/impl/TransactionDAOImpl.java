@@ -13,7 +13,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLTransactionDAO extends SQLUtil implements TransactionDAO {
+public class TransactionDAOImpl extends SQLUtil implements TransactionDAO {
 
 	private static final String ADD_TRANSACTION = "INSERT INTO payment_transaction (transaction_completed, transaction_is_write_off, transaction_amount, currency_name, transaction_payment_purpose, bank_account_number) VALUES (?, ?, ?, ?, ?, ?);";
 	private static final String UPDATE_TRANSACTION = "UPDATE payment_transaction SET transaction_completed=?, transaction_date=?, transaction_is_write_off=?, transaction_amount=?, currency_name=?, transaction_payment_purpose=?, bank_account_number=? WHERE transaction_id = ?;";

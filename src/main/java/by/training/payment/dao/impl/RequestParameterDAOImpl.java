@@ -12,7 +12,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLRequestParameterDAO extends SQLUtil implements RequestParameterDAO {
+public class RequestParameterDAOImpl extends SQLUtil implements RequestParameterDAO {
 
 	private static final String ADD_REQUEST_PARAMETER = "INSERT INTO request_parameter (parameter_header_name, user_request_id, value) VALUES (?,?,?);";
 	private static final String UPDATE_REQUEST_PARAMETER = "UPDATE request_parameter SET parameter_header_name=?, user_request_id=?, value=? WHERE request_parameter_id = ?;";

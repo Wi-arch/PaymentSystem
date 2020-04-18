@@ -2,9 +2,9 @@ package by.training.payment.command.user.request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
 import static by.training.payment.factory.RequestTypeFactory.OPEN_NEW_CARD_REQUEST;
+import org.apache.log4j.Logger;
+
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.CardExpiry;
@@ -13,7 +13,6 @@ import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.RequestType;
 import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserCreateRequestOpenNewCardCommand extends AbstractCreateRequestCommand {
 
@@ -22,20 +21,19 @@ public class UserCreateRequestOpenNewCardCommand extends AbstractCreateRequestCo
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		Currency currency = new Currency(request.getParameter(RequestParameter.CURRENCY.toString()));
-		PaymentSystem paymentSystem = new PaymentSystem(request.getParameter(RequestParameter.PAYMENT_SYSTEM.toString()));
-		String cardExpirationDateValue = request.getParameter(RequestParameter.CARD_EXPIRATION_DATE.toString());
-		CardExpiry cardExpirationDate = new CardExpiry(Integer.valueOf(cardExpirationDateValue));
+		Currency currency = getCurrencyFromHttpRequest(request);
+		PaymentSystem paymentSystem = getPaymentSystemFromHttpRequest(request);
+		CardExpiry cardExpiry = getCardExpiryFromHttpRequest(request);
 		UserRequest userRequest = createUserRequest(request, openNewCard);
 		try {
-			userRequestService.saveRequestToOpenNewCard(userRequest, currency, paymentSystem, cardExpirationDate);
-			setUserAccountListInRequestAttribute(request);
+			userRequestService.saveRequestToOpenNewCard(userRequest, currency, paymentSystem, cardExpiry);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot save request to open new card", e);
 		}
+		setUserAccountListInRequestAttribute(request);
+		setUserAvailableToUnlockCardListInRequestAttribute(request);
 		return PageEnum.USER_CREATING_REQUEST_MENU.getValue();
 	}
-
 }

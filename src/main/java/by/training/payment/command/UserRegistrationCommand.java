@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class UserRegistrationCommand extends AbstractCommand {
 
@@ -20,8 +19,8 @@ public class UserRegistrationCommand extends AbstractCommand {
 			userService.registerUser(buildUser(request), confirmPassword);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_REGISTRATION_STATUS);
 		} catch (ServiceException e) {
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Registration exception", e);
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
 		}
 		return PageEnum.REGISTRATION_PAGE.getValue();
 	}

@@ -12,7 +12,7 @@ import by.training.payment.exception.DAOException;
 import by.training.payment.pool.PoolConnection;
 import by.training.payment.pool.ProxyConnection;
 
-public class MySQLCardExpirationDateDAO extends SQLUtil implements CardExpirationDateDAO {
+public class CardExpirationDateDAOImpl extends SQLUtil implements CardExpirationDateDAO {
 
 	private static final String GET_CARD_EXPIRATION_DATE_BY_VALUE = "SELECT * FROM card_expiration_date WHERE card_expiration_date_value = ?";
 	private static final String GET_ALL_CARD_EXPIRATION_DATES = "SELECT * FROM card_expiration_date";

@@ -24,7 +24,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 
 <body class="background">
-
 	<ul>
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
@@ -35,17 +34,16 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
-				<input type="hidden" name="COMMAND" value="SHOW_CURRENCIES">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_CURRENCIES_MENU">
 				<button type="submit">
 					<fmt:message key="button.currencyRates" />
 				</button>
 			</form>
 		</li>
-
 		<li>
 			<form action="${pageContext.request.contextPath}/controller"
 				method="post">
@@ -55,7 +53,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				</button>
 			</form>
 		</li>
-
 		<li><a href="#" class="active"><fmt:message
 					key="button.myRequests" /></a>
 			<ul>
@@ -79,12 +76,26 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					</form>
 				</li>
 			</ul></li>
-
-
-		<li><a href="#"><fmt:message key="button.myAccounts" /></a></li>
-		<li><a href="#"><fmt:message key="button.myCards" /></a></li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND"
+					value="SHOW_USER_BANK_ACCOUNTS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myAccounts" />
+				</button>
+			</form>
+		</li>
+		<li>
+			<form action="${pageContext.request.contextPath}/controller"
+				method="post">
+				<input type="hidden" name="COMMAND" value="SHOW_USER_CARDS_MENU">
+				<button type="submit">
+					<fmt:message key="button.myCards" />
+				</button>
+			</form>
+		</li>
 	</ul>
-
 
 	<div class="userCreateRequestBox" id="userCreateRequestBox">
 		<h3>
@@ -106,6 +117,13 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<fmt:message key="button.openNewCard" />
 		</button>
 		<br> <br>
+		<c:if test="${not empty CARD_LIST}">
+			<button onclick="openFormCardUnlockRequest()">
+				<fmt:message key="button.requestToUnlockCard" />
+			</button>
+			<br>
+			<br>
+		</c:if>
 		<c:if test="${not empty ERROR_MESSAGE}">
 			<h3 id="error">
 				<fmt:message key="${ERROR_MESSAGE}" />
@@ -117,7 +135,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</h3>
 		</c:if>
 	</div>
-
 	<div class="newAccountRequestForm" id="openFormNewAccount">
 		<form action="${pageContext.request.contextPath}/controller"
 			class="form-container" method="post">
@@ -138,7 +155,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				name="CURRENCY" value="EUR"> <span class="checkmark"></span>
 			</label> <label class="container">RUB <input type="radio"
 				name="CURRENCY" value="RUB"> <span class="checkmark"></span>
-			</label><br><br>
+			</label><br> <br>
 			<button type="submit" class="btn">
 				<fmt:message key="button.submitRequest" />
 			</button>
@@ -148,8 +165,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</button>
 		</form>
 	</div>
-
-
 	<div class="newCardExistingAccountRequestForm"
 		id="openFormNewCardExistingAccount">
 		<form action="${pageContext.request.contextPath}/controller"
@@ -199,8 +214,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</button>
 		</form>
 	</div>
-
-
 	<div class="newCardRequestForm" id="openFormNewCard">
 		<form action="${pageContext.request.contextPath}/controller"
 			class="form-container" method="post">
@@ -249,9 +262,45 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			</button>
 		</form>
 	</div>
+	<div class="unlockCardRequestForm" id="unlockCardRequestForm">
+		<form action="${pageContext.request.contextPath}/controller"
+			class="form-container" method="post">
+			<input type="hidden" name="COMMAND"
+				value="CREATE_REQUEST_UNLOCK_CARD">
+			<h3>
+				<fmt:message key="label.requestToUnlockCard" />
+			</h3>
+			<br>
+			<h5>
+				<fmt:message key="label.chooseCardToUnlock" />
+				<select name="CARD_NUMBER">
+					<c:forEach items="${CARD_LIST}" var="value">
+						<option value="${value.number}">
+							<c:out value="${value.numberMask}" /></option>
+					</c:forEach>
+				</select>
+			</h5>
+			<br>
+			<button type="submit" class="btn">
+				<fmt:message key="button.submitRequest" />
+			</button>
+		</form>
+		<form action="${pageContext.request.contextPath}/controller"
+			class="form-container" method="post">
+			<input type="hidden" name="COMMAND"
+				value="SHOW_MENU_FOR_CREATING_REQUESTS">
+			<button type="submit" class="btn cancel">
+				<fmt:message key="button.cancel" />
+			</button>
+		</form>
+	</div>
 
-
-	<script src="js/script.js"></script>
+	<div id="footer">
+		<div>
+			<ctg:copyright-tag />
+		</div>
+	</div>
+	<script src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>
 

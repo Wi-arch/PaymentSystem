@@ -42,32 +42,55 @@ function closeFormNewCard() {
 	document.getElementById("userCreateRequestBox").style.display = "block";
 }
 
-
-
-
-function next(cardList){  
-	var i = cardList.length -1;
-  if (i == a.length -1) {
-    i = 0;
-  } else {
-    i++
-  }
-  document.getElementById('output').value = cardList[i]; 
-}
-function previous(cardList){
-	var i = cardList.length -1;
-  if (i == 0) {
-    i = a.length -1;
-  } else {
-    i--
-  }
-    document.getElementById('output').value = cardList[i]; 
+function openFormCardUnlockRequest() {
+	document.getElementById("userCreateRequestBox").style.display = "none";
+	document.getElementById("unlockCardRequestForm").style.display = "block";
 }
 
+function openCardOperationsForm(cardNumber, cardNumberMask, cardCreationDate, validUntilDate, bankAccountNumber) {
+	document.getElementById("userCardsBox").style.display = "none";
+	document.getElementById("cardOperationsForm").style.display = "block";
+	document.getElementById("cardNumber").value=cardNumber;
+	document.getElementById("cardNumberMask").value=cardNumberMask;
+	document.getElementById("cardCreationDate").value=cardCreationDate;
+	document.getElementById("validUntilDate").value=validUntilDate;
+	document.getElementById("bankAccountNumber").value=bankAccountNumber;
+}
 
+function setOperationCommand(command){
+	document.getElementById("operationCommand").value=command;
+}
 
+function setInfoCommand(command){
+	document.getElementById("infoCommand").value=command;
+}
 
+function openCardInfoForm() {
+	document.getElementById("cardOperationsForm").style.display = "none";
+	document.getElementById("cardInfoForm").style.display = "block";
+	document.getElementById("cardNumberMaskInfo").value= document.getElementById("cardNumberMask").value;
+}
 
+function openCardDepositForm() {
+	document.getElementById("cardOperationsForm").style.display = "none";
+	document.getElementById("cardDepositForm").style.display = "block";
+	document.getElementById("cardNumberMaskDeposit").value= document.getElementById("cardNumberMask").value;
+	document.getElementById("depositCardNumber").value= document.getElementById("cardNumber").value;
+}
+
+function openCardWriteOffForm() {
+	document.getElementById("cardOperationsForm").style.display = "none";
+	document.getElementById("cardWriteOffForm").style.display = "block";
+	document.getElementById("cardNumberMaskWriteOff").value= document.getElementById("cardNumberMask").value;
+	document.getElementById("writeOffCardNumber").value= document.getElementById("cardNumber").value;
+}
+
+function openCardTransferForm() {
+	document.getElementById("cardOperationsForm").style.display = "none";
+	document.getElementById("cardTransferForm").style.display = "block";
+	document.getElementById("cardNumberMaskTransfer").value= document.getElementById("cardNumberMask").value;
+	document.getElementById("senderCardNumber").value= document.getElementById("cardNumber").value;
+}
 
 
 

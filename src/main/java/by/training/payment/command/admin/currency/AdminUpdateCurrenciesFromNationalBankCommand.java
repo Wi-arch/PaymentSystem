@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import by.training.payment.command.PageEnum;
-import by.training.payment.command.RequestParameter;
 import by.training.payment.exception.ServiceException;
-import by.training.payment.util.ExceptionParser;
 
 public class AdminUpdateCurrenciesFromNationalBankCommand extends AbstractCurrenciesCommand {
 
@@ -19,7 +17,7 @@ public class AdminUpdateCurrenciesFromNationalBankCommand extends AbstractCurren
 		try {
 			currencyService.updateAllCurrenciesFromNationalBank();
 		} catch (ServiceException e) {
-			request.setAttribute(RequestParameter.ERROR_MESSAGE.toString(), ExceptionParser.getExceptionStatus(e));
+			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot update currencies from national bank", e);
 		}
 		setCurrenciesListInRequestAttribute(request);
