@@ -34,9 +34,6 @@ public class DailyTaskHandlerThread extends Thread {
 	/** Constant containing integer zero */
 	private static final int ZERO = 0;
 
-	/** Constant containing integer one */
-	private static final int ONE = 1;
-
 	/**
 	 * {@link Date} containing the date of the next event. Gets the value of the
 	 * next day after completing the daily task
@@ -54,9 +51,8 @@ public class DailyTaskHandlerThread extends Thread {
 
 	/**
 	 * Starts the chain of daily tasks on condition of a new day. Checks if a new
-	 * day has arrived, if so, it starts the chain of daily tasks. Verification is
-	 * carried out every minute. The first run of the task chain occurs when the
-	 * thread starting.
+	 * day has arrived, if so, it starts the chain of daily tasks. The first run of
+	 * the task chain occurs when the thread starting.
 	 */
 	@Override
 	public void run() {
@@ -64,7 +60,7 @@ public class DailyTaskHandlerThread extends Thread {
 			if (isEventDateComing()) {
 				handleChainOfTasks();
 			}
-			putCurrentThreadToSleepForOneMinute();
+			putCurrentThreadToSleepUntilNextEventDateIsComing();
 		}
 	}
 
@@ -75,7 +71,7 @@ public class DailyTaskHandlerThread extends Thread {
 	private void handleChainOfTasks() {
 		updateAllCurrencies();
 		blockAllExpiredCards();
-		eventDate = getNextDayDate(getCurrentDate());
+		setNextEventDayDate();
 		LOGGER.info("Daily tasks completed successfully, next event date " + eventDate);
 	}
 
@@ -88,19 +84,19 @@ public class DailyTaskHandlerThread extends Thread {
 	}
 
 	/**
-	 * @param date which is assigned the value of the next day
-	 * @return date of which the next day value is set
+	 * Set to {@link DailyTaskHandlerThread#eventDate} next day date value.
+	 * 
 	 * @throws NullPointerException if indicated date null
 	 */
-	private Date getNextDayDate(Date date) {
+	private void setNextEventDayDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
+		calendar.setTime(getCurrentDate());
 		int currentDayNumber = calendar.get(Calendar.DAY_OF_YEAR);
 		calendar.set(Calendar.DAY_OF_YEAR, ++currentDayNumber);
-		calendar.set(Calendar.HOUR, ZERO);
+		calendar.set(Calendar.HOUR_OF_DAY, ZERO);
 		calendar.set(Calendar.MINUTE, ZERO);
 		calendar.set(Calendar.SECOND, ZERO);
-		return calendar.getTime();
+		eventDate = calendar.getTime();
 	}
 
 	/**
@@ -133,11 +129,14 @@ public class DailyTaskHandlerThread extends Thread {
 	}
 
 	/**
-	 * Causes the currently executing thread to sleep for one minute.
+	 * Causes the currently executing thread to sleep until
+	 * {@link DailyTaskHandlerThread#eventDate} is coming.
 	 */
-	private void putCurrentThreadToSleepForOneMinute() {
+	private void putCurrentThreadToSleepUntilNextEventDateIsComing() {
+		long currentTime = getCurrentDate().getTime();
+		long eventTime = eventDate.getTime();
 		try {
-			TimeUnit.MINUTES.sleep(ONE);
+			TimeUnit.MILLISECONDS.sleep(eventTime - currentTime);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			LOGGER.warn("Thread is interrupted", e);
