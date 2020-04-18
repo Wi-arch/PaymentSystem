@@ -8,7 +8,7 @@ public class Card {
 	private Date openingDate;
 	private Date validUntilDate;
 	private String numberMask;
-	private String ccv;
+	private String cvc;
 	private CardExpiry expirationDate;
 	private PaymentSystem paymentSystem;
 	private BankAccount bankAccount;
@@ -16,7 +16,7 @@ public class Card {
 	private boolean isBlocked;
 
 	public Card() {
-		
+
 	}
 
 	public Card(String number) {
@@ -55,12 +55,12 @@ public class Card {
 		this.numberMask = numberMask;
 	}
 
-	public String getCcv() {
-		return ccv;
+	public String getCvc() {
+		return cvc;
 	}
 
-	public void setCcv(String ccv) {
-		this.ccv = ccv;
+	public void setCvc(String cvc) {
+		this.cvc = cvc;
 	}
 
 	public CardExpiry getExpirationDate() {
@@ -108,7 +108,7 @@ public class Card {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bankAccount == null) ? 0 : bankAccount.hashCode());
-		result = prime * result + ((ccv == null) ? 0 : ccv.hashCode());
+		result = prime * result + ((cvc == null) ? 0 : cvc.hashCode());
 		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
 		result = prime * result + (isBlocked ? 1231 : 1237);
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
@@ -134,10 +134,10 @@ public class Card {
 				return false;
 		} else if (!bankAccount.equals(other.bankAccount))
 			return false;
-		if (ccv == null) {
-			if (other.ccv != null)
+		if (cvc == null) {
+			if (other.cvc != null)
 				return false;
-		} else if (!ccv.equals(other.ccv))
+		} else if (!cvc.equals(other.cvc))
 			return false;
 		if (expirationDate == null) {
 			if (other.expirationDate != null)
@@ -182,7 +182,7 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [number=" + number + ", openingDate=" + openingDate + ", validUntilDate=" + validUntilDate
-				+ ", numberMask=" + numberMask + ", ccv=" + ccv + ", expirationDate=" + expirationDate
+				+ ", numberMask=" + numberMask + ", cvc=" + cvc + ", expirationDate=" + expirationDate
 				+ ", paymentSystem=" + paymentSystem + ", bankAccount=" + bankAccount + ", user=" + user
 				+ ", isBlocked=" + isBlocked + "]";
 	}
