@@ -23,15 +23,15 @@ public class UserTransferFromCardToCardCommand extends AbstractCardCommand {
 		Card cardTo = new Card(request.getParameter(RequestParameter.RECEIVER_CARD_NUMBER.toString()));
 		BigDecimal amount = getAmountFromHttpRequest(request);
 		String paymentPurpose = getPaymentPurposeFromHttpRequest(request);
-		String ccvCode = getCcvCodeFromHttpRequest(request);
+		String ccvCode = getCvcCodeFromHttpRequest(request);
 		Currency currency = getCurrencyFromHttpRequest(request);
 		try {
-			cardService.makeTransferFromCardToCard(cardFrom, amount, currency, paymentPurpose, ccvCode, cardTo);
-			setUserCardListInRequestAttribute(request);
+			cardService.makeTransferFromCardToCard(cardFrom, amount, currency, paymentPurpose, ccvCode, cardTo);			
 		} catch (ServiceException e) {
 			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot make transfer from card to card", e);
 		}
+		setUserCardListInRequestAttribute(request);
 		return PageEnum.USER_CARDS_MENU.getValue();
 	}
 }

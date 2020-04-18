@@ -27,12 +27,13 @@ public class UserCreateRequestOpenCardToExistingAccountCommand extends AbstractC
 		UserRequest userRequest = createUserRequest(request, openNewCardToExistingAccount);
 		try {
 			userRequestService.saveRequestToOpenNewCardToExistingAccount(userRequest, bankAccount, paymentSystem, cardExpiry);
-			setUserAccountListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
 			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot save request to open new card to existing account", e);
 		}
+		setUserAccountListInRequestAttribute(request);
+		setUserAvailableToUnlockCardListInRequestAttribute(request);
 		return PageEnum.USER_CREATING_REQUEST_MENU.getValue();
 	}
 }

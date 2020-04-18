@@ -17,11 +17,11 @@ public class UserCardDepositOperationCommand extends AbstractCardCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			makeSinglCardPayment(request, IS_WRITE_OFF_OPERATION);
-			setUserCardListInRequestAttribute(request);
 		} catch (ServiceException e) {
 			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot recharge user card", e);
 		}
+		setUserCardListInRequestAttribute(request);
 		return PageEnum.USER_CARDS_MENU.getValue();
 	}
 }

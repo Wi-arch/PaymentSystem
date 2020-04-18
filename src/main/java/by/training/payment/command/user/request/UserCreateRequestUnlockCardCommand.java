@@ -25,12 +25,13 @@ public class UserCreateRequestUnlockCardCommand extends AbstractCreateRequestCom
 		UserRequest userRequest = createUserRequest(request, unlockCard);
 		try {
 			userRequestService.saveRequestToUnlockCard(userRequest, card);
-			setUserAccountListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
 			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot save user request to unlock card", e);
 		}
+		setUserAccountListInRequestAttribute(request);
+		setUserAvailableToUnlockCardListInRequestAttribute(request);
 		return PageEnum.USER_CREATING_REQUEST_MENU.getValue();
 	}
 }

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import by.training.payment.command.RequestParameter;
-import by.training.payment.command.user.account.AbstractBankAccountCommand;
+import by.training.payment.command.user.card.AbstractCardCommand;
 import by.training.payment.entity.CardExpiry;
 import by.training.payment.entity.PaymentSystem;
 import by.training.payment.entity.RequestType;
@@ -17,7 +17,7 @@ import by.training.payment.entity.UserRequest;
 import by.training.payment.exception.ServiceException;
 import by.training.payment.factory.RequestTypeFactory;
 
-public abstract class AbstractCreateRequestCommand extends AbstractBankAccountCommand {
+public abstract class AbstractCreateRequestCommand extends AbstractCardCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(AbstractCreateRequestCommand.class);
 	protected static final String SUCCESSFULLY_CREATED_REQUEST_STATUS = "*Status1018*";

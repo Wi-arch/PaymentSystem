@@ -23,12 +23,13 @@ public class UserCreateRequestOpenNewAccountCommand extends AbstractCreateReques
 		UserRequest userRequest = createUserRequest(request, openNewAccount);
 		try {
 			userRequestService.saveRequestToOpenNewAccount(userRequest, currency);
-			setUserAccountListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
 			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot save request to open new account", e);
 		}
+		setUserAccountListInRequestAttribute(request);
+		setUserAvailableToUnlockCardListInRequestAttribute(request);
 		return PageEnum.USER_CREATING_REQUEST_MENU.getValue();
 	}
 }

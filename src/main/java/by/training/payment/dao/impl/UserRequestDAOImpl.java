@@ -275,7 +275,7 @@ public class UserRequestDAOImpl extends SQLUtil implements UserRequestDAO {
 			statement.setString(2, card.getNumber());
 			statement.setTimestamp(3, new Timestamp(card.getValidUntilDate().getTime()));
 			statement.setString(4, card.getNumberMask());
-			statement.setString(5, card.getCcv());
+			statement.setString(5, card.getCvc());
 			statement.setInt(6, card.getExpirationDate().getValue());
 			statement.setString(7, card.getPaymentSystem().getName());
 			statement.setString(8, bankAccount.getAccountNumber());
@@ -303,7 +303,7 @@ public class UserRequestDAOImpl extends SQLUtil implements UserRequestDAO {
 			statement.setString(2, card.getNumber());
 			statement.setTimestamp(3, new Timestamp(card.getValidUntilDate().getTime()));
 			statement.setString(4, card.getNumberMask());
-			statement.setString(5, card.getCcv());
+			statement.setString(5, card.getCvc());
 			statement.setInt(6, card.getExpirationDate().getValue());
 			statement.setString(7, card.getPaymentSystem().getName());
 			statement.setString(8, card.getBankAccount().getAccountNumber());

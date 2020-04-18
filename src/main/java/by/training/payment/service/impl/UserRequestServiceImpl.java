@@ -257,7 +257,7 @@ public class UserRequestServiceImpl implements UserRequestService {
 		Card card = new Card(sha1Hex(cardNumber));
 		card.setValidUntilDate(CardUtil.getValidUntilDate(cardExpiry));
 		card.setNumberMask(CardUtil.getCardNumberMaskFromCardNumber(cardNumber));
-		card.setCcv(sha1Hex(ccv));
+		card.setCvc(sha1Hex(ccv));
 		card.setExpirationDate(cardExpiry);
 		card.setPaymentSystem(paymentSystem);
 		card.setBankAccount(new BankAccount(accountNumber));

@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import by.training.payment.command.AbstractCommand;
 import by.training.payment.command.RequestParameter;
+import by.training.payment.command.user.account.AbstractBankAccountCommand;
 import by.training.payment.entity.Card;
 import by.training.payment.entity.Currency;
 import by.training.payment.entity.Transaction;
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 
-public abstract class AbstractCardCommand extends AbstractCommand {
+public abstract class AbstractCardCommand extends AbstractBankAccountCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(AbstractCardCommand.class);
 	private static final String CARDS_NOT_FOUND = "label.cardsNotFound";
@@ -33,9 +33,22 @@ public abstract class AbstractCardCommand extends AbstractCommand {
 		}
 	}
 
+	protected void setUserAvailableToUnlockCardListInRequestAttribute(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute(RequestParameter.USER.toString());
+		if (user != null) {
+			try {
+				List<Card> cardList = cardService.getAvailableToUnlockCardListByUserLogin(user.getLogin());
+				request.setAttribute(RequestParameter.CARD_LIST.toString(), cardList);
+			} catch (ServiceException e) {
+				setErrorMessageInRequestAttribute(request, e);
+				LOGGER.warn("Cannot load valid to unlock card list by user login", e);
+			}
+		}
+	}
+
 	protected void makeSinglCardPayment(HttpServletRequest request, boolean writeOffPayment) throws ServiceException {
 		BigDecimal amount = getAmountFromHttpRequest(request);
-		String ccvCode = getCcvCodeFromHttpRequest(request);
+		String ccvCode = getCvcCodeFromHttpRequest(request);
 		String paymentPurpose = getPaymentPurposeFromHttpRequest(request);
 		Currency currency = getCurrencyFromHttpRequest(request);
 		Card card = getCardFromHttpRequest(request);
@@ -74,8 +87,8 @@ public abstract class AbstractCardCommand extends AbstractCommand {
 		return amount;
 	}
 
-	protected String getCcvCodeFromHttpRequest(HttpServletRequest request) {
-		return request.getParameter(RequestParameter.CCV_CODE.toString());
+	protected String getCvcCodeFromHttpRequest(HttpServletRequest request) {
+		return request.getParameter(RequestParameter.CVC_CODE.toString());
 	}
 
 	protected String getPaymentPurposeFromHttpRequest(HttpServletRequest request) {

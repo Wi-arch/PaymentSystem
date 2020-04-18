@@ -27,12 +27,13 @@ public class UserCreateRequestOpenNewCardCommand extends AbstractCreateRequestCo
 		UserRequest userRequest = createUserRequest(request, openNewCard);
 		try {
 			userRequestService.saveRequestToOpenNewCard(userRequest, currency, paymentSystem, cardExpiry);
-			setUserAccountListInRequestAttribute(request);
 			request.setAttribute(RequestParameter.RESULT_MESSAGE.toString(), SUCCESSFULLY_CREATED_REQUEST_STATUS);
 		} catch (ServiceException e) {
 			setErrorMessageInRequestAttribute(request, e);
 			LOGGER.warn("Cannot save request to open new card", e);
 		}
+		setUserAccountListInRequestAttribute(request);
+		setUserAvailableToUnlockCardListInRequestAttribute(request);
 		return PageEnum.USER_CREATING_REQUEST_MENU.getValue();
 	}
 }

@@ -47,6 +47,7 @@ import by.training.payment.command.user.account.UserShowBankAccountTransactionsC
 import by.training.payment.command.user.card.UserCardDepositOperationCommand;
 import by.training.payment.command.user.card.UserCardWriteOffOperationCommand;
 import by.training.payment.command.user.card.UserLockCardCommand;
+import by.training.payment.command.user.card.UserShowCardTransactionsCommand;
 import by.training.payment.command.user.card.UserTransferFromCardToCardCommand;
 import by.training.payment.command.user.redirect.ShowUserMenuForCreatingRequestCommand;
 import by.training.payment.command.user.redirect.ShowUserBankAccountMenuCommand;
@@ -85,6 +86,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.SHOW_USER_CARDS_MENU, new ShowUserCardsMenuCommand());
 		commandMap.put(CommandName.SHOW_USER_BANK_ACCOUNTS_MENU, new ShowUserBankAccountMenuCommand());
 		commandMap.put(CommandName.SHOW_USER_ACCOUNT_TRANSACTIONS_TABLE, new UserShowBankAccountTransactionsCommand());
+		commandMap.put(CommandName.SHOW_USER_CARD_TRANSACTIONS_TABLE, new UserShowCardTransactionsCommand());
 		commandMap.put(CommandName.RECHARGE_CARD, new UserCardDepositOperationCommand());
 		commandMap.put(CommandName.MAKE_CARD_PAYMENT, new UserCardWriteOffOperationCommand());
 		commandMap.put(CommandName.TRANSFER_FROM_CARD_TO_CARD, new UserTransferFromCardToCardCommand());

@@ -1,7 +1,10 @@
 package by.training.payment.service.impl;
 
+import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +26,7 @@ import by.training.payment.validator.CurrencyValidator;
 public class CardServiceImpl implements CardService {
 
 	private static final int TWO = 2;
+	private static final int FOUR = 4;
 	private final DAOFactory daoFactory = DAOFactory.getInstance();
 	private final CardDAO cardDAO = daoFactory.getCardDAO();
 	private final CurrencyDAO currencyDAO = daoFactory.getCurrencyDAO();
@@ -51,7 +55,7 @@ public class CardServiceImpl implements CardService {
 		try {
 			Card existingCard = cardDAO.getCardByCardNumber(card.getNumber());
 			cardValidator.checkIsCardBlocked(existingCard);
-			cardValidator.compareCcvCodes(ccvCode, existingCard.getCcv());
+			cardValidator.compareCcvCodes(ccvCode, existingCard.getCvc());
 			BankAccount bankAccount = existingCard.getBankAccount();
 			bankAccountValidator.checkIsBankAccountBlocked(bankAccount);
 			Currency currencyFrom = currencyDAO.getCurrencyByCurrencyName(currency.getName());
@@ -75,6 +79,7 @@ public class CardServiceImpl implements CardService {
 			String ccvCode, Card cardTo) throws ServiceException {
 		cardValidator.checkCardNumberForNull(cardFrom);
 		cardValidator.checkCardNumberForNull(cardTo);
+		cardTo.setNumber(sha1Hex(cardTo.getNumber()));
 		cardValidator.compareSenderAndReceiverCardNumber(cardFrom.getNumber(), cardTo.getNumber());
 		cardValidator.checkIsAmountPositive(amount);
 		currencyValidator.checkCurrencyNameForNull(currency);
@@ -82,7 +87,7 @@ public class CardServiceImpl implements CardService {
 		try {
 			Card existingCardFrom = cardDAO.getCardByCardNumber(cardFrom.getNumber());
 			cardValidator.checkIsCardBlocked(existingCardFrom);
-			cardValidator.compareCcvCodes(ccvCode, existingCardFrom.getCcv());
+			cardValidator.compareCcvCodes(ccvCode, existingCardFrom.getCvc());
 			BankAccount bankAccountFrom = existingCardFrom.getBankAccount();
 			bankAccountValidator.checkIsBankAccountBlocked(bankAccountFrom);
 			Card existingCardTo = cardDAO.getCardByCardNumber(cardTo.getNumber());
@@ -162,6 +167,22 @@ public class CardServiceImpl implements CardService {
 		}
 	}
 
+	@Override
+	public List<Card> getAvailableToUnlockCardListByUserLogin(String login) throws ServiceException {
+		List<Card> availableToUnlockCardList = new ArrayList<>();
+		try {
+			List<Card> cardList = cardDAO.getAllBlockedCardsByUserLogin(login);
+			for (Card card : cardList) {
+				if (!cardValidator.isExpiredDateCard(card)) {
+					availableToUnlockCardList.add(card);
+				}
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return availableToUnlockCardList;
+	}
+
 	private Transaction buildTransaction(BankAccount bankAccount, BigDecimal amount, Currency currency,
 			String paymentPurpose) {
 		Transaction transaction = new Transaction();
@@ -183,7 +204,8 @@ public class CardServiceImpl implements CardService {
 		BigDecimal rateTo = to.getRate();
 		BigDecimal scaleFrom = new BigDecimal(from.getScale());
 		BigDecimal scaleTo = new BigDecimal(to.getScale());
-		return amount.multiply(scaleTo).multiply(rateFrom.divide(rateTo, TWO, RoundingMode.HALF_UP)).divide(scaleFrom)
+		return amount.multiply(scaleTo).multiply(rateFrom.divide(rateTo, FOUR, RoundingMode.HALF_UP)).divide(scaleFrom)
 				.setScale(TWO, RoundingMode.HALF_UP);
 	}
+
 }

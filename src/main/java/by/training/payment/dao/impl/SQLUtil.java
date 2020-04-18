@@ -74,7 +74,7 @@ public class SQLUtil {
 	private static final String CARD_OPENING_DATE = "card.card_opening_date";
 	private static final String CARD_VALID_UNTIL_DATE = "card.card_valid_until_date";
 	private static final String CARD_NUMBER_MASK = "card.card_number_mask";
-	private static final String CARD_CCV_CODE = "card.card_ccv_code";
+	private static final String CARD_CVC_CODE = "card.card_cvc_code";
 	private static final String CARD_IS_BLOCKED = "card.card_is_blocked";
 
 	protected Card buildCard(ResultSet resultSet) throws SQLException {
@@ -82,7 +82,7 @@ public class SQLUtil {
 		card.setNumber(resultSet.getString(CARD_NUMBER));
 		card.setBankAccount(buildBankAccount(resultSet));
 		card.setBlocked(resultSet.getBoolean(CARD_IS_BLOCKED));
-		card.setCcv(resultSet.getString(CARD_CCV_CODE));
+		card.setCvc(resultSet.getString(CARD_CVC_CODE));
 		card.setExpirationDate(buildCardExpirationDate(resultSet));
 		card.setNumberMask(resultSet.getString(CARD_NUMBER_MASK));
 		card.setOpeningDate(resultSet.getTimestamp(CARD_OPENING_DATE));
