@@ -400,7 +400,7 @@ ul li:hover ul li {
 	top: 50%;
 	Left: 50%;
 	transform: translate(-50%, -50%);
-	width: 730px;
+	width: 750px;
 	background: rgba(0, 0, 0, .8);
 	box-sizing: border-box;
 	box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
@@ -420,7 +420,8 @@ ul li:hover ul li {
 
 .ratesBox td {
 	width: 25%;
-	text-align:center; 	
+	text-align:center; 
+	font-size: 110%;	
 }	
 
 .ratesBox table {
@@ -628,7 +629,6 @@ ul li:hover ul li {
 }
 
 .requestsBox th {
-	background-color: #AD0734;
 	background: #39b54a;
 	color: white;
 	height: 50px;

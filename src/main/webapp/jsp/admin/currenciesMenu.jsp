@@ -94,10 +94,10 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 	<div class="ratesBox">
 		<c:if test="${not empty CURRENCIES_LIST }">
-			<h4>
+			<h3>
 				<fmt:message key="label.officialExchangeRageAt" />
 				<fmt:formatDate value="${CURRENT_DATE}" pattern="dd-MM-yyyy" />
-			</h4>
+			</h3>
 			<table>
 				<thead>
 					<tr>
@@ -149,6 +149,26 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 									</c:when>
 									<c:when test="${value.name == 'USD'}">
 										<i class="flag-icon flag-icon-us"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'CZK'}">
+										<i class="flag-icon flag-icon-cz"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'GBP'}">
+										<i class="flag-icon flag-icon-gb"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'TRY'}">
+										<i class="flag-icon flag-icon-tr"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'CAD'}">
+										<i class="flag-icon flag-icon-ca"></i>
+										<c:out value=" ${value.name}" />
+									</c:when>
+									<c:when test="${value.name == 'KZT'}">
+										<i class="flag-icon flag-icon-kz"></i>
 										<c:out value=" ${value.name}" />
 									</c:when>
 									<c:otherwise>
