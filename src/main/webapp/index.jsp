@@ -55,7 +55,9 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<li><a href="${pageContext.request.contextPath}" class="active"><fmt:message
 					key="button.home" /></a></li>
 		<li><a href="#"><fmt:message key="button.news" /></a></li>
-		<li><a href="#"><fmt:message key="button.contact" /></a></li>
+		<li><a
+			href="${pageContext.request.contextPath}/jsp/contactUs.jsp"><fmt:message
+					key="button.contact" /></a></li>
 		<li><a href="#"><fmt:message key="button.about" /></a></li>
 	</ul>
 
