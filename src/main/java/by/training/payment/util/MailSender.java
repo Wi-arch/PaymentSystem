@@ -88,35 +88,41 @@ public class MailSender {
 
 	/** Constant {@link String} containing file name with internalized messages */
 	private static final String MESSAGES_FILE_NAME = "messages";
-	
+
 	/** Constant containing key to registration subject */
 	private static final String REGISTRATION_SUBJECT_KEY = "subject.registrationCompleted";
-	
+
 	/** Constant containing key to reset password subject */
 	private static final String RESET_PASSWORD_SUBJECT_KEY = "subject.passwordRecovery";
-	
+
 	/** Constant containing key to registration message */
 	private static final String REGISTRATION_TEXT_KEY = "text.registrationText";
-	
+
 	/** Constant containing key to reset password message */
 	private static final String RESET_PASSWORD_TEXT_KEY = "text.resetPasswordText";
-	
+
 	/** Constant containing key to request processed subject */
 	private static final String REQUEST_PROCESSED_SUCCESSFULLY_KEY = "subject.requestProcessedSuccessfully";
-	
+
 	/** Constant containing key to open account request message */
 	private static final String OPEN_ACCOUNT_REQUEST_PROCESSED_KEY = "text.accountOpeningRequestProcessed";
-	
+
 	/** Constant containing key to open card to existing account request message */
 	private static final String OPEN_CARD_TO_EXISTING_ACCOUNT_PROCESSED_KEY = "text.cardOpeningToExistingAccountRequestProcessed";
-	
+
 	/** Constant containing key to open card request message */
 	private static final String OPEN_CARD_REQUEST_PROCESSED_KEY = "text.cardOpeningRequestProcessed";
-	
+
 	/** Constant containing key to unlock card request message */
 	private static final String UNLOCK_CARD_REQUEST_PROCESSED_KEY = "text.cardUnlockRequestProcessed";
-	
-	/** Field containing an instance of {@link ResourceBundle}  */
+
+	/** Constant containing key to contact us message */
+	private static final String CONTACT_US_TEXT_KEY = "text.contactUsMessage";
+
+	/** Constant containing key to contact us subject */
+	private static final String CONTACT_US_SUBJECT_KEY = "title.contactUs";
+
+	/** Field containing an instance of {@link ResourceBundle} */
 	private final ResourceBundle resourceBundle = ResourceBundle.getBundle(MESSAGES_FILE_NAME);
 
 	/**
@@ -169,29 +175,32 @@ public class MailSender {
 			}
 		}.start();
 	}
-	
+
 	/**
-	 * @param to  {@link String} containing the email address of the message
-	 *                recipient
-	 * @param login {@link String} that will be indicated in the message text as login
+	 * @param to    {@link String} containing the email address of the message
+	 *              recipient
+	 * @param login {@link String} that will be indicated in the message text as
+	 *              login
 	 */
 	public void sendMessageRegistrationComplete(String to, String login) {
 		sendMessage(to, resourceBundle.getString(REGISTRATION_SUBJECT_KEY), getRegistrationResultMessage(login));
 	}
 
 	/**
-	 * @param to  {@link String} containing the email address of the message
-	 *                recipient
-	 * @param password {@link String} that will be indicated in the message text as password
+	 * @param to       {@link String} containing the email address of the message
+	 *                 recipient
+	 * @param password {@link String} that will be indicated in the message text as
+	 *                 password
 	 */
 	public void sendMessageResetPasswordComplete(String to, String password) {
 		sendMessage(to, resourceBundle.getString(RESET_PASSWORD_SUBJECT_KEY), getResetPasswordResultMessage(password));
 	}
 
 	/**
-	 * @param to {@link String} containing the email address of the message
-	 *                recipient
-	 * @param accountNumber {@link String} that will be indicated in the message text as account number
+	 * @param to            {@link String} containing the email address of the
+	 *                      message recipient
+	 * @param accountNumber {@link String} that will be indicated in the message
+	 *                      text as account number
 	 */
 	public void sendMessageAccountOpenRequestComplete(String to, String accountNumber) {
 		String text = getOpenAccountResultMessage(accountNumber);
@@ -200,9 +209,10 @@ public class MailSender {
 
 	/**
 	 * 
-	 * @param to {@link String} containing the email address of the message
-	 *                recipient
-	 * @param cardMask {@link String} that will be indicated in the message text as card number
+	 * @param to       {@link String} containing the email address of the message
+	 *                 recipient
+	 * @param cardMask {@link String} that will be indicated in the message text as
+	 *                 card number
 	 */
 	public void sendMessageUnlockCardRequestComplete(String to, String cardMask) {
 		String text = getUnlockCardResultMessage(cardMask);
@@ -211,10 +221,12 @@ public class MailSender {
 
 	/**
 	 * 
-	 * @param to {@link String} containing the email address of the message
-	 *                recipient
-	 * @param cardNumber {@link String} that will be indicated in the message text as card number
-	 * @param ccv {@link String} that will be indicated in the message text as CCV code
+	 * @param to         {@link String} containing the email address of the message
+	 *                   recipient
+	 * @param cardNumber {@link String} that will be indicated in the message text
+	 *                   as card number
+	 * @param ccv        {@link String} that will be indicated in the message text
+	 *                   as CCV code
 	 */
 	public void sendMessageOpenCardRequestComplete(String to, String cardNumber, String ccv) {
 		String text = getOpenCardResultMessage(cardNumber, ccv);
@@ -223,16 +235,28 @@ public class MailSender {
 
 	/**
 	 * 
-	 * @param to to {@link String} containing the email address of the message
-	 *                recipient
-	 * @param accountNumber {@link String} that will be indicated in the message text as account number
-	 * @param cardNumber {@link String} that will be indicated in the message text as card number
-	 * @param ccv  {@link String} that will be indicated in the message text as CCV code
+	 * @param to            to {@link String} containing the email address of the
+	 *                      message recipient
+	 * @param accountNumber {@link String} that will be indicated in the message
+	 *                      text as account number
+	 * @param cardNumber    {@link String} that will be indicated in the message
+	 *                      text as card number
+	 * @param ccv           {@link String} that will be indicated in the message
+	 *                      text as CCV code
 	 */
 	public void sendMessageOpenCardToExistingAccountRequestComplete(String to, String accountNumber, String cardNumber,
 			String ccv) {
 		String text = getOpenCardToExistingAccountResultMessage(accountNumber, cardNumber, ccv);
 		sendMessage(to, resourceBundle.getString(REQUEST_PROCESSED_SUCCESSFULLY_KEY), text);
+	}
+
+	public void sendContactUsMessage(String from, String name, String text) {
+		String message = getContactUsMessage(name, from, text);
+		sendMessage(this.from, resourceBundle.getString(CONTACT_US_SUBJECT_KEY), message);
+	}
+
+	private String getContactUsMessage(String name, String from, String text) {
+		return String.format(resourceBundle.getString(CONTACT_US_TEXT_KEY), name, from, text);
 	}
 
 	private String getOpenCardResultMessage(String cardNumber, String ccv) {

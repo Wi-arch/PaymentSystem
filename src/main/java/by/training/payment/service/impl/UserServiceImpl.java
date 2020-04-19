@@ -149,6 +149,14 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public void handleUserContactUsMessage(String name, String email, String message) throws ServiceException {
+		userValidator.checkUserName(name);
+		userValidator.checkIsEmailValid(email);
+		userValidator.checkIsMessageBlank(message);
+		mailSender.sendContactUsMessage(email, name, message);
+	}
+
 	private void isLoginPasswordEmailValid(User user) throws ServiceException {
 		isLoginEmailValid(user);
 		userValidator.checkIsPasswordValid(user.getPassword());

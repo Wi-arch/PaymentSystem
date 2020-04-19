@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.training.payment.command.Command;
 import by.training.payment.command.CommandName;
+import by.training.payment.command.ContactUsCommand;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.command.RestoreUserPasswordCommand;
 import by.training.payment.command.UserAuthorizationCommand;
@@ -116,6 +117,7 @@ public class CommandFactory {
 		commandMap.put(CommandName.ADMIN_BLOCK_CARD, new AdminLockUserCardCommand());
 		commandMap.put(CommandName.ADMIN_UNBLOCK_CARD, new AdminUnlockUserCardCommand());
 		commandMap.put(CommandName.ADMIN_SHOW_ALL_TRANSACTIONS_BY_CARD_NUMBER, new AdminShowCardTransactionsCommand());
+		commandMap.put(CommandName.CONTACT_US, new ContactUsCommand());
 	}
 
 	public Command defineCommand(HttpServletRequest request) {
