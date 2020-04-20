@@ -6,6 +6,9 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
 <fmt:setLocale value="${cookie.LANGUAGE.value}" />
+<c:if test="${not empty LANGUAGE}">
+	<fmt:setLocale value="${LANGUAGE}" />
+</c:if>
 <fmt:setBundle basename="messages" />
 <html>
 <head>
@@ -20,8 +23,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/styles.css">
-
-<title><fmt:message key="title.restorePassword" /></title>
+<title><fmt:message key="title.contactUs" /></title>
 </head>
 <body class="background">
 
@@ -50,67 +52,65 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					</form>
 				</li>
 			</ul></li>
-		<li><a href="${pageContext.request.contextPath}" class="active"><fmt:message
+		<li><a href="${pageContext.request.contextPath}"><fmt:message
 					key="button.home" /></a></li>
 		<li><a href="#"><fmt:message key="button.news" /></a></li>
 		<li><a
-			href="${pageContext.request.contextPath}/jsp/contactUs.jsp"><fmt:message
-					key="button.contact" /></a></li>
+			href="${pageContext.request.contextPath}/jsp/contactUs.jsp"
+			class="active"><fmt:message key="button.contact" /></a></li>
 		<li><a href="#"><fmt:message key="button.about" /></a></li>
 	</ul>
 
-	<div class="box">
-		<div class="linkBar">
-			<div class="flex">
-				<a href="${pageContext.request.contextPath}"><fmt:message
-						key="button.login" /></a> <a
-					href="${pageContext.request.contextPath}/jsp/registration.jsp"><fmt:message
-						key="button.registration" /></a>
-			</div>
-			<br>
-		</div>
-		<h2>
-			<fmt:message key="label.forgotPassword" />
-		</h2>
-		<h5>
-			<fmt:message key="label.resetPasswordInfo" />
-		</h5>
-		<br> <br>
-
+	<div class="contactUs">
 		<form action="${pageContext.request.contextPath}/controller"
-			method="post">
-			<input type="hidden" name="COMMAND" value="RESTORE_PASSWORD">
-			<div class="inputLogin">
-				<div class="inputBox">
-					<input type="text" name="USER_LOGIN" required title="" value=""
-						onchange="this.setAttribute('value', this.value);"
-						oninvalid="this.setCustomValidity('<fmt:message
+			method="post" class="contact">
+			<input type="hidden" name="COMMAND" value="CONTACT_US">
+			<h3>
+				<fmt:message key="label.contactUs" />
+			</h3>
+			<h4>
+				<fmt:message key="text.contactUs" />
+			</h4>
+			<fieldset>
+				<input name="USER_NAME" type="text" required autofocus
+					placeholder="<fmt:message key="label.name" />" title=""
+					onchange="this.setAttribute('value', this.value);"
+					oninvalid="this.setCustomValidity('<fmt:message
 						key="text.requiredField" />')"
-						oninput="setCustomValidity('')" /> <label id="loginLabel"
-						class="fa fa-user"><fmt:message key="label.username" /></label>
-				</div>
-			</div>
-			<div class="inputBox">
-				<input type="email" name="USER_EMAIL" required
+					oninput="setCustomValidity('')">
+			</fieldset>
+			<fieldset>
+				<input name="USER_EMAIL" required value="" title=""
+					placeholder="<fmt:message key="label.email" />" type="email"
 					pattern="[a-zA-Z0-9]{1}[a-zA-Z0-9_.-]{1,29}[a-zA-Z0-9]{1}@[a-zA-Z]{2,10}\.[a-zA-Z]{2,}"
-					value="" title=""
 					oninvalid="this.setCustomValidity('<fmt:message key="*Status1007*" />')"
-					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1007*" />' : '');" /><label
-					class="fa fa-envelope"> <fmt:message key="label.email" /></label>
+					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1007*" />' : '');">
+			</fieldset>
+			<fieldset>
+				<textarea name="USER_TEXT" required title=""
+					placeholder="<fmt:message key="label.message" />"
+					onchange="this.setAttribute('value', this.value);"
+					oninvalid="this.setCustomValidity('<fmt:message
+						key="text.requiredField" />')"
+					oninput="setCustomValidity('')"></textarea>
+			</fieldset>
+			<fieldset>
+				<button name="submit" type="submit">
+					<fmt:message key="button.submit" />
+				</button>
+			</fieldset>
+			<div class="centerText">
+				<c:if test="${not empty ERROR_MESSAGE}">
+					<h4 id="error">
+						<fmt:message key="${ERROR_MESSAGE}" />
+					</h4>
+				</c:if>
+				<c:if test="${not empty RESULT_MESSAGE}">
+					<h4 id="result">
+						<fmt:message key="${RESULT_MESSAGE}" />
+					</h4>
+				</c:if>
 			</div>
-			<c:if test="${not empty ERROR_MESSAGE}">
-				<h4 id="error">
-					<fmt:message key="${ERROR_MESSAGE}" />
-				</h4>
-			</c:if>
-			<c:if test="${not empty RESULT_MESSAGE}">
-				<h4 id="result">
-					<fmt:message key="${RESULT_MESSAGE}" />
-				</h4>
-			</c:if>
-			<button type="submit">
-				<fmt:message key="button.restorePassword" />
-			</button>
 		</form>
 	</div>
 

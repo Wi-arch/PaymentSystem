@@ -1,5 +1,7 @@
 package by.training.payment.validator;
 
+import org.apache.commons.lang3.StringUtils;
+
 import by.training.payment.entity.User;
 import by.training.payment.exception.ServiceException;
 
@@ -188,6 +190,16 @@ public class UserValidator {
 	public void checkUserForNull(User user) throws ServiceException {
 		if (user == null) {
 			throw new ServiceException("Null user");
+		}
+	}
+
+	/**
+	 * @param message {@link String} to be validated
+	 * @throws ServiceException if message null or blank
+	 */
+	public void checkIsMessageBlank(String message) throws ServiceException {
+		if (StringUtils.isBlank(message)) {
+			throw new ServiceException("Blank message *Status1029*");
 		}
 	}
 }

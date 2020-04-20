@@ -53,7 +53,9 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<li><a href="${pageContext.request.contextPath}" class="active"><fmt:message
 					key="button.home" /></a></li>
 		<li><a href="#"><fmt:message key="button.news" /></a></li>
-		<li><a href="#"><fmt:message key="button.contact" /></a></li>
+		<li><a
+			href="${pageContext.request.contextPath}/jsp/contactUs.jsp"><fmt:message
+					key="button.contact" /></a></li>
 		<li><a href="#"><fmt:message key="button.about" /></a></li>
 	</ul>
 
@@ -106,11 +108,10 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					value="" title=""
 					oninvalid="this.setCustomValidity('<fmt:message key="*Status1007*" />')"
 					onchange="this.setAttribute('value', this.value); this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="*Status1007*" />' : '');" /><label
-					class="fa fa-envelope"><fmt:message key="label.email" /></label>
+					class="fa fa-envelope"> <fmt:message key="label.email" /></label>
 			</div>
 			<input type="hidden" name="USER_ROLE_VALUE" value="User"> <input
 				type="hidden" name="COMMAND" value="REGISTRATION">
-
 			<c:if test="${not empty ERROR_MESSAGE}">
 				<h4 id="error">
 					<fmt:message key="${ERROR_MESSAGE}" />
@@ -121,7 +122,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 					<fmt:message key="${RESULT_MESSAGE}" />
 				</h4>
 			</c:if>
-
 			<button type="submit">
 				<fmt:message key="button.registration" />
 			</button>
