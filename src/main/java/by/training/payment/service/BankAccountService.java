@@ -21,8 +21,8 @@ public interface BankAccountService {
 	 * @param login based on which the selection of bank accounts will be made
 	 * @return a list containing bank accounts, if no accounts are found returns an
 	 *         empty list. Never <code>null</code>.
-	 * @throws ServiceException if login null or an exception occurred while reading
-	 *                          data from a data source
+	 * @throws ServiceException an exception occurred while reading data from a data
+	 *                          source
 	 */
 	List<BankAccount> getAllBankAccountsByUserLogin(String login) throws ServiceException;
 
@@ -53,8 +53,8 @@ public interface BankAccountService {
 	 *               found
 	 * @return {@link BankAccount} in which the number matches the number passed as
 	 *         a parameter
-	 * @throws ServiceException if number null or an exception occurred while
-	 *                          reading data from a data source
+	 * @throws ServiceException an exception occurred while reading data from a data
+	 *                          source
 	 */
 	BankAccount getBankAccountByNumber(String number) throws ServiceException;
 
