@@ -146,8 +146,9 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public Card getCardByNumber(String number) throws ServiceException {
+		cardValidator.checkIsCardNumberLengthValid(number);
 		try {
-			return cardDAO.getCardByCardNumber(number);
+			return cardDAO.getCardByCardNumber(sha1Hex(number));
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
