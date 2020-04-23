@@ -21,10 +21,10 @@ public class RequestParameterValidatorTest {
 	private static final String VALID_CARD_EXPIRY_VALUE = "5";
 	private static final String VALID_PAYMENT_SYSTEM_VALUE = "Visa";
 	private static final String VALID_CURRENCY_VALUE = "USD";
-	private final ParameterHeaderFactory headerFactory = ParameterHeaderFactory.getInstance();
-	private final ParameterHeader cardExpiryHeader = headerFactory.getParameterHeader(CARD_EXPIRY_PARAMETER_HEADER);
-	private final ParameterHeader paymentSystemHeader = headerFactory.getParameterHeader(PAYMENT_SYSTEM_PARAMETER_HEADER);
-	private final ParameterHeader currencyHeader = headerFactory.getParameterHeader(CURRENCY_NAME_PARAMETER_HEADER);
+	private static final ParameterHeaderFactory HEADER_FACTORY = ParameterHeaderFactory.getInstance();
+	private static final ParameterHeader CARD_EXPIRY_HEADER = HEADER_FACTORY.getParameterHeader(CARD_EXPIRY_PARAMETER_HEADER);
+	private static final ParameterHeader PAYMENT_SYSTEM_HEADER = HEADER_FACTORY.getParameterHeader(PAYMENT_SYSTEM_PARAMETER_HEADER);
+	private static final ParameterHeader CURRENCY_HEADER = HEADER_FACTORY.getParameterHeader(CURRENCY_NAME_PARAMETER_HEADER);
 	private List<RequestParameter> validRequestParameterList;
 	private RequestParameter validCardExpiryRequestParameter = new RequestParameter();
 	private RequestParameter validPaymentSystemRequestParameter = new RequestParameter();
@@ -34,11 +34,11 @@ public class RequestParameterValidatorTest {
 	public void init() {
 		validRequestParameterList = new ArrayList<>();
 		validCardExpiryRequestParameter.setValue(VALID_CARD_EXPIRY_VALUE);
-		validCardExpiryRequestParameter.setParameterHeader(cardExpiryHeader);
+		validCardExpiryRequestParameter.setParameterHeader(CARD_EXPIRY_HEADER);
 		validCurrencyRequestParameter.setValue(VALID_CURRENCY_VALUE);
-		validCurrencyRequestParameter.setParameterHeader(currencyHeader);
+		validCurrencyRequestParameter.setParameterHeader(CURRENCY_HEADER);
 		validPaymentSystemRequestParameter.setValue(VALID_PAYMENT_SYSTEM_VALUE);
-		validPaymentSystemRequestParameter.setParameterHeader(paymentSystemHeader);
+		validPaymentSystemRequestParameter.setParameterHeader(PAYMENT_SYSTEM_HEADER);
 		validRequestParameterList.add(validCardExpiryRequestParameter);
 		validRequestParameterList.add(validCurrencyRequestParameter);
 		validRequestParameterList.add(validPaymentSystemRequestParameter);
@@ -61,7 +61,7 @@ public class RequestParameterValidatorTest {
 	
 	@Test(expected = ServiceException.class)
 	public void testCheckIsCardExpiryRequestParameterNegative()throws ServiceException{
-		validCardExpiryRequestParameter.setParameterHeader(currencyHeader);
+		validCardExpiryRequestParameter.setParameterHeader(CURRENCY_HEADER);
 		REQUEST_PARAMETER_VALIDATOR.checkIsCardExpiryRequestParameter(validCardExpiryRequestParameter);
 	}
 		
@@ -72,7 +72,7 @@ public class RequestParameterValidatorTest {
 	
 	@Test(expected = ServiceException.class)
 	public void testCheckIsPaymentSystemRequestParameterNegative()throws ServiceException{
-		validPaymentSystemRequestParameter.setParameterHeader(currencyHeader);
+		validPaymentSystemRequestParameter.setParameterHeader(CURRENCY_HEADER);
 		REQUEST_PARAMETER_VALIDATOR.checkIsPaymentSystemRequestParameter(validPaymentSystemRequestParameter);
 	}
 	
@@ -83,7 +83,7 @@ public class RequestParameterValidatorTest {
 	
 	@Test(expected = ServiceException.class)
 	public void testCheckIsCurrencyRequestParameterNegative()throws ServiceException{
-		validCurrencyRequestParameter.setParameterHeader(paymentSystemHeader);
+		validCurrencyRequestParameter.setParameterHeader(PAYMENT_SYSTEM_HEADER);
 		REQUEST_PARAMETER_VALIDATOR.checkIsCurrencyRequestParameter(validCurrencyRequestParameter);
 	}
 	

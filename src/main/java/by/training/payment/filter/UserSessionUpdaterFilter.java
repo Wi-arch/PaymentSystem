@@ -19,6 +19,17 @@ import by.training.payment.exception.ServiceException;
 import by.training.payment.factory.ServiceFactory;
 import by.training.payment.service.UserService;
 
+/**
+ * {@link UserSessionUpdaterFilter} filter is designed to update user data in
+ * session. The filter only works when you try to access (using
+ * {@link DispatcherType.REQUEST},
+ * {@link DispatcherType.FORWARD},{@link DispatcherType.INCLUDE}) pages in
+ * directory jsp/admin and jsp/user. If the {@link User} is not found in session
+ * then data update will not happen.
+ * 
+ * @author Alexandr Borovets
+ * @since JDK1.8
+ */
 @WebFilter(filterName = "UserSessionUpdaterFilter", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
 		DispatcherType.INCLUDE }, urlPatterns = { "/jsp/admin/*", "/jsp/user/*" })
 public class UserSessionUpdaterFilter implements Filter {

@@ -16,6 +16,15 @@ import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 import by.training.payment.entity.User;
 
+/**
+ * The filter is designed to prevent access to pages in the jsp/user directory
+ * to users who are not authorized with the 'User' role or blocked users. When
+ * you try to access these pages, you are redirected to the login page
+ * {@link PageEnum#LOGIN_PAGE}.
+ * 
+ * @author Alexandr Borovets
+ * @since JDK1.8
+ */
 @WebFilter(filterName = "UserSessionFilter", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
 		DispatcherType.INCLUDE }, urlPatterns = { "/jsp/user/*" })
 public class UserSessionFilter implements Filter {

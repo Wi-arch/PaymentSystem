@@ -12,6 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.training.payment.command.PageEnum;
 
+/**
+ * The filter is designed to prevent direct access to pages in the directory
+ * jsp/user and jsp/admin. When you try to access these pages, you are
+ * redirected to the home page {@link PageEnum#HOME_PAGE}.
+ * 
+ * @author Alexandr Borovets
+ * @since JDK1.8
+ */
 @WebFilter(filterName = "AccessFilter", urlPatterns = { "/jsp/user/*", "/jsp/admin/*" })
 public class AccessFilter implements Filter {
 

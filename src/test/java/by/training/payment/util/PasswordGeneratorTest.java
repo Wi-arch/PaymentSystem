@@ -1,25 +1,28 @@
 package by.training.payment.util;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import by.training.payment.exception.ServiceException;
-import by.training.payment.validator.UserValidator;
-
 public class PasswordGeneratorTest {
 
-	private static final UserValidator USER_VALIDATOR = new UserValidator();
+	/** Regular expression to validate user password */
+	private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*([^\\s\\w]|[_]))[\\S]{6,}$";
 
 	@Test
-	public void testGenerateRandomValidPasswordPositive() throws ServiceException {
+	public void testGenerateRandomValidPasswordPositive() {
 		String password = PasswordGenerator.generateRandomValidPassword();
-		USER_VALIDATOR.checkIsPasswordValid(password);
+		assertTrue(checkIsPasswordValid(password));
 	}
 
 	@Test
-	public void testGenerateRandomValidPasswordForNull() throws ServiceException {
+	public void testGenerateRandomValidPasswordForNull() {
 		String password = PasswordGenerator.generateRandomValidPassword();
 		assertNotNull(password);
+	}
+
+	private boolean checkIsPasswordValid(String password) {
+		return password != null && password.matches(PASSWORD_REGEX);
 	}
 }

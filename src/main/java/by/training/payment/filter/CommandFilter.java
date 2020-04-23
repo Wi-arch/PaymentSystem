@@ -18,9 +18,20 @@ import by.training.payment.command.CommandName;
 import by.training.payment.command.PageEnum;
 import by.training.payment.command.RequestParameter;
 
+/**
+ * The filter is designed to check incoming commands to the server, if an
+ * unknown command arrives, then redirects to the home page
+ * {@link PageEnum#HOME_PAGE}.
+ * 
+ * @author Alexandr Borovets
+ * @since JDK1.8
+ */
 @WebFilter(filterName = "CommandFilter", urlPatterns = { "/controller" }, servletNames = { "Controller" })
 public class CommandFilter implements Filter {
 
+	/**
+	 * Constant contains all the commands from {@link CommandName}
+	 */
 	private static final Set<String> COMMAND_NAME_SET = Arrays.asList(CommandName.values()).stream()
 			.map(CommandName::name).collect(Collectors.toSet());
 
