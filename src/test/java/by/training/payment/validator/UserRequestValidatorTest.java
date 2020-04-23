@@ -19,19 +19,19 @@ import by.training.payment.factory.RequestTypeFactory;
 
 public class UserRequestValidatorTest {
 
-	private static final UserRequestValidator USER_REQUEST_VALIDATOR = new UserRequestValidator();
+	private static final UserRequestValidator USER_REQUEST_VALIDATOR = new UserRequestValidator();	
+	private static final User VALID_USER = new User("validLogin111");
+	private static final RequestType VALID_REQUEST_TYPE = RequestTypeFactory.getInstance().getRequestType(UNLOCK_CARD_REQUEST);
+	private static final RequestStatus IN_PROCESSING = RequestStatusFactory.getInstance().getRequestStatus(IN_PROCESSING_STATUS);
+	private static final RequestStatus REJECTED = RequestStatusFactory.getInstance().getRequestStatus(REJECTED_STATUS);
 	private UserRequest validUserRequest = new UserRequest();
-	private final User validUser = new User("validLogin111");
-	private final RequestType validRequestType = RequestTypeFactory.getInstance().getRequestType(UNLOCK_CARD_REQUEST);
-	private final RequestStatus inProcessingStatus = RequestStatusFactory.getInstance().getRequestStatus(IN_PROCESSING_STATUS);
-	private final RequestStatus rejectedStatus = RequestStatusFactory.getInstance().getRequestStatus(REJECTED_STATUS);
 
 	@Before
 	public void init() {
 		validUserRequest.setCreationDate(new Date());
-		validUserRequest.setRequestType(validRequestType);
-		validUserRequest.setUser(validUser);
-		validUserRequest.setRequestStatus(inProcessingStatus);
+		validUserRequest.setRequestType(VALID_REQUEST_TYPE);
+		validUserRequest.setUser(VALID_USER);
+		validUserRequest.setRequestStatus(IN_PROCESSING);
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class UserRequestValidatorTest {
 
 	@Test(expected = ServiceException.class)
 	public void testCheckRequestStatusIsInProcessingNegative() throws ServiceException {
-		validUserRequest.setRequestStatus(rejectedStatus);
+		validUserRequest.setRequestStatus(REJECTED);
 		USER_REQUEST_VALIDATOR.checkRequestStatusIsInProcessing(validUserRequest);
 	}
 		
