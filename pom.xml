@@ -22,7 +22,7 @@
 		<mysql-connector-java.version>8.0.18</mysql-connector-java.version>
 		<commons-codec.version>1.14</commons-codec.version>
 		<javax.mail.version>1.6.2</javax.mail.version>
-		<commons-io.version>2.6</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<commons-lang3-version>3.9</commons-lang3-version>
 	</properties>
 
